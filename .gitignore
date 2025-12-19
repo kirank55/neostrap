@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 agents.md
+
+*storybook.log
+storybook-static
