@@ -18,5 +18,8 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "default": "https://neostrapui.pages.dev/registry/index.json",
+    "neostrap": "https://neostrapui.pages.dev/registry/index.json"
+  }
 }
