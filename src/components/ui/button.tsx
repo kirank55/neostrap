@@ -4,6 +4,10 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Button variants for Neostrap UI
+ * Supports multiple styles: brutal (neo-brutalist default), default, outline, secondary, ghost, link, and destructive
+ */
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
@@ -38,16 +42,25 @@ const buttonVariants = cva(
   }
 )
 
+type ButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }
+
+/**
+ * Button component for Neostrap UI
+ * Supports variant prop for different styles and size prop for scaling
+ * @example
+ * <Button variant="brutal">Click me</Button>
+ * <Button variant="outline" size="lg">Learn more</Button>
+ */
 function Button({
   className,
   variant = "brutal",
   size = "default",
   asChild = false,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button"
 
   return (
@@ -62,3 +75,4 @@ function Button({
 }
 
 export { Button, buttonVariants }
+export type { ButtonProps }
