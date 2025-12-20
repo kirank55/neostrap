@@ -1,11 +1,25 @@
 import { useDocToc } from "@/components/layout/useDocToc"
 import { NeoSelect } from "@/components/ui/NeoSelect"
+import { Codepreview } from "@/components/CodeDemo"
 
 const tocItems = [
   { label: "Overview", href: "#overview" },
   { label: "Variants", href: "#variants" },
   { label: "Sizes", href: "#sizes" },
 ]
+
+const selectCode = `import { NeoSelect } from "@/components/ui/NeoSelect"
+
+export function SelectDemo() {
+  return (
+    <NeoSelect>
+      <option value="">Choose an option</option>
+      <option value="alpha">Alpha</option>
+      <option value="beta">Beta</option>
+      <option value="gamma">Gamma</option>
+    </NeoSelect>
+  )
+}`
 
 const demoOptions = (
   <>
@@ -31,12 +45,10 @@ function NeoSelectDocPage() {
             A neo-brutalist select built for quick, tactile choices with crisp focus states.
           </p>
         </div>
-        <div className="flex flex-col gap-2 rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
-          <p className="text-sm font-semibold text-muted-foreground">Default Select</p>
-          <div className="flex justify-center">
-            <NeoSelect aria-label="Default select">{demoOptions}</NeoSelect>
-          </div>
-        </div>
+        <Codepreview
+          code={selectCode}
+          preview={<NeoSelect aria-label="Select example">{demoOptions}</NeoSelect>}
+        />
       </section>
 
       <section id="variants" className="flex flex-col gap-3">

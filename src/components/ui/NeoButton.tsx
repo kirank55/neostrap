@@ -13,8 +13,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-amber-300 text-black border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
+        brutal:
+          "bg-[var(--primary)] text-black border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
+        regular:
+          "bg-white text-black border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
+        danger:
+          "bg-red-500 text-white border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
+        success:
+          "bg-green-500 text-white border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
+        inverter:
+          "bg-black text-[var(--primary)] border-2 border-black shadow-[6px_6px_0_#000] hover:bg-[var(--primary)] hover:text-black hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -24,6 +32,8 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        disabled:
+          "bg-gray-400 text-gray-600 border-2 border-black shadow-[6px_6px_0_#000] opacity-60 cursor-not-allowed focus-visible:ring-black/20 focus-visible:border-black",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -35,7 +45,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "brutal",
       size: "default",
     },
   }
@@ -55,7 +65,7 @@ type ButtonProps = React.ComponentProps<"button"> &
  */
 function NeoButton({
   className,
-  variant = "default",
+  variant = "brutal",
   size = "default",
   asChild = false,
   ...props

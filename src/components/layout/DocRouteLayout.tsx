@@ -3,10 +3,10 @@ import { Outlet } from "react-router-dom"
 import { DocPageTemplate } from "@/components/layout/DocPageTemplate"
 import { DocTocContext, type TocItem } from "@/components/layout/DocTocContext"
 
-const navItems = [
-  { label: "NeoButton", to: "/doc/NeoButton" },
-  { label: "NeoSelect", to: "/doc/NeoSelect" },
-]
+// const navItems = [
+//   { label: "NeoButton", to: "/doc/NeoButton" },
+//   { label: "NeoSelect", to: "/doc/NeoSelect" },
+// ]
 
 function DocRouteLayout() {
   const [tocItems, setTocItems] = useState<TocItem[]>([])

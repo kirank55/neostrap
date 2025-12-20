@@ -3,8 +3,10 @@ import { DocLayout } from "@/components/layout/DocLayout"
 import type { TocItem } from "@/components/layout/DocTocContext"
 
 const navItems = [
-  { label: "NeoButton", to: "/doc/NeoButton" },
-  { label: "NeoSelect", to: "/doc/NeoSelect" },
+  { label: "Buttons", type: "subheading" as const },
+  { label: "NeoButton", to: "/doc/NeoButton", type: "item" as const },
+  { label: "Select", type: "subheading" as const },
+  { label: "NeoSelect", to: "/doc/NeoSelect", type: "item" as const },
 ]
 
 type DocPageTemplateProps = {

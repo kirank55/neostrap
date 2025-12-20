@@ -1,9 +1,31 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-body{
-  background-color: var(--color-amber-300);
+
+:root {
+  --color-pink: #FE5BD6;
+  --color-amber: #FEC437;
+  --color-baby-blue: #C9D9F0;
+  --color-lavender: #9A90CB;
+  
+  --color-bg: #f4f3f2;
+  --color-text: #000;
+
+  --color-danger: #dc3545;
+  --color-success: #218838;
+
+  --primary: var(--color-lavender);
+  --secondary: var(--color-amber);
+
 }
+
+
+body{
+  /* background-color: hsl(343, 98%, 95%); */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
 
 /* #root {
   max-width: 1280px;

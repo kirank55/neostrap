@@ -4,7 +4,8 @@ import { cn } from "@/lib/utils"
 
 type NavItem = {
   label: string
-  to: string
+  to?: string
+  type?: "subheading" | "item"
 }
 
 type TocItem = {
@@ -18,24 +19,37 @@ type DocLayoutProps = {
   children: ReactNode
 }
 
-function DocLayout({ navItems, tocItems, children }: DocLayoutProps) {
+// function DocLayout({ navItems, tocItems, children }: DocLayoutProps) {
+function DocLayout({ navItems, children }: DocLayoutProps) {
   const location = useLocation()
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex max-w-6xl px-6 py-10">
         <div className="grid w-full grid-cols-[220px_1fr_220px] gap-8">
-          <aside className="h-full rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
+          {/* <aside className="h-full rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm"> */}
+        <aside className="h-full p-4 shadow-md overflow-auto scrollbar-hide hover:scrollbar-default sticky top-6 max-h-screen">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Components
             </p>
-            <nav className="mt-3 flex flex-col gap-2 text-sm">
-              {navItems.map((item) => {
-                const isActive = location.pathname === item.to
+            <nav className="mt-3 flex flex-col gap-3 text-sm">
+              {navItems.map((item, idx) => {
+                if (item.type === "subheading") {
+                  return (
+                    <p
+                      key={`sub-${idx}-${item.label}`}
+                      className="mt-2 text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground"
+                    >
+                      {item.label}
+                    </p>
+                  )
+                }
+
+                const isActive = item.to ? location.pathname === item.to : false
                 return (
                   <Link
-                    key={item.to}
-                    to={item.to}
+                    key={item.to ?? `${idx}-${item.label}`}
+                    to={item.to ?? "#"}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
                       "rounded-lg px-3 py-2 text-left font-medium transition-colors",
@@ -52,7 +66,7 @@ function DocLayout({ navItems, tocItems, children }: DocLayoutProps) {
 
           <main className="min-w-0 flex flex-col gap-8">{children}</main>
 
-          <aside className="h-full rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm sticky top-6">
+          {/* <aside className="h-full rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm sticky top-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               On this page
             </p>
@@ -69,7 +83,7 @@ function DocLayout({ navItems, tocItems, children }: DocLayoutProps) {
                 </li>
               ))}
             </ol>
-          </aside>
+          </aside> */}
         </div>
       </div>
     </div>
