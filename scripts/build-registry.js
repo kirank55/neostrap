@@ -67,23 +67,23 @@ function generateRegistryFile(component) {
 }
 
 function buildRegistry() {
-  console.log('🔨 Building component registry...')
+  console.log('Building component registry...')
   
   const builtComponents = []
   
   for (const component of components) {
-    console.log(`📦 Processing ${component.name}...`)
+    console.log(`Processing ${component.name}...`)
     
     const registryData = generateRegistryFile(component)
     if (!registryData) {
-      console.error(`❌ Failed to process ${component.name}`)
+      console.error(`Failed to process ${component.name}`)
       continue
     }
     
     // Write individual component registry file
     const outputPath = path.join(publicRegistryDir, `${component.name}.json`)
     fs.writeFileSync(outputPath, JSON.stringify(registryData, null, 2))
-    console.log(`✅ Generated ${outputPath}`)
+    console.log(`Generated ${outputPath}`)
     
     builtComponents.push({
       name: component.name,
@@ -102,9 +102,9 @@ function buildRegistry() {
   
   const indexPath = path.join(publicRegistryDir, 'index.json')
   fs.writeFileSync(indexPath, JSON.stringify(indexData, null, 2))
-  console.log(`📋 Generated registry index: ${indexPath}`)
+  console.log(`Generated registry index: ${indexPath}`)
   
-  console.log(`✨ Registry build complete! Generated ${builtComponents.length} components`)
+  console.log(`Registry build complete! Generated ${builtComponents.length} components`)
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

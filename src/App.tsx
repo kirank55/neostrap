@@ -1,9 +1,8 @@
-import "./App.css"
 import { NeoButton } from "@/components/ui/NeoButton"
 
 function App() {
   return (
-    <div className="flex flex-col gap-4 p-8">
+    <div className="container w-280 mx-auto text-center flex flex-col gap-4 p-8">
       <h1 className="text-2xl font-bold">Neostrap UI Components</h1>
 
       {/* Neo-brutalist default */}

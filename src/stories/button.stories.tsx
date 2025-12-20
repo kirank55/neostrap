@@ -9,7 +9,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["brutal", "default", "outline", "secondary", "ghost", "link", "destructive"],
+      options: ["default", "outline", "secondary", "ghost", "link", "destructive"],
     },
     size: {
       control: "select",
@@ -18,7 +18,7 @@ const meta = {
   },
   args: {
     children: "Button",
-    variant: "brutal",
+    variant: "default",
     size: "default",
   },
 } satisfies Meta<typeof Button>
@@ -27,14 +27,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Brutal: Story = {}
-
-export const Default: Story = {
-  args: {
-    variant: "default",
-    children: "Default",
-  },
-}
+export const Default: Story = {}
 
 export const Outline: Story = {
   args: {
