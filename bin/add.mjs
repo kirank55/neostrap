@@ -7,7 +7,7 @@ import { defaultRegistry } from "../registry/index.js"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-async function addComponent(componentName: string) {
+async function addComponent(componentName) {
   const component = defaultRegistry.find((c) => c.name === componentName)
 
   if (!component) {

@@ -13,9 +13,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        brutal:
+        default:
           "bg-amber-300 text-black border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -36,7 +35,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "brutal",
+      variant: "default",
       size: "default",
     },
   }
@@ -56,7 +55,7 @@ type ButtonProps = React.ComponentProps<"button"> &
  */
 function NeoButton({
   className,
-  variant = "brutal",
+  variant = "default",
   size = "default",
   asChild = false,
   ...props
