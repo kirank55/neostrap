@@ -51,10 +51,10 @@ type ButtonProps = React.ComponentProps<"button"> &
  * Button component for Neostrap UI
  * Supports variant prop for different styles and size prop for scaling
  * @example
- * <Button variant="brutal">Click me</Button>
- * <Button variant="outline" size="lg">Learn more</Button>
+ * <NeoButton variant="brutal">Click me</NeoButton>
+ * <NeoButton variant="outline" size="lg">Learn more</NeoButton>
  */
-function Button({
+function NeoButton({
   className,
   variant = "brutal",
   size = "default",
@@ -74,5 +74,5 @@ function Button({
   )
 }
 
-export { Button, buttonVariants }
+export { NeoButton, buttonVariants }
 export type { ButtonProps }

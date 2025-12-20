@@ -21,9 +21,9 @@ if (!fs.existsSync(publicRegistryDir)) {
 
 const components = [
   {
-    name: 'button',
-    sourcePath: 'src/components/ui/button.tsx',
-    targetPath: 'components/ui/button.tsx',
+    name: 'neobutton',
+    sourcePath: 'src/components/ui/NeoButton.tsx',
+    targetPath: 'components/ui/NeoButton.tsx',
     description: 'Neo-brutalist button with brutal variant as default',
     dependencies: [
       'react',
