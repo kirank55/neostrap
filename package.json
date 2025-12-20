@@ -11,7 +11,7 @@
     "build": "tsc -b && vite build",
     "build-storybook": "storybook build",
     "build:registry": "node scripts/build-registry.js",
-    "postbuild": "npm run build:registry"
+    "prebuild": "npm run build:registry"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
