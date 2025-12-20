@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build": "tsc -b && vite build",
+    "build-storybook": "storybook build",
+    "build:registry": "node scripts/build-registry.js",
+    "postbuild": "npm run build:registry"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",

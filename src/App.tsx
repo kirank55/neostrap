@@ -1,5 +1,5 @@
 import "./App.css"
-import { Neostrap } from "@/components/ui"
+import { Button } from "@/components/ui/NeoStrapUI"
 
 function App() {
   return (
@@ -7,23 +7,23 @@ function App() {
       <h1 className="text-2xl font-bold">Neostrap UI Components</h1>
 
       {/* Neo-brutalist default */}
-      <Neostrap.Button>Brutal Button</Neostrap.Button>
+      <Button>Brutal Button</Button>
 
       {/* Variant examples */}
       <div className="flex gap-2 flex-wrap">
-        <Neostrap.Button variant="default">Default</Neostrap.Button>
-        <Neostrap.Button variant="outline">Outline</Neostrap.Button>
-        <Neostrap.Button variant="secondary">Secondary</Neostrap.Button>
-        <Neostrap.Button variant="ghost">Ghost</Neostrap.Button>
-        <Neostrap.Button variant="destructive">Delete</Neostrap.Button>
-        <Neostrap.Button variant="link">Link</Neostrap.Button>
+        <Button variant="default">Default</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="ghost">Ghost</Button>
+        <Button variant="destructive">Delete</Button>
+        <Button variant="link">Link</Button>
       </div>
 
       {/* Size examples */}
       <div className="flex gap-2 flex-wrap items-center">
-        <Neostrap.Button size="sm">Small</Neostrap.Button>
-        <Neostrap.Button size="default">Default</Neostrap.Button>
-        <Neostrap.Button size="lg">Large</Neostrap.Button>
+        <Button size="sm">Small</Button>
+        <Button size="default">Default</Button>
+        <Button size="lg">Large</Button>
       </div>
     </div>
   )
