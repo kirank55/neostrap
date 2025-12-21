@@ -1,14 +1,7 @@
-import { useDocToc } from "@/components/layout/useDocToc"
-import { NeoButton } from "@/components/ui/NeoButton"
+import NeoButton from "@/components/ui/NeoButton"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 
-const tocItems = [
-  { label: "Overview", href: "#overview" },
-  { label: "Variants", href: "#variants" },
-  { label: "Sizes", href: "#sizes" },
-]
-
-const buttonCode = `import { NeoButton } from "@/components/ui/NeoButton"
+const buttonCode = `import NeoButton from "@/components/ui/NeoButton"
 
 export function ButtonDemo() {
   return <NeoButton>Click me</NeoButton>
@@ -17,7 +10,6 @@ export function ButtonDemo() {
 const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neobutton.json`
 
 function NeoButtonDocPage() {
-  useDocToc(tocItems)
 
   return (
     <>
@@ -33,7 +25,7 @@ function NeoButtonDocPage() {
         </div>
 
         <Codepreview
-          preview={<NeoButton>Punch Me </NeoButton>}
+          preview={<NeoButton>Punch Me</NeoButton>}
           code={buttonCode}
         />
       </section>
@@ -60,6 +52,7 @@ function NeoButtonDocPage() {
             <NeoButton variant="success">Success</NeoButton>
             <NeoButton variant="inverter">Inverter</NeoButton>
             <NeoButton variant="disabled" disabled>Disabled</NeoButton>
+            <NeoButton variant="outline">Outline</NeoButton>
           </div>
         </div>
       </section>
@@ -141,4 +134,4 @@ function NeoButtonDocPage() {
   )
 }
 
-export { NeoButtonDocPage }
+export default NeoButtonDocPage 

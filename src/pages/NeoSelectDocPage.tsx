@@ -1,12 +1,5 @@
-import { useDocToc } from "@/components/layout/useDocToc"
 import { NeoSelect } from "@/components/ui/NeoSelect"
 import { Codepreview } from "@/components/CodeDemo"
-
-const tocItems = [
-  { label: "Overview", href: "#overview" },
-  { label: "Variants", href: "#variants" },
-  { label: "Sizes", href: "#sizes" },
-]
 
 const selectCode = `import { NeoSelect } from "@/components/ui/NeoSelect"
 
@@ -31,7 +24,6 @@ const demoOptions = (
 )
 
 function NeoSelectDocPage() {
-  useDocToc(tocItems)
 
   return (
     <>
@@ -101,4 +93,4 @@ function NeoSelectDocPage() {
   )
 }
 
-export { NeoSelectDocPage }
+export default NeoSelectDocPage 

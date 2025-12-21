@@ -23,15 +23,8 @@ const buttonVariants = cva(
           "bg-green-500 text-white border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
         inverter:
           "bg-black text-[var(--color-bg)] border-2 border-black shadow-[6px_6px_0_#000] hover:bg-[var(--color-bg)] hover:text-black hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
-        destructive:
-          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
         disabled:
           "bg-gray-400 text-gray-600 border-2 border-black shadow-[6px_6px_0_#000] opacity-60 cursor-not-allowed focus-visible:ring-black/20 focus-visible:border-black",
       },
@@ -83,5 +76,7 @@ function NeoButton({
   )
 }
 
-export { NeoButton, buttonVariants }
+export default NeoButton
+
+export { buttonVariants }
 export type { ButtonProps }

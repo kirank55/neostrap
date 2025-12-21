@@ -9,7 +9,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "outline", "secondary", "ghost", "link", "destructive"],
+      options: ["brutal", "regular", "danger", "success", "inverter", "disabled"],
     },
     size: {
       control: "select",
@@ -18,7 +18,7 @@ const meta = {
   },
   args: {
     children: "Button",
-    variant: "default",
+    variant: "brutal",
     size: "default",
   },
 } satisfies Meta<typeof Button>
@@ -27,33 +27,59 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
-
-export const Outline: Story = {
+export const Brutal: Story = {
   args: {
-    variant: "outline",
-    children: "Outline",
+    variant: "brutal",
+    children: "Brutal",
   },
 }
 
-export const Ghost: Story = {
+export const Regular: Story = {
   args: {
-    variant: "ghost",
-    children: "Ghost",
+    variant: "regular",
+    children: "Regular",
   },
 }
 
-export const Destructive: Story = {
+export const Danger: Story = {
   args: {
-    variant: "destructive",
-    children: "Delete",
+    variant: "danger",
+    children: "Danger",
   },
 }
 
-export const Link: Story = {
+export const Success: Story = {
   args: {
-    variant: "link",
-    children: "Learn more",
+    variant: "success",
+    children: "Success",
+  },
+}
+
+export const Inverter: Story = {
+  args: {
+    variant: "inverter",
+    children: "Inverter",
+  },
+}
+
+export const Disabled: Story = {
+  args: {
+    variant: "disabled",
+    children: "Disabled",
+  },
+}
+
+export const SmallSize: Story = {
+  args: {
+    size: "sm",
+    children: "Small",
+  },
+}
+
+export const LargeSize: Story = {
+  args: {
+    size: "lg",
+    children: "Large",
   },
 }
 
