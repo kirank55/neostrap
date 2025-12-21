@@ -22,7 +22,7 @@ const buttonVariants = cva(
         success:
           "bg-green-500 text-white border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
         inverter:
-          "bg-black text-[var(--primary)] border-2 border-black shadow-[6px_6px_0_#000] hover:bg-[var(--primary)] hover:text-black hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
+          "bg-black text-[var(--color-bg)] border-2 border-black shadow-[6px_6px_0_#000] hover:bg-[var(--color-bg)] hover:text-black hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:

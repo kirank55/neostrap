@@ -1,5 +1,6 @@
 import { Link, Navigate, Route, Routes } from "react-router-dom"
 import { DocRouteLayout } from "@/components/layout/DocRouteLayout"
+import { Header } from "@/components/layout/Header"
 import { NeoButtonDocPage } from "@/pages/NeoButtonDocPage"
 import { NeoSelectDocPage } from "@/pages/NeoSelectDocPage"
 
@@ -40,15 +41,18 @@ function HomePage() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/doc" element={<DocRouteLayout />}>
-        <Route index element={<Navigate to="NeoButton" replace />} />
-        <Route path="NeoButton" element={<NeoButtonDocPage />} />
-        <Route path="NeoSelect" element={<NeoSelectDocPage />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/doc" element={<DocRouteLayout />}>
+          <Route index element={<Navigate to="NeoButton" replace />} />
+          <Route path="NeoButton" element={<NeoButtonDocPage />} />
+          <Route path="NeoSelect" element={<NeoSelectDocPage />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   )
 }
 

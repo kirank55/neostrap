@@ -25,8 +25,8 @@ function DocLayout({ navItems, children }: DocLayoutProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto flex max-w-6xl px-6 py-10">
-        <div className="grid w-full grid-cols-[220px_1fr_220px] gap-8">
+      <div className="container mx-auto flex px-6 py-10">
+        <div className="grid w-full grid-cols-[220px_1fr] gap-8">
           {/* <aside className="h-full rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm"> */}
         <aside className="h-full p-4 shadow-md overflow-auto scrollbar-hide hover:scrollbar-default sticky top-6 max-h-screen">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
