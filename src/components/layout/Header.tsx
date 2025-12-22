@@ -23,7 +23,7 @@ function Header() {
               NeoStrap
             </Link>
           </NeoButton>
-          <NeoButton variant="regular" size="sm" asChild>
+          <NeoButton variant="brutal" className="bg-white" size="sm" asChild>
             <Link to="/docs">
               <BookOpen className="size-4" />
               Docs
@@ -39,7 +39,7 @@ function Header() {
             rel="noopener noreferrer"
           >
             <GitFork className="size-4" />
-            Fork on GitHub
+            GitHub
           </a>
         </NeoButton>
       </div>

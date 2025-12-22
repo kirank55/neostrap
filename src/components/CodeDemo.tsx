@@ -17,7 +17,7 @@ function CodeBlock({ code }: CodeBlockProps) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-border/60 bg-slate-900 p-4 text-sm text-slate-100 relative shadow-[3px_3px_0_#000]">
+    <div className="overflow-x-auto max-w-200 rounded-lg border border-border/60 bg-slate-900 p-4 text-sm text-slate-100 relative shadow-[3px_3px_0_#000]">
       <button
         onClick={handleCopy}
         className="absolute top-3 right-3 p-1.5 rounded hover:bg-slate-800 transition-colors"

@@ -4,29 +4,31 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+const baseBrutalStyle = [
+  "border-2 border-black",
+  "shadow-[6px_6px_0_#000]",
+  "hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000]",
+  "active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000]",
+  "focus-visible:ring-black/20 focus-visible:border-black",
+].join(" ")
+
 /**
  * Button variants for Neostrap UI
- * Supports multiple styles: brutal (neo-brutalist default), default, outline, secondary, ghost, link, and destructive
+ * Supports multiple styles: brutal (neo-brutalist default), regular, danger, success, inverter, outline, and disabled
  */
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
-        brutal:
-          "bg-[var(--primary)] text-black border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
-        regular:
-          "bg-white text-black border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
-        danger:
-          "bg-red-500 text-white border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
-        success:
-          "bg-green-500 text-white border-2 border-black shadow-[6px_6px_0_#000] hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
-        inverter:
-          "bg-black text-[var(--color-bg)] border-2 border-black shadow-[6px_6px_0_#000] hover:bg-[var(--color-bg)] hover:text-black hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000] active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000] focus-visible:ring-black/20 focus-visible:border-black",
+        brutal: `bg-[var(--primary)] text-black ${baseBrutalStyle}`,
+        danger: `bg-red-500 text-white ${baseBrutalStyle}`,
+        success: `bg-green-500 text-white ${baseBrutalStyle}`,
+        inverter: `bg-black text-[var(--color-bg)] hover:bg-[var(--color-bg)] hover:text-black ${baseBrutalStyle}`,
         outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
-        disabled:
-          "bg-gray-400 text-gray-600 border-2 border-black shadow-[6px_6px_0_#000] opacity-60 cursor-not-allowed focus-visible:ring-black/20 focus-visible:border-black",
+          // "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+          "border-2 border-black bg-white text-black hover:bg-accent hover:text-accent-foreground",
+        disabled: `bg-gray-400 text-gray-600 opacity-60 cursor-not-allowed ${baseBrutalStyle}`,
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -80,3 +82,18 @@ export default NeoButton
 
 export { buttonVariants }
 export type { ButtonProps }
+
+export const variantOptions = [
+  { variant: "brutal", label: "Brutal", disabled: false },
+  { variant: "outline", label: "Outline", disabled: false },
+  { variant: "inverter", label: "Inverter", disabled: false },
+  { variant: "disabled", label: "Disabled", disabled: true },
+  { variant: "danger", label: "Danger", disabled: false },
+  { variant: "success", label: "Success", disabled: false },
+] as const
+
+export const sizeOptions = [
+  { size: "sm", label: "Small" },
+  { size: "default", label: "Default" },
+  { size: "lg", label: "Large" },
+] as const

@@ -1,5 +1,45 @@
-import NeoButton from "@/components/ui/NeoButton"
+import NeoButton, { variantOptions, sizeOptions } from "@/components/ui/NeoButton"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
+import PropsTable, { type PropDefinition } from "@/components/PropsTable"
+
+const buttonProps: PropDefinition[] = [
+  {
+    name: "children",
+    type: "React.ReactNode",
+    default: "N/A",
+    description: "The content to be displayed inside the button.",
+  },
+  {
+    name: "variant",
+    type: '"brutal" | "regular" | "danger" | "success" | "inverter" | "disabled" | "outline"',
+    default: '"brutal"',
+    description: "The visual style variant of the button.",
+  },
+  {
+    name: "size",
+    type: '"sm" | "default" | "lg"',
+    default: '"default"',
+    description: "The size of the button.",
+  },
+  {
+    name: "className",
+    type: "string (optional)",
+    default: "N/A",
+    description: "Additional CSS classes to apply to the button for styling.",
+  },
+  {
+    name: "disabled",
+    type: "boolean (optional)",
+    default: "false",
+    description: "Whether the button is disabled.",
+  },
+  {
+    name: "onClick",
+    type: "() => void (optional)",
+    default: "N/A",
+    description: "Function to be called when the button is clicked.",
+  },
+]
 
 const buttonCode = `import NeoButton from "@/components/ui/NeoButton"
 
@@ -46,13 +86,11 @@ function NeoButtonDocPage() {
         </div>
         <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
           <div className="flex flex-wrap justify-center gap-3">
-            <NeoButton variant="brutal">Brutal</NeoButton>
-            <NeoButton variant="regular">Regular</NeoButton>
-            <NeoButton variant="danger">Danger</NeoButton>
-            <NeoButton variant="success">Success</NeoButton>
-            <NeoButton variant="inverter">Inverter</NeoButton>
-            <NeoButton variant="disabled" disabled>Disabled</NeoButton>
-            <NeoButton variant="outline">Outline</NeoButton>
+            {variantOptions.map(({ variant, label, disabled = false }) => (
+              <NeoButton key={variant} variant={variant} disabled={disabled}>
+                {label}
+              </NeoButton>
+            ))}
           </div>
         </div>
       </section>
@@ -63,72 +101,23 @@ function NeoButtonDocPage() {
         </div>
         <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <NeoButton size="sm">Small</NeoButton>
-            <NeoButton size="default">Default</NeoButton>
-            <NeoButton size="lg">Large</NeoButton>
+            {sizeOptions.map(({ size, label }) => (
+              <NeoButton key={size} size={size}>
+                {label}
+              </NeoButton>
+            ))}
           </div>
         </div>
 
       </section>
 
-        <section id="props" className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold">Props</h2>
-          </div>
-          <div className="py-4">
-            <div className="overflow-x-auto">
-          <table className="w-full border-collapse border border-border/60">
-            <thead>
-              <tr className="bg-muted/50 border-b-2 border-border/60">
-            <th className="text-left py-3 px-4 font-medium text-foreground border-r border-border/60">Prop</th>
-            <th className="text-left py-3 px-4 font-medium text-foreground border-r border-border/60">Type</th>
-            <th className="text-left py-3 px-4 font-medium text-foreground border-r border-border/60">Default</th>
-            <th className="text-left py-3 px-4 font-medium text-foreground">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-border/60 hover:bg-muted/30 transition-colors">
-            <td className="py-3 px-4 font-mono text-sm text-foreground border-r border-border/60">children</td>
-            <td className="py-3 px-4 font-mono text-sm text-muted-foreground border-r border-border/60">React.ReactNode</td>
-            <td className="py-3 px-4 text-sm text-muted-foreground border-r border-border/60">N/A</td>
-            <td className="py-3 px-4 text-sm text-foreground">The content to be displayed inside the button.</td>
-              </tr>
-              <tr className="border-b border-border/60 hover:bg-muted/30 transition-colors">
-            <td className="py-3 px-4 font-mono text-sm text-foreground border-r border-border/60">variant</td>
-            <td className="py-3 px-4 font-mono text-sm text-muted-foreground border-r border-border/60">"default" | "outline" | "secondary" | "ghost" | "destructive" | "link"</td>
-            <td className="py-3 px-4 text-sm text-muted-foreground border-r border-border/60">"default"</td>
-            <td className="py-3 px-4 text-sm text-foreground">The visual style variant of the button.</td>
-              </tr>
-              <tr className="border-b border-border/60 hover:bg-muted/30 transition-colors">
-            <td className="py-3 px-4 font-mono text-sm text-foreground border-r border-border/60">size</td>
-            <td className="py-3 px-4 font-mono text-sm text-muted-foreground border-r border-border/60">"sm" | "default" | "lg"</td>
-            <td className="py-3 px-4 text-sm text-muted-foreground border-r border-border/60">"default"</td>
-            <td className="py-3 px-4 text-sm text-foreground">The size of the button.</td>
-              </tr>
-              <tr className="border-b border-border/60 hover:bg-muted/30 transition-colors">
-            <td className="py-3 px-4 font-mono text-sm text-foreground border-r border-border/60">className</td>
-            <td className="py-3 px-4 font-mono text-sm text-muted-foreground border-r border-border/60">string (optional)</td>
-            <td className="py-3 px-4 text-sm text-muted-foreground border-r border-border/60">N/A</td>
-            <td className="py-3 px-4 text-sm text-foreground">Additional CSS classes to apply to the button for styling.</td>
-              </tr>
-              <tr className="border-b border-border/60 hover:bg-muted/30 transition-colors">
-            <td className="py-3 px-4 font-mono text-sm text-foreground border-r border-border/60">disabled</td>
-            <td className="py-3 px-4 font-mono text-sm text-muted-foreground border-r border-border/60">boolean (optional)</td>
-            <td className="py-3 px-4 text-sm text-muted-foreground border-r border-border/60">false</td>
-            <td className="py-3 px-4 text-sm text-foreground">Whether the button is disabled.</td>
-              </tr>
-              <tr className="hover:bg-muted/30 transition-colors">
-            <td className="py-3 px-4 font-mono text-sm text-foreground border-r border-border/60">onClick</td>
-            <td className="py-3 px-4 font-mono text-sm text-muted-foreground border-r border-border/60">{`() => void (optional)`}</td>
-            <td className="py-3 px-4 text-sm text-muted-foreground border-r border-border/60">N/A</td>
-            <td className="py-3 px-4 text-sm text-foreground">Function to be called when the button is clicked.</td>
-              </tr>
-            </tbody>
-          </table>
-            </div>
-          </div>
-
-
+      <section id="props" className="flex flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold">Props</h2>
+        </div>
+        <div className="py-4">
+          <PropsTable props={buttonProps} />
+        </div>
       </section>
     </>
   )

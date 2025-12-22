@@ -12,6 +12,7 @@ import DocLayout from "./components/layout/DocLayout"
 // Doc Pages
 import NeoButtonDocPage from "@/pages/NeoButtonDocPage"
 import NeoSelectDocPage from "@/pages/NeoSelectDocPage"
+import NeoAccordionDocPage from "@/pages/NeoAccordionDocPage"
 
 
 
@@ -25,6 +26,7 @@ function App() {
           <Route index element={<Navigate to="NeoButton" replace />} />
           <Route path="NeoButton" element={<NeoButtonDocPage />} />
           <Route path="NeoSelect" element={<NeoSelectDocPage />} />
+          <Route path="NeoAccordion" element={<NeoAccordionDocPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

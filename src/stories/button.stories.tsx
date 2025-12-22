@@ -35,13 +35,6 @@ export const Brutal: Story = {
   },
 }
 
-export const Regular: Story = {
-  args: {
-    variant: "regular",
-    children: "Regular",
-  },
-}
-
 export const Danger: Story = {
   args: {
     variant: "danger",

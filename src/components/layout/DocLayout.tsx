@@ -20,6 +20,10 @@ const navSections: NavSection[] = [
     label: "Select",
     components: [{ label: "NeoSelect", to: "/docs/NeoSelect" }],
   },
+  {
+    label: "Dropdowns",
+    components: [{ label: "NeoAccordion", to: "/docs/NeoAccordion" }],
+  },
 ];
 
 function DocLayout() {
