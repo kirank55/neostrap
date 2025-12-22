@@ -16,6 +16,8 @@
   --color-success: #218838;
 
   --primary: var(--color-lavender);
+  /* --primary: var(--color-pink); */
+  /* --primary: #eee; */
   --secondary: var(--color-amber);
 
 }
@@ -23,6 +25,7 @@
 
 body{
   background-color: var(--color-bg);
+  /* background-color: #f2f3f4; */
   color: var(--color-text);
   /* background-color: hsl(343, 98%, 95%); */
 }
