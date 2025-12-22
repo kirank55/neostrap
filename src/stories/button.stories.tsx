@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { NeoButton as Button } from "@/components/ui/NeoButton"
+import NeoButton from "@/components/ui/NeoButton"
+
 
 const meta = {
   title: "UI/Button",
-  component: Button,
+  component: NeoButton,
   tags: ["autodocs"],
   argTypes: {
     variant: {
@@ -21,7 +22,7 @@ const meta = {
     variant: "brutal",
     size: "default",
   },
-} satisfies Meta<typeof Button>
+} satisfies Meta<typeof NeoButton>
 
 export default meta
 
