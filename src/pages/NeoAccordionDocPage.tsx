@@ -4,6 +4,7 @@ import {
   NeoAccordionTrigger,
   NeoAccordionContent,
   variantOptions,
+  behaviorOptions,
 } from "@/components/ui/NeoAccordion"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import PropsTable, { type PropDefinition } from "@/components/PropsTable"
@@ -120,11 +121,25 @@ interface AccordionDemoProps {
   type?: "single" | "multiple"
   variant?: "brutal" | "outline"
   collapsible?: boolean
+  defaultValue?: string
 }
 
-function AccordionDemo({ items, type = "single", variant = "brutal", collapsible = true }: AccordionDemoProps) {
+function AccordionDemo({ items, type = "single", variant = "brutal", collapsible = true, defaultValue }: AccordionDemoProps) {
+  if (type === "multiple") {
+    return (
+      <NeoAccordion type="multiple" defaultValue={defaultValue ? [defaultValue] : undefined} variant={variant} className="w-full max-w-md mx-auto">
+        {items.map((item) => (
+          <NeoAccordionItem key={item.value} value={item.value} variant={variant}>
+            <NeoAccordionTrigger variant={variant}>{item.trigger}</NeoAccordionTrigger>
+            <NeoAccordionContent variant={variant}>{item.content}</NeoAccordionContent>
+          </NeoAccordionItem>
+        ))}
+      </NeoAccordion>
+    )
+  }
+
   return (
-    <NeoAccordion type={type} collapsible={collapsible} variant={variant} className="w-full max-w-md mx-auto">
+    <NeoAccordion type="single" collapsible={collapsible} defaultValue={defaultValue} variant={variant} className="w-full max-w-md mx-auto">
       {items.map((item) => (
         <NeoAccordionItem key={item.value} value={item.value} variant={variant}>
           <NeoAccordionTrigger variant={variant}>{item.trigger}</NeoAccordionTrigger>
@@ -180,13 +195,22 @@ function NeoAccordionDocPage() {
 
       <section id="multiple" className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Multiple Open Items</h2>
+          <h2 className="text-2xl font-semibold">Behaviors</h2>
         </div>
-        <p className="text-muted-foreground">
-          Set <code className="bg-muted px-1.5 py-0.5 rounded">type="multiple"</code> to allow multiple items to be open at once.
-        </p>
-        <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
-          <AccordionDemo items={demoItems} type="multiple" />
+        <div className="flex flex-col gap-6">
+          {behaviorOptions.map((option) => (
+            <div key={option.label} className="flex flex-col gap-2">
+              <h3 className="text-lg font-medium">{option.label}</h3>
+              <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
+                <AccordionDemo
+                  items={variantDemoItems}
+                  type={option.type}
+                  collapsible={"collapsible" in option ? option.collapsible : undefined}
+                  defaultValue={"defaultValue" in option ? option.defaultValue : undefined}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

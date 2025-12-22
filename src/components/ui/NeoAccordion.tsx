@@ -162,3 +162,10 @@ export const variantOptions = [
     { variant: "brutal", label: "Brutal" },
     { variant: "outline", label: "Outline" },
 ] as const
+
+export const behaviorOptions = [
+    { type: "single", label: "Single open", collapsible: true },
+    { type: "multiple", label: "Multiple open" },
+    { type: "single", label: "Non-Collapsible", collapsible: false, defaultValue: "item-1" },
+    { type: "single", label: "Default Open", collapsible: true, defaultValue: "item-1" },
+] as const
