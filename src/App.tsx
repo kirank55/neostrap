@@ -15,6 +15,7 @@ import NeoSelectDocPage from "@/pages/NeoSelectDocPage"
 import NeoAccordionDocPage from "@/pages/NeoAccordionDocPage"
 import NeoCardDocPage from "@/pages/NeoCardDocPage"
 import NeoInputDocPage from "./pages/NeoInputDocPage.tsx"
+import NeoDropdownDocPage from "@/pages/NeoDropdownDocPage"
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="NeoAccordion" element={<NeoAccordionDocPage />} />
           <Route path="NeoCard" element={<NeoCardDocPage />} />
           <Route path="NeoInput" element={<NeoInputDocPage />} />
+          <Route path="NeoDropdown" element={<NeoDropdownDocPage />} />
 
 
         </Route>
