@@ -6,6 +6,9 @@ import {
 } from "@/components/ui/NeoCard";
 import { Codepreview, CodeBlock } from "@/components/CodeDemo";
 import PropsTable, { type PropDefinition } from "@/components/PropsTable";
+import DocSection from "@/components/docs/DocSection";
+import { ShowcaseSurface, InlineWrap, LabeledItem } from "@/components/docs/Showcase";
+import DocPageHeader from "@/components/docs/DocPageHeader";
 
 const cardProps: PropDefinition[] = [
   {
@@ -100,119 +103,87 @@ const testimonials = [
 function NeoCardDocPage() {
   return (
     <>
-      <section id="overview" className="flex flex-col gap-3">
-        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-          Components / Card
-        </p>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold">Neostrap UI Card</h1>
-          <p className="text-base text-muted-foreground">
-            Neo-brutalist card component for displaying content in a contained
-            format.
-          </p>
-        </div>
-
+      <DocSection id="overview">
+        <DocPageHeader
+          category="Card"
+          title="Neostrap UI Card"
+          description="Neo-brutalist card component for displaying content in a contained format."
+        />
         <Codepreview
-          preview={
-            <DefaultCard
-              title="Noteworthy technology acquisitions"
-              description="Here are the biggest technology acquisitions of 2024 so far, in reverse chronological order."
-            />
-          }
+          preview={<DefaultCard title="Noteworthy technology acquisitions" description="Here are the biggest technology acquisitions of 2024 so far, in reverse chronological order." />}
           code={cardCode}
         />
-      </section>
+      </DocSection>
 
-      <section id="installation" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Installation</h2>
-        </div>
+      <DocSection id="installation" title="Installation">
         <CodeBlock code={installCode} />
-      </section>
+      </DocSection>
 
-      <section id="variants" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Variants</h2>
-        </div>
-        <div className="flex flex-col gap-6">
+      <DocSection id="variants" title="Variants">
+        <InlineWrap>
           {variantOptions.map(({ variant, label }) => (
-            <div key={variant} className="flex flex-col gap-2">
-              <h3 className="text-lg font-medium">{label}</h3>
-              <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
+            <LabeledItem key={variant} label={label} widthClass="w-full max-w-xl">
+              <ShowcaseSurface>
                 <div className="flex justify-center">
-                  <DefaultCard
-                    variant={variant}
-                    title="Card Title"
-                    description="This is a card description showing the variant style."
-                  />
+                  <DefaultCard variant={variant} title="Card Title" description="This is a card description showing the variant style." />
                 </div>
-              </div>
-            </div>
+              </ShowcaseSurface>
+            </LabeledItem>
           ))}
-        </div>
-      </section>
+        </InlineWrap>
+      </DocSection>
 
-      <section id="props" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Card Props</h2>
-        </div>
+      <DocSection id="props" title="Card Props">
         <div className="py-4">
           <PropsTable props={cardProps} />
         </div>
-      </section>
+      </DocSection>
 
-      <section id="card-with-button" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Card with Button</h2>
-        </div>
-        <p className="text-muted-foreground">
-          A card with a call-to-action button for user interaction.
-        </p>
-        <div className="flex flex-wrap justify-center gap-6">
+      <DocSection id="card-with-button" title="Card with Button">
+        <p className="text-muted-foreground">A card with a call-to-action button for user interaction.</p>
+        <InlineWrap>
           {variantOptions.map(({ variant, label }) => (
-            <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm w-full flex justify-center">
-              <CardWithButton
-                key={variant}
-                variant={variant}
-                title={`${label} Card`}
-                description="Click the button below to learn more about this feature."
-                buttonText="Read more"
-              />
-            </div>
+            <LabeledItem key={variant} label={`${label} Card`} widthClass="w-full max-w-xl">
+              <ShowcaseSurface>
+                <div className="flex justify-center">
+                  <CardWithButton
+                    variant={variant}
+                    title={`${label} Card`}
+                    description="Click the button below to learn more about this feature."
+                    buttonText="Read more"
+                  />
+                </div>
+              </ShowcaseSurface>
+            </LabeledItem>
           ))}
-        </div>
-      </section>
+        </InlineWrap>
+      </DocSection>
 
-      <section id="testimonial-card" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Testimonial Card</h2>
-        </div>
-        <p className="text-muted-foreground">
-          Display customer testimonials and reviews.
-        </p>
-        <div className="flex flex-wrap justify-center gap-6">
+      <DocSection id="testimonial-card" title="Testimonial Card">
+        <p className="text-muted-foreground">Display customer testimonials and reviews.</p>
+        <InlineWrap>
           {testimonials.map((testimonial, index) => (
-            <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm w-full flex justify-center">
-              <TestimonialCard
-                key={index}
-                quote={testimonial.quote}
-                author={testimonial.author}
-                role={testimonial.role}
-                variant={index === 0 ? "brutal" : "outline"}
-              />
-            </div>
+            <LabeledItem key={index} label={testimonial.author} widthClass="w-full max-w-xl">
+              <ShowcaseSurface>
+                <div className="flex justify-center">
+                  <TestimonialCard
+                    quote={testimonial.quote}
+                    author={testimonial.author}
+                    role={testimonial.role}
+                    variant={index === 0 ? "brutal" : "outline"}
+                  />
+                </div>
+              </ShowcaseSurface>
+            </LabeledItem>
           ))}
-        </div>
-      </section>
+        </InlineWrap>
+      </DocSection>
 
-      <section id="testimonial-props" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">TestimonialCard Props</h2>
-        </div>
+      <DocSection id="testimonial-props" title="TestimonialCard Props">
         <div className="py-4">
           <PropsTable props={testimonialCardProps} />
         </div>
-      </section>
+      </DocSection>
     </>
   );
 }

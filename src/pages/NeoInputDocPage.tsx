@@ -1,6 +1,9 @@
 import { NeoInput, variantOptions, sizeOptions, typeOptions } from "@/components/ui/NeoInput"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import PropsTable, { type PropDefinition } from "@/components/PropsTable"
+import DocSection from "@/components/docs/DocSection"
+import { LabeledItem, ShowcaseSurface, InlineWrap } from "@/components/docs/Showcase"
+import DocPageHeader from "@/components/docs/DocPageHeader"
 
 const inputProps: PropDefinition[] = [
   {
@@ -11,7 +14,7 @@ const inputProps: PropDefinition[] = [
   },
   {
     name: "variant",
-    type: '"brutal" | "regular" | "disabled"',
+    type: '"brutal" | "outline" | "disabled"',
     default: '"brutal"',
     description: "The visual style variant of the input.",
   },
@@ -50,7 +53,7 @@ const inputProps: PropDefinition[] = [
 const inputCode = `import { NeoInput } from "@/components/ui/NeoInput"
 
 export function InputDemo() {
-  return <NeoInput placeholder="Enter text..." />
+  return <NeoInput placeholder=\"Enter text...\" />
 }`
 
 const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neoinput.json`
@@ -58,93 +61,60 @@ const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neoinp
 function NeoInputDocPage() {
   return (
     <>
-      <section id="overview" className="flex flex-col gap-3">
-        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-          Components / Input
-        </p>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold">Neostrap UI Input</h1>
-          <p className="text-base text-muted-foreground">
-            Neo-brutalist input field plus all variants, sizes, and types.
-          </p>
-        </div>
-
-        <Codepreview
-          preview={<NeoInput placeholder="Enter text..." className="max-w-xs" />}
-          code={inputCode}
+      <DocSection id="overview">
+        <DocPageHeader
+          category="Input"
+          title="Neostrap UI Input"
+          description="Neo-brutalist input field plus all variants, sizes, and types."
         />
-      </section>
+        <Codepreview preview={<NeoInput placeholder="Enter text..." className="max-w-xs" />} code={inputCode} />
+      </DocSection>
 
-      <section id="installation" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Installation</h2>
-        </div>
-
+      <DocSection id="installation" title="Installation">
         <CodeBlock code={installCode} />
-      </section>
+      </DocSection>
 
-      <section id="types" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Input Types</h2>
-        </div>
-        <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
-          <div className="flex flex-wrap justify-center gap-6">
-            {typeOptions.map(({ type, label, placeholder }) => (
-              <div key={label} className="flex flex-col gap-2 w-48">
-                <p className="text-sm font-semibold text-center">{label}</p>
-                <NeoInput type={type} placeholder={placeholder} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="variants" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Variants</h2>
-        </div>
-        <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
-          <div className="flex flex-wrap justify-center gap-6">
+      <DocSection id="variants" title="Variants">
+        <ShowcaseSurface>
+          <InlineWrap>
             {variantOptions.map(({ variant, label, disabled = false }) => (
-              <div key={label} className="flex flex-col gap-2 w-48">
-                <p className="text-sm font-semibold text-center">{label}</p>
-                <NeoInput
-                  variant={variant}
-                  disabled={disabled}
-                  placeholder={`${label} input...`}
-                />
-              </div>
+              <LabeledItem key={label} label={label}>
+                <NeoInput variant={variant} disabled={disabled} placeholder={`${label} input...`} />
+              </LabeledItem>
             ))}
-          </div>
-        </div>
-      </section>
+          </InlineWrap>
+        </ShowcaseSurface>
+      </DocSection>
 
-      <section id="sizes" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Sizes</h2>
-        </div>
-        <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
-          <div className="flex flex-wrap items-end justify-center gap-6">
+      <DocSection id="sizes" title="Sizes">
+        <ShowcaseSurface>
+          <InlineWrap alignEnd>
             {sizeOptions.map(({ size, label }) => (
-              <div key={label} className="flex flex-col gap-2 w-48">
-                <p className="text-sm font-semibold text-center">{label}</p>
+              <LabeledItem key={label} label={label}>
                 <NeoInput size={size} placeholder={`${label} size...`} />
-              </div>
+              </LabeledItem>
             ))}
-          </div>
-        </div>
-      </section>
+          </InlineWrap>
+        </ShowcaseSurface>
+      </DocSection>
 
+      <DocSection id="types" title="Input Types">
+        <ShowcaseSurface>
+          <InlineWrap>
+            {typeOptions.map(({ type, label, placeholder }) => (
+              <LabeledItem key={label} label={label}>
+                <NeoInput type={type} placeholder={placeholder} />
+              </LabeledItem>
+            ))}
+          </InlineWrap>
+        </ShowcaseSurface>
+      </DocSection>
 
-
-      <section id="props" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Props</h2>
-        </div>
+      <DocSection id="props" title="Props">
         <div className="py-4">
           <PropsTable props={inputProps} />
         </div>
-      </section>
+      </DocSection>
     </>
   )
 }

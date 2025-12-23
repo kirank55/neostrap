@@ -14,7 +14,7 @@ import NeoButtonDocPage from "@/pages/NeoButtonDocPage"
 import NeoSelectDocPage from "@/pages/NeoSelectDocPage"
 import NeoAccordionDocPage from "@/pages/NeoAccordionDocPage"
 import NeoCardDocPage from "@/pages/NeoCardDocPage"
-import NeoInputDocPage from "@/pages/NeoInputDocPage"
+import NeoInputDocPage from "./pages/NeoInputDocPage.tsx"
 
 
 

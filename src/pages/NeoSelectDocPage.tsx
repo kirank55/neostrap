@@ -1,6 +1,9 @@
 import { NeoSelect, variantOptions, sizeOptions } from "@/components/ui/NeoSelect"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
+import DocSection from "@/components/docs/DocSection"
+import { LabeledItem, ShowcaseSurface, InlineWrap } from "@/components/docs/Showcase"
 import PropsTable, { type PropDefinition } from "@/components/PropsTable"
+import DocPageHeader from "@/components/docs/DocPageHeader"
 
 const selectProps: PropDefinition[] = [
   {
@@ -69,78 +72,50 @@ function NeoSelectDocPage() {
 
   return (
     <>
-      <section id="overview" className="flex flex-col gap-3">
-        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-          Components / Select
-        </p>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold">Neostrap UI Select</h1>
-          <p className="text-base text-muted-foreground">
-            Neo-brutalist select dropdown plus all variants and sizes.
-          </p>
-        </div>
-
-        <Codepreview
-          preview={<NeoSelect>{demoOptions}</NeoSelect>}
-          code={selectCode}
+      <DocSection id="overview">
+        <DocPageHeader
+          category="Select"
+          title="Neostrap UI Select"
+          description="Neo-brutalist select dropdown plus all variants and sizes."
         />
-      </section>
+        <Codepreview preview={<NeoSelect>{demoOptions}</NeoSelect>} code={selectCode} />
+      </DocSection>
 
 
-      <section id="installation" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Installation</h2>
-        </div>
-        
+      <DocSection id="installation" title="Installation">
         <CodeBlock code={installCode} />
-      </section>
+      </DocSection>
 
 
-      <section id="variants" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Variants</h2>
-        </div>
-        <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
-          <div className="flex flex-wrap justify-center gap-6">
+      <DocSection id="variants" title="Variants">
+        <ShowcaseSurface>
+          <InlineWrap>
             {variantOptions.map(({ variant, label, disabled = false }) => (
-              <div key={label} className="flex flex-col gap-2 w-48">
-                <p className="text-sm font-semibold text-center">{label}</p>
-                <NeoSelect variant={variant} disabled={disabled}>
-                  {demoOptions}
-                </NeoSelect>
-              </div>
+              <LabeledItem key={label} label={label}>
+                <NeoSelect variant={variant} disabled={disabled}>{demoOptions}</NeoSelect>
+              </LabeledItem>
             ))}
-          </div>
-        </div>
-      </section>
+          </InlineWrap>
+        </ShowcaseSurface>
+      </DocSection>
 
-      <section id="sizes" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Sizes</h2>
-        </div>
-        <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
-          <div className="flex flex-wrap items-end justify-center gap-6">
+      <DocSection id="sizes" title="Sizes">
+        <ShowcaseSurface>
+          <InlineWrap alignEnd>
             {sizeOptions.map(({ size, label }) => (
-              <div key={label} className="flex flex-col gap-2 w-48">
-                <p className="text-sm font-semibold text-center">{label}</p>
-                <NeoSelect size={size}>
-                  {demoOptions}
-                </NeoSelect>
-              </div>
+              <LabeledItem key={label} label={label}>
+                <NeoSelect size={size}>{demoOptions}</NeoSelect>
+              </LabeledItem>
             ))}
-          </div>
-        </div>
+          </InlineWrap>
+        </ShowcaseSurface>
+      </DocSection>
 
-      </section>
-
-      <section id="props" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Props</h2>
-        </div>
+      <DocSection id="props" title="Props">
         <div className="py-4">
           <PropsTable props={selectProps} />
         </div>
-      </section>
+      </DocSection>
     </>
   )
 }

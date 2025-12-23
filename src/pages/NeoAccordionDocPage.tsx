@@ -8,6 +8,9 @@ import {
 } from "@/components/ui/NeoAccordion"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import PropsTable, { type PropDefinition } from "@/components/PropsTable"
+import DocSection from "@/components/docs/DocSection"
+import { ShowcaseSurface, InlineWrap, LabeledItem } from "@/components/docs/Showcase"
+import DocPageHeader from "@/components/docs/DocPageHeader"
 
 const accordionProps: PropDefinition[] = [
   {
@@ -153,84 +156,59 @@ function AccordionDemo({ items, type = "single", variant = "brutal", collapsible
 function NeoAccordionDocPage() {
   return (
     <>
-      <section id="overview" className="flex flex-col gap-3">
-        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-          Components / Accordion
-        </p>
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold">Neostrap UI Accordion</h1>
-          <p className="text-base text-muted-foreground">
-            Neo-brutalist accordion component with collapsible sections.
-          </p>
-        </div>
-
-        <Codepreview
-          preview={<AccordionDemo items={demoItems} />}
-          code={accordionCode}
+      <DocSection id="overview">
+        <DocPageHeader
+          category="Accordion"
+          title="Neostrap UI Accordion"
+          description="Neo-brutalist accordion component with collapsible sections."
         />
-      </section>
+        <Codepreview preview={<AccordionDemo items={demoItems} />} code={accordionCode} />
+      </DocSection>
 
-      <section id="installation" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Installation</h2>
-        </div>
+      <DocSection id="installation" title="Installation">
         <CodeBlock code={installCode} />
-      </section>
+      </DocSection>
 
-      <section id="variants" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Variants</h2>
-        </div>
-        <div className="flex flex-col gap-6">
+      <DocSection id="variants" title="Variants">
+        <InlineWrap>
           {variantOptions.map(({ variant, label }) => (
-            <div key={variant} className="flex flex-col gap-2">
-              <h3 className="text-lg font-medium">{label}</h3>
-              <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
+            <LabeledItem key={variant} label={label} widthClass="w-full max-w-xl">
+              <ShowcaseSurface>
                 <AccordionDemo items={variantDemoItems} variant={variant} />
-              </div>
-            </div>
+              </ShowcaseSurface>
+            </LabeledItem>
           ))}
-        </div>
-      </section>
+        </InlineWrap>
+      </DocSection>
 
-      <section id="multiple" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Behaviors</h2>
-        </div>
-        <div className="flex flex-col gap-6">
+      <DocSection id="multiple" title="Behaviors">
+        <InlineWrap>
           {behaviorOptions.map((option) => (
-            <div key={option.label} className="flex flex-col gap-2">
-              <h3 className="text-lg font-medium">{option.label}</h3>
-              <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
+            <LabeledItem key={option.label} label={option.label} widthClass="w-full max-w-xl">
+              <ShowcaseSurface>
                 <AccordionDemo
                   items={variantDemoItems}
                   type={option.type}
                   collapsible={"collapsible" in option ? option.collapsible : undefined}
                   defaultValue={"defaultValue" in option ? option.defaultValue : undefined}
                 />
-              </div>
-            </div>
+              </ShowcaseSurface>
+            </LabeledItem>
           ))}
-        </div>
-      </section>
+        </InlineWrap>
+      </DocSection>
 
-      <section id="props" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Accordion Props</h2>
-        </div>
+      <DocSection id="props" title="Accordion Props">
         <div className="py-4">
           <PropsTable props={accordionProps} />
         </div>
-      </section>
+      </DocSection>
 
-      <section id="item-props" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">AccordionItem Props</h2>
-        </div>
+      <DocSection id="item-props" title="AccordionItem Props">
         <div className="py-4">
           <PropsTable props={accordionItemProps} />
         </div>
-      </section>
+      </DocSection>
     </>
   )
 }
