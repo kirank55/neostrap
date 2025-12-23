@@ -14,6 +14,7 @@ import NeoButtonDocPage from "@/pages/NeoButtonDocPage"
 import NeoSelectDocPage from "@/pages/NeoSelectDocPage"
 import NeoAccordionDocPage from "@/pages/NeoAccordionDocPage"
 import NeoCardDocPage from "@/pages/NeoCardDocPage"
+import NeoInputDocPage from "@/pages/NeoInputDocPage"
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="NeoSelect" element={<NeoSelectDocPage />} />
           <Route path="NeoAccordion" element={<NeoAccordionDocPage />} />
           <Route path="NeoCard" element={<NeoCardDocPage />} />
+          <Route path="NeoInput" element={<NeoInputDocPage />} />
 
 
         </Route>

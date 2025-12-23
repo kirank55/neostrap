@@ -24,6 +24,14 @@ const navSections: NavSection[] = [
     label: "Dropdowns",
     components: [{ label: "NeoAccordion", to: "/docs/NeoAccordion" }],
   },
+  {
+    label: "Cards",
+    components: [{ label: "NeoCard", to: "/docs/NeoCard" }],
+  },
+  {
+    label: "Inputs",
+    components: [{ label: "NeoInput", to: "/docs/NeoInput" }],
+  },
 ];
 
 function DocLayout() {

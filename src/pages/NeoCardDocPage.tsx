@@ -1,6 +1,6 @@
 import {
   DefaultCard,
-  CardWithButton,
+  CardWithButton, 
   TestimonialCard,
   variantOptions,
 } from "@/components/ui/NeoCard";

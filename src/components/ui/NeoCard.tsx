@@ -143,7 +143,7 @@ function CardWithButton({
         <NeoCardDescription>{description}</NeoCardDescription>
       </NeoCardHeader>
       <NeoCardFooter>
-        <NeoButton variant={variant} onClick={onButtonClick}>
+        <NeoButton variant={variant} onClick={onButtonClick} className="cursor-pointer">
           {buttonText}
           <svg
             className="w-4 h-4"

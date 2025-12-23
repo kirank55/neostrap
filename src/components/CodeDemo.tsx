@@ -1,20 +1,20 @@
-import { useState } from "react"
-import { Copy, Check } from "lucide-react"
-import NeoButton from "@/components/ui/NeoButton"
+import { useState } from "react";
+import { Copy, Check } from "lucide-react";
+import NeoButton from "@/components/ui/NeoButton";
 
 type CodeBlockProps = {
-  code: string
-  language?: string
-}
+  code: string;
+  language?: string;
+};
 
 function CodeBlock({ code }: CodeBlockProps) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    await navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="overflow-x-auto max-w-200 rounded-lg border border-border/60 bg-slate-900 p-4 text-sm text-slate-100 relative shadow-[3px_3px_0_#000]">
@@ -33,17 +33,17 @@ function CodeBlock({ code }: CodeBlockProps) {
         <code>{code}</code>
       </pre>
     </div>
-  )
+  );
 }
 
 type CodepreviewProps = {
-  code: string
-  preview: React.ReactNode
-  language?: string
-}
+  code: string;
+  preview: React.ReactNode;
+  language?: string;
+};
 
 function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
-  const [mode, setMode] = useState<"preview" | "code">("preview")
+  const [mode, setMode] = useState<"preview" | "code">("preview");
 
   return (
     <div className="flex flex-col gap-3">
@@ -52,6 +52,7 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
           size="sm"
           variant={mode === "preview" ? "brutal" : "outline"}
           onClick={() => setMode("preview")}
+          className={mode === "code" ? "cursor-pointer" : ""}
         >
           Preview
         </NeoButton>
@@ -59,6 +60,7 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
           size="sm"
           variant={mode === "code" ? "brutal" : "outline"}
           onClick={() => setMode("code")}
+          className={mode === "preview" ? "cursor-pointer" : ""}
         >
           Code
         </NeoButton>
@@ -70,11 +72,9 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
         </div>
       )}
 
-      {mode === "code" && (
-        <CodeBlock code={code} language={language} />
-      )}
+      {mode === "code" && <CodeBlock code={code} language={language} />}
     </div>
-  )
+  );
 }
 
-export { Codepreview, CodeBlock }
+export { Codepreview, CodeBlock };

@@ -26,7 +26,6 @@ const buttonVariants = cva(
         success: `bg-green-500 text-white ${baseBrutalStyle}`,
         inverter: `bg-black text-[var(--color-bg)] hover:bg-[var(--color-bg)] hover:text-black ${baseBrutalStyle}`,
         outline:
-          // "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
           "border-2 border-black bg-white text-black hover:bg-accent hover:text-accent-foreground",
         disabled: `bg-gray-400 text-gray-600 opacity-60 cursor-not-allowed ${baseBrutalStyle}`,
       },
