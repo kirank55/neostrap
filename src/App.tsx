@@ -18,6 +18,7 @@ import NeoInputDocPage from "./pages/NeoInputDocPage.tsx"
 import NeoDropdownDocPage from "@/pages/NeoDropdownDocPage"
 
 import NeoSwitchDocPage from "@/pages/NeoSwitchDocPage"
+import NeoDialogDocPage from "@/pages/NeoDialogDocPage"
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="NeoDropdown" element={<NeoDropdownDocPage />} />
 
           <Route path="NeoSwitch" element={<NeoSwitchDocPage />} />
+          <Route path="NeoDialog" element={<NeoDialogDocPage />} />
 
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

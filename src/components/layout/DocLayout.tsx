@@ -14,7 +14,11 @@ interface NavSection {
 const navSections: NavSection[] = [
   {
     label: "Buttons",
-    components: [{ label: "NeoButton", to: "/docs/NeoButton" }],
+    components: [
+      { label: "NeoButton", to: "/docs/NeoButton" },
+      { label: "NeoDialog", to: "/docs/NeoDialog" }
+
+    ],
   },
   {
     label: "Select",
@@ -31,7 +35,6 @@ const navSections: NavSection[] = [
   {
     label: "Inputs",
     components: [{ label: "NeoInput", to: "/docs/NeoInput" },
-
       { label: "NeoSwitch", to: "/docs/NeoSwitch" }
     ],
   },
