@@ -8,7 +8,7 @@ type LabeledItemProps = {
 
 export function LabeledItem({ label, children, widthClass = "w-48" }: LabeledItemProps) {
   return (
-    <div className={`flex flex-col gap-2 ${widthClass}`}>
+    <div className={`flex flex-col gap-2 items-center ${widthClass}`}>
       <p className="text-sm font-semibold text-center">{label}</p>
       {children}
     </div>
@@ -34,7 +34,7 @@ type InlineWrapProps = {
 
 export function InlineWrap({ children, alignEnd = false }: InlineWrapProps) {
   return (
-    <div className={`flex flex-wrap ${alignEnd ? "items-end" : "items-center"} justify-center gap-6`}>
+    <div className={`flex flex-wrap ${alignEnd ? "items-end" : "items-center"} gap-6 justify-center`}>
       {children}
     </div>
   )

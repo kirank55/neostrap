@@ -159,7 +159,7 @@ function NeoDropdownDocPage() {
 
       <DocSection id="sizes" title="Sizes">
         <ShowcaseSurface>
-          <InlineWrap alignEnd>
+          <InlineWrap>
             {sizeOptions.map(({ size, label }) => (
               <LabeledItem key={label} label={label}>
                 <DropdownDemo size={size} />
@@ -169,39 +169,6 @@ function NeoDropdownDocPage() {
         </ShowcaseSurface>
       </DocSection>
 
-      <DocSection id="alignment" title="Alignment">
-        <ShowcaseSurface>
-          <InlineWrap>
-            <LabeledItem label="Start">
-              <NeoDropdown>
-                <DropdownTrigger>Align Start</DropdownTrigger>
-                <DropdownContent align="start">
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                </DropdownContent>
-              </NeoDropdown>
-            </LabeledItem>
-            <LabeledItem label="Center">
-              <NeoDropdown>
-                <DropdownTrigger>Align Center</DropdownTrigger>
-                <DropdownContent align="center">
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                </DropdownContent>
-              </NeoDropdown>
-            </LabeledItem>
-            <LabeledItem label="End">
-              <NeoDropdown>
-                <DropdownTrigger>Align End</DropdownTrigger>
-                <DropdownContent align="end">
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                </DropdownContent>
-              </NeoDropdown>
-            </LabeledItem>
-          </InlineWrap>
-        </ShowcaseSurface>
-      </DocSection>
 
       <DocSection id="dropdown-props" title="Dropdown Props">
         <div className="py-4">

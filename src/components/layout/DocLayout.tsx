@@ -22,7 +22,7 @@ const navSections: NavSection[] = [
   },
   {
     label: "Dropdowns",
-    components: [{ label: "NeoAccordion", to: "/docs/NeoAccordion" }],
+    components: [{ label: "NeoAccordion", to: "/docs/NeoAccordion" },{ label: "NeoDropdown", to: "/docs/NeoDropdown" }],
   },
   {
     label: "Cards",
@@ -30,7 +30,10 @@ const navSections: NavSection[] = [
   },
   {
     label: "Inputs",
-    components: [{ label: "NeoInput", to: "/docs/NeoInput" }],
+    components: [{ label: "NeoInput", to: "/docs/NeoInput" },
+
+      { label: "NeoSwitch", to: "/docs/NeoSwitch" }
+    ],
   },
 ];
 

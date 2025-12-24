@@ -4,7 +4,7 @@
   "rsc": false,
   "tsx": true,
   "tailwind": {
-    "config": "",
+    "config": "tailwind.config.js",
     "css": "src/index.css",
     "baseColor": "neutral",
     "cssVariables": true,
@@ -17,9 +17,5 @@
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
-  },
-  "registries": {
-    "default": "https://neostrapui.pages.dev/registry/index.json",
-    "neostrap": "https://neostrapui.pages.dev/registry/index.json"
   }
 }

@@ -5,19 +5,24 @@ import {
   NeoAccordionContent,
   variantOptions,
   behaviorOptions,
-} from "@/components/ui/NeoAccordion"
-import { Codepreview, CodeBlock } from "@/components/CodeDemo"
-import PropsTable, { type PropDefinition } from "@/components/PropsTable"
-import DocSection from "@/components/docs/DocSection"
-import { ShowcaseSurface, InlineWrap, LabeledItem } from "@/components/docs/Showcase"
-import DocPageHeader from "@/components/docs/DocPageHeader"
+} from "@/components/ui/NeoAccordion";
+import { Codepreview, CodeBlock } from "@/components/CodeDemo";
+import PropsTable, { type PropDefinition } from "@/components/PropsTable";
+import DocSection from "@/components/docs/DocSection";
+import {
+  ShowcaseSurface,
+  InlineWrap,
+  LabeledItem,
+} from "@/components/docs/Showcase";
+import DocPageHeader from "@/components/docs/DocPageHeader";
 
 const accordionProps: PropDefinition[] = [
   {
     name: "type",
     type: '"single" | "multiple"',
     default: '"single"',
-    description: "Whether one or multiple items can be opened at the same time.",
+    description:
+      "Whether one or multiple items can be opened at the same time.",
   },
   {
     name: "variant",
@@ -55,7 +60,7 @@ const accordionProps: PropDefinition[] = [
     default: "N/A",
     description: "Additional CSS classes to apply.",
   },
-]
+];
 
 const accordionItemProps: PropDefinition[] = [
   {
@@ -70,7 +75,7 @@ const accordionItemProps: PropDefinition[] = [
     default: "false",
     description: "Whether the item is disabled.",
   },
-]
+];
 
 const accordionCode = `import {
   NeoAccordion,
@@ -88,16 +93,15 @@ export function AccordionDemo() {
       </NeoAccordionItem>
     </NeoAccordion>
   )
-}`
+}`;
 
-const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neoaccordion.json`
+const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neoaccordion.json`;
 
 const demoItems = [
   {
     value: "item-1",
     trigger: "What is Neostrap UI?",
-    content:
-      `Neostrap UI is a collection of neo-brutalist styled components. 
+    content: `Neostrap UI is a collection of neo-brutalist styled components. 
       Built on top of Radix UI primitives and Tailwind CSS.`,
   },
   {
@@ -112,45 +116,82 @@ const demoItems = [
     content:
       "Absolutely! Components use Tailwind CSS classes and support className props for full customization.",
   },
-]
+];
 
 const variantDemoItems = [
-  { value: "item-1", trigger: "First Section", content: "Content for the first accordion section." },
-  { value: "item-2", trigger: "Second Section", content: "Content for the second accordion section." },
-]
+  {
+    value: "item-1",
+    trigger: "First Section",
+    content: "Content for the first accordion section.",
+  },
+  {
+    value: "item-2",
+    trigger: "Second Section",
+    content: "Content for the second accordion section.",
+  },
+];
 
 interface AccordionDemoProps {
-  items: typeof demoItems
-  type?: "single" | "multiple"
-  variant?: "brutal" | "outline"
-  collapsible?: boolean
-  defaultValue?: string
+  items: typeof demoItems;
+  type?: "single" | "multiple";
+  variant?: "brutal" | "outline";
+  collapsible?: boolean;
+  defaultValue?: string;
 }
 
-function AccordionDemo({ items, type = "single", variant = "brutal", collapsible = true, defaultValue }: AccordionDemoProps) {
+function AccordionDemo({
+  items,
+  type = "single",
+  variant = "brutal",
+  collapsible = true,
+  defaultValue,
+}: AccordionDemoProps) {
   if (type === "multiple") {
     return (
-      <NeoAccordion type="multiple" defaultValue={defaultValue ? [defaultValue] : undefined} variant={variant} className="w-full max-w-md mx-auto">
+      <NeoAccordion
+        type="multiple"
+        defaultValue={defaultValue ? [defaultValue] : undefined}
+        variant={variant}
+        className="w-full max-w-md mx-auto"
+      >
         {items.map((item) => (
-          <NeoAccordionItem key={item.value} value={item.value} variant={variant}>
-            <NeoAccordionTrigger variant={variant}>{item.trigger}</NeoAccordionTrigger>
-            <NeoAccordionContent variant={variant}>{item.content}</NeoAccordionContent>
+          <NeoAccordionItem
+            key={item.value}
+            value={item.value}
+            variant={variant}
+          >
+            <NeoAccordionTrigger variant={variant}>
+              {item.trigger}
+            </NeoAccordionTrigger>
+            <NeoAccordionContent variant={variant}>
+              {item.content}
+            </NeoAccordionContent>
           </NeoAccordionItem>
         ))}
       </NeoAccordion>
-    )
+    );
   }
 
   return (
-    <NeoAccordion type="single" collapsible={collapsible} defaultValue={defaultValue} variant={variant} className="w-full max-w-md mx-auto">
+    <NeoAccordion
+      type="single"
+      collapsible={collapsible}
+      defaultValue={defaultValue}
+      variant={variant}
+      className="w-full max-w-md mx-auto"
+    >
       {items.map((item) => (
         <NeoAccordionItem key={item.value} value={item.value} variant={variant}>
-          <NeoAccordionTrigger variant={variant}>{item.trigger}</NeoAccordionTrigger>
-          <NeoAccordionContent variant={variant}>{item.content}</NeoAccordionContent>
+          <NeoAccordionTrigger variant={variant}>
+            {item.trigger}
+          </NeoAccordionTrigger>
+          <NeoAccordionContent variant={variant}>
+            {item.content}
+          </NeoAccordionContent>
         </NeoAccordionItem>
       ))}
     </NeoAccordion>
-  )
+  );
 }
 
 function NeoAccordionDocPage() {
@@ -162,7 +203,10 @@ function NeoAccordionDocPage() {
           title="Neostrap UI Accordion"
           description="Neo-brutalist accordion component with collapsible sections."
         />
-        <Codepreview preview={<AccordionDemo items={demoItems} />} code={accordionCode} />
+        <Codepreview
+          preview={<AccordionDemo items={demoItems} />}
+          code={accordionCode}
+        />
       </DocSection>
 
       <DocSection id="installation" title="Installation">
@@ -170,27 +214,39 @@ function NeoAccordionDocPage() {
       </DocSection>
 
       <DocSection id="variants" title="Variants">
-        <InlineWrap>
-          {variantOptions.map(({ variant, label }) => (
-            <LabeledItem key={variant} label={label} widthClass="w-full max-w-xl">
-              <ShowcaseSurface>
+        <ShowcaseSurface>
+          <InlineWrap>
+            {variantOptions.map(({ variant, label }) => (
+              <LabeledItem
+                key={variant}
+                label={label}
+                widthClass="w-full max-w-xl"
+              >
                 <AccordionDemo items={variantDemoItems} variant={variant} />
-              </ShowcaseSurface>
-            </LabeledItem>
-          ))}
-        </InlineWrap>
+              </LabeledItem>
+            ))}
+          </InlineWrap>
+        </ShowcaseSurface>
       </DocSection>
 
       <DocSection id="multiple" title="Behaviors">
         <InlineWrap>
           {behaviorOptions.map((option) => (
-            <LabeledItem key={option.label} label={option.label} widthClass="w-full max-w-xl">
+            <LabeledItem
+              key={option.label}
+              label={option.label}
+              widthClass="w-full max-w-xl"
+            >
               <ShowcaseSurface>
                 <AccordionDemo
                   items={variantDemoItems}
                   type={option.type}
-                  collapsible={"collapsible" in option ? option.collapsible : undefined}
-                  defaultValue={"defaultValue" in option ? option.defaultValue : undefined}
+                  collapsible={
+                    "collapsible" in option ? option.collapsible : undefined
+                  }
+                  defaultValue={
+                    "defaultValue" in option ? option.defaultValue : undefined
+                  }
                 />
               </ShowcaseSurface>
             </LabeledItem>
@@ -210,7 +266,7 @@ function NeoAccordionDocPage() {
         </div>
       </DocSection>
     </>
-  )
+  );
 }
 
-export default NeoAccordionDocPage
+export default NeoAccordionDocPage;

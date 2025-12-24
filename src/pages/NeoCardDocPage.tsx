@@ -1,6 +1,6 @@
 import {
   DefaultCard,
-  CardWithButton, 
+  CardWithButton,
   TestimonialCard,
   variantOptions,
 } from "@/components/ui/NeoCard";
@@ -120,17 +120,17 @@ function NeoCardDocPage() {
       </DocSection>
 
       <DocSection id="variants" title="Variants">
-        <InlineWrap>
-          {variantOptions.map(({ variant, label }) => (
-            <LabeledItem key={variant} label={label} widthClass="w-full max-w-xl">
-              <ShowcaseSurface>
+        <ShowcaseSurface>
+          <InlineWrap>
+            {variantOptions.map(({ variant, label }) => (
+              <LabeledItem key={variant} label={label} widthClass="w-full max-w-xl">
                 <div className="flex justify-center">
                   <DefaultCard variant={variant} title="Card Title" description="This is a card description showing the variant style." />
                 </div>
-              </ShowcaseSurface>
-            </LabeledItem>
-          ))}
-        </InlineWrap>
+              </LabeledItem>
+            ))}
+          </InlineWrap>
+        </ShowcaseSurface>
       </DocSection>
 
       <DocSection id="props" title="Card Props">
@@ -141,10 +141,10 @@ function NeoCardDocPage() {
 
       <DocSection id="card-with-button" title="Card with Button">
         <p className="text-muted-foreground">A card with a call-to-action button for user interaction.</p>
+          <ShowcaseSurface>
         <InlineWrap>
           {variantOptions.map(({ variant, label }) => (
             <LabeledItem key={variant} label={`${label} Card`} widthClass="w-full max-w-xl">
-              <ShowcaseSurface>
                 <div className="flex justify-center">
                   <CardWithButton
                     variant={variant}
@@ -153,18 +153,18 @@ function NeoCardDocPage() {
                     buttonText="Read more"
                   />
                 </div>
-              </ShowcaseSurface>
             </LabeledItem>
           ))}
         </InlineWrap>
+          </ShowcaseSurface>
       </DocSection>
 
       <DocSection id="testimonial-card" title="Testimonial Card">
         <p className="text-muted-foreground">Display customer testimonials and reviews.</p>
+          <ShowcaseSurface>
         <InlineWrap>
           {testimonials.map((testimonial, index) => (
             <LabeledItem key={index} label={testimonial.author} widthClass="w-full max-w-xl">
-              <ShowcaseSurface>
                 <div className="flex justify-center">
                   <TestimonialCard
                     quote={testimonial.quote}
@@ -173,10 +173,10 @@ function NeoCardDocPage() {
                     variant={index === 0 ? "brutal" : "outline"}
                   />
                 </div>
-              </ShowcaseSurface>
             </LabeledItem>
           ))}
         </InlineWrap>
+          </ShowcaseSurface>
       </DocSection>
 
       <DocSection id="testimonial-props" title="TestimonialCard Props">

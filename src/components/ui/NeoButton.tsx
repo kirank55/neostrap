@@ -6,8 +6,10 @@ import { cn } from "@/lib/utils"
 
 const baseBrutalStyle = [
   "border-2 border-black",
-  "shadow-[6px_6px_0_#000]",
-  "hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000]",
+  "shadow-[5px_5px_0_#000]",
+  // "hover:-translate-y-[-4px] hover:translate-x-[-4px] hover:shadow-none",
+  "hover:-translate-y-[-5px] hover:translate-x-[0px] hover:shadow-none ",
+  // "hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000]",
   "active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000]",
   "focus-visible:ring-black/20 focus-visible:border-black",
 ].join(" ")
