@@ -3,7 +3,7 @@ import NeoButton from "@/components/ui/NeoButton"
 import { CodeBlock, Codepreview } from "@/components/CodeDemo"
 import PropsTable, { type PropDefinition } from "@/components/PropsTable"
 import DocSection from "@/components/docs/DocSection"
-import { ShowcaseSurface, InlineWrap } from "@/components/docs/Showcase"
+import { ShowcaseSurface } from "@/components/docs/Showcase"
 import DocPageHeader from "@/components/docs/DocPageHeader"
 
 import {
@@ -207,7 +207,7 @@ function FullscreenDialogDemo() {
         <NeoButton>Open Fullscreen</NeoButton>
       </DialogTrigger>
 
-      <DialogContent className="w-screen h-screen max-w-none p-6 sm:rounded-none">
+      <DialogContent className="w-screen h-screen max-w-none p-6 sm:rounded-none flex flex-col items-center justify-around">
         <DialogTitle>Full-screen dialog</DialogTitle>
         <DialogDescription>Useful for immersive experiences.</DialogDescription>
         <div className="mt-4">Large content goes here...</div>
@@ -267,38 +267,40 @@ function NeoDialogDocPage() {
         </Dialog>} code={demoCode} />
       </DocSection>
 
-      <DocSection id="examples" title="Examples">
-        <ShowcaseSurface>
-          <InlineWrap>
-            <div className="flex flex-col gap-4">
-              <div>
-                <h4 className="mb-2 font-medium">Confirm Dialog</h4>
-                <Codepreview
-                  preview={<ConfirmDialogDemo />}
-                  code={confirmCode}
-                />
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-medium">Form Dialog</h4>
-                <Codepreview preview={<FormDialogDemo />} code={formCode} />
-              </div>
-
-              <div>
-                <h4 className="mb-2 font-medium">Full-screen Dialog</h4>
-                <Codepreview
-                  preview={<FullscreenDialogDemo />}
-                  code={fullscreenCode}
-                />
-              </div>
-            </div>
-          </InlineWrap>
-        </ShowcaseSurface>
-      </DocSection>
-
       <DocSection id="installation" title="Installation">
         <CodeBlock code={installCode} />
       </DocSection>
+
+      <DocSection id="examples" title="Examples">
+        <ShowcaseSurface type="bg">
+          {/* <InlineWrap> */}
+          <div className="flex flex-col gap-4 w-full">
+            <div>
+              <h4 className="mb-2 font-medium">Confirm Dialog</h4>
+              <Codepreview
+                preview={<ConfirmDialogDemo />}
+                code={confirmCode}
+              />
+            </div>
+
+            <div>
+              <h4 className="mb-2 font-medium">Form Dialog</h4>
+              <Codepreview preview={<FormDialogDemo />} code={formCode} />
+            </div>
+
+            <div>
+              <h4 className="mb-2 font-medium">Full-screen Dialog</h4>
+              <Codepreview
+                preview={<FullscreenDialogDemo />}
+                code={fullscreenCode}
+              />
+            </div>
+          </div>
+          {/* </InlineWrap> */}
+        </ShowcaseSurface>
+      </DocSection>
+
+
 
       <DocSection id="props" title="Props">
         <div className="py-4">

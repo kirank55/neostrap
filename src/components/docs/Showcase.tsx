@@ -1,5 +1,7 @@
 import React from "react"
 
+import { cn } from "@/lib/utils"
+
 type LabeledItemProps = {
   label: string
   children: React.ReactNode
@@ -17,11 +19,18 @@ export function LabeledItem({ label, children, widthClass = "w-48" }: LabeledIte
 
 type ShowcaseSurfaceProps = {
   children: React.ReactNode
+  type?: "border" | "bg"
 }
 
-export function ShowcaseSurface({ children }: ShowcaseSurfaceProps) {
+export function ShowcaseSurface({ children, type = "border" }: ShowcaseSurfaceProps) {
   return (
-    <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
+    <div
+      className={cn(
+        "rounded-xl p-4",
+        type === "border" && "border border-border/60 bg-card/60 shadow-sm",
+        type === "bg" && "bg-(--primary)/50"
+      )}
+    >
       {children}
     </div>
   )
