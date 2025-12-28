@@ -52,7 +52,7 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
           size="sm"
           // variant={mode === "preview" ? "brutal" : "brutal"}
           onClick={() => setMode("preview")}
-          className={mode === "preview" ? "shadow-none hover:translate-y-0" : "cursor-pointer"}
+          className={mode === "preview" ? "shadow-none hover:translate-0" : "cursor-pointer"}
         >
           Preview
         </NeoButton>
@@ -60,7 +60,7 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
           size="sm"
           // variant={mode === "code" ? "brutal" : "brutal"}
           onClick={() => setMode("code")}
-          className={mode === "code" ? "shadow-none hover:translate-y-0" : "cursor-pointer"}
+          className={mode === "code" ? "shadow-none hover:translate-0" : "cursor-pointer"}
         >
           Code
         </NeoButton>

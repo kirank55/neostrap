@@ -13,7 +13,7 @@ const cardVariants = cva(
     variants: {
       variant: {
         brutal: `bg-[var(--primary)] ${brutalShadow}`,
-        outline: "bg-white",
+        outline: "bg-white rounded-none",
       },
     },
     defaultVariants: {
@@ -26,7 +26,7 @@ type CardVariant = "brutal" | "outline"
 
 interface NeoCardProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants> {}
+  VariantProps<typeof cardVariants> { }
 
 function NeoCard({ className, variant = "brutal", ...props }: NeoCardProps) {
   return (
@@ -39,7 +39,7 @@ function NeoCard({ className, variant = "brutal", ...props }: NeoCardProps) {
   )
 }
 
-interface NeoCardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface NeoCardHeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 function NeoCardHeader({ className, ...props }: NeoCardHeaderProps) {
   return (
@@ -51,7 +51,7 @@ function NeoCardHeader({ className, ...props }: NeoCardHeaderProps) {
   )
 }
 
-interface NeoCardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+interface NeoCardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> { }
 
 function NeoCardTitle({ className, ...props }: NeoCardTitleProps) {
   return (
@@ -63,7 +63,7 @@ function NeoCardTitle({ className, ...props }: NeoCardTitleProps) {
   )
 }
 
-interface NeoCardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+interface NeoCardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> { }
 
 function NeoCardDescription({ className, ...props }: NeoCardDescriptionProps) {
   return (
@@ -75,7 +75,7 @@ function NeoCardDescription({ className, ...props }: NeoCardDescriptionProps) {
   )
 }
 
-interface NeoCardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface NeoCardContentProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 function NeoCardContent({ className, ...props }: NeoCardContentProps) {
   return (
@@ -87,7 +87,7 @@ function NeoCardContent({ className, ...props }: NeoCardContentProps) {
   )
 }
 
-interface NeoCardFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface NeoCardFooterProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 function NeoCardFooter({ className, ...props }: NeoCardFooterProps) {
   return (

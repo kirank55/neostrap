@@ -9,8 +9,7 @@ const dropdownTriggerVariants = cva(
     variants: {
       variant: {
         brutal: "bg-amber-300 text-black border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5",
-        regular: "bg-white text-black border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5",
-        outline: "bg-transparent text-black border-black hover:bg-black/5",
+        outline: "bg-transparent text-black border-black hover:bg-black/5 shadow-none",
       },
       size: {
         sm: "h-9 text-sm px-3",
@@ -31,8 +30,7 @@ const dropdownContentVariants = cva(
     variants: {
       variant: {
         brutal: "bg-amber-50",
-        regular: "bg-white",
-        outline: "bg-white",
+        outline: "bg-white shadow-none rounded-none",
       },
     },
     defaultVariants: {
@@ -47,7 +45,6 @@ const dropdownItemVariants = cva(
     variants: {
       variant: {
         brutal: "hover:bg-amber-300 focus:bg-amber-300",
-        regular: "hover:bg-gray-100 focus:bg-gray-100",
         outline: "hover:bg-gray-100 focus:bg-gray-100",
       },
     },
@@ -57,12 +54,11 @@ const dropdownItemVariants = cva(
   }
 )
 
-type DropdownVariant = "brutal" | "regular" | "outline"
+type DropdownVariant = "brutal" | "outline"
 type DropdownSize = "sm" | "default" | "lg"
 
 const variantOptions: { variant: DropdownVariant; label: string }[] = [
   { variant: "brutal", label: "Brutal" },
-  { variant: "regular", label: "Regular" },
   { variant: "outline", label: "Outline" },
 ]
 

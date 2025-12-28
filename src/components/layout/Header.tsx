@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { BookOpen, GitFork } from "lucide-react"
+import { BookOpen, Star } from "lucide-react"
 import NeoButton from "@/components/ui/NeoButton"
 
 /**
@@ -39,7 +39,7 @@ function Header() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <GitFork className="size-4" />
+            <Star className="size-4" />
             GitHub
           </a>
         </NeoButton>

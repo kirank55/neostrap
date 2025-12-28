@@ -1,5 +1,6 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import NeoButton from "../ui/NeoButton";
 
 interface NavComponent {
   label: string;
@@ -26,7 +27,7 @@ const navSections: NavSection[] = [
   },
   {
     label: "Dropdowns",
-    components: [{ label: "NeoAccordion", to: "/docs/NeoAccordion" },{ label: "NeoDropdown", to: "/docs/NeoDropdown" }],
+    components: [{ label: "NeoAccordion", to: "/docs/NeoAccordion" }, { label: "NeoDropdown", to: "/docs/NeoDropdown" }],
   },
   {
     label: "Cards",
@@ -35,7 +36,7 @@ const navSections: NavSection[] = [
   {
     label: "Inputs",
     components: [{ label: "NeoInput", to: "/docs/NeoInput" },
-      { label: "NeoSwitch", to: "/docs/NeoSwitch" }
+    { label: "NeoSwitch", to: "/docs/NeoSwitch" }
     ],
   },
 ];
@@ -60,19 +61,24 @@ function DocLayout() {
                   {section.components.map((component) => {
                     const isActive = location.pathname === component.to;
                     return (
-                      <Link
+                      <NeoButton
                         key={component.to}
-                        to={component.to}
-                        aria-current={isActive ? "page" : undefined}
+                        asChild
+                        variant={isActive ? "outline" : "link"}
                         className={cn(
                           "rounded-lg px-3 py-2 text-left font-medium transition-colors",
                           "hover:bg-accent hover:text-accent-foreground",
                           isActive &&
-                            "bg-accent text-accent-foreground border border-border/70"
+                          "bg-accent text-accent-foreground border border-border/70"
                         )}
                       >
-                        {component.label}
-                      </Link>
+                        <Link
+                          to={component.to}
+                          aria-current={isActive ? "page" : undefined}
+                        >
+                          {component.label}
+                        </Link>
+                      </NeoButton>
                     );
                   })}
                 </div>

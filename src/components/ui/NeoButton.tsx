@@ -8,7 +8,7 @@ const baseBrutalStyle = [
   "border-2 border-black",
   "shadow-[5px_5px_0_#000]",
   // "hover:-translate-y-[-4px] hover:translate-x-[-4px] hover:shadow-none",
-  "hover:-translate-y-[-5px] hover:translate-x-[0px] hover:shadow-none ",
+  "hover:-translate-y-[-5px] hover:translate-x-[5px] hover:shadow-none ",
   // "hover:-translate-y-[2px] hover:translate-x-[2px] hover:shadow-[4px_4px_0_#000]",
   "active:translate-x-[1px] active:-translate-y-[1px] active:shadow-[2px_2px_0_#000]",
   "focus-visible:ring-black/20 focus-visible:border-black",
@@ -28,8 +28,9 @@ const buttonVariants = cva(
         success: `bg-green-500 text-white ${baseBrutalStyle}`,
         inverter: `bg-black text-[var(--color-bg)] hover:bg-[var(--color-bg)] hover:text-black ${baseBrutalStyle}`,
         outline:
-          "border-2 border-black bg-white text-black hover:bg-accent hover:text-accent-foreground",
+          "border-2 border-black rounded-none bg-white text-black hover:bg-accent hover:text-accent-foreground",
         disabled: `bg-gray-400 text-gray-600 opacity-60 cursor-not-allowed ${baseBrutalStyle}`,
+        link: "text-primary hover:underline decoration-[3px] underline-offset-4",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -91,6 +92,7 @@ export const variantOptions = [
   { variant: "disabled", label: "Disabled", disabled: true },
   { variant: "danger", label: "Danger", disabled: false },
   { variant: "success", label: "Success", disabled: false },
+  { variant: "link", label: "Link", disabled: false },
 ] as const
 
 export const sizeOptions = [
