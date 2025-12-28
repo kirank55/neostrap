@@ -4,7 +4,8 @@ import DocSection from "@/components/docs/DocSection";
 
 import { InlineWrap, ShowcaseSurface } from "@/components/docs/Showcase";
 
-import NeoSwitch, {
+import {
+  NeoSwitch,
   variantOptions,
   sizeOptions,
 } from "@/components/ui/NeoSwitch";
@@ -46,7 +47,7 @@ const switchProps: PropDefinition[] = [
   },
 ];
 
-const switchCode = `import NeoSwitch from "@/components/ui/NeoSwitch
+const switchCode = `import { NeoSwitch } from "@/components/ui/NeoSwitch
 
 export function SwitchDemo() {
   return <NeoSwitch>Toggle me</NeoSwitch>

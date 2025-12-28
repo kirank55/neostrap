@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
-import NeoButton from "@/components/ui/NeoButton";
+import { NeoButton } from "@/components/ui/NeoButton";
 
 type CodeBlockProps = {
   code: string;

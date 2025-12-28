@@ -80,7 +80,7 @@ function NeoButton({
   )
 }
 
-export default NeoButton
+export { NeoButton }
 
 export { buttonVariants }
 export type { ButtonProps }

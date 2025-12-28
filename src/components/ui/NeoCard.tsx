@@ -2,7 +2,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import NeoButton from "./NeoButton"
+import { NeoButton } from "./NeoButton"
 
 const baseStyle = "border-2 border-black"
 const brutalShadow = "shadow-[4px_4px_0_#000]"

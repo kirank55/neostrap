@@ -1,5 +1,5 @@
 import * as React from "react"
-import NeoButton from "@/components/ui/NeoButton"
+import { NeoButton } from "@/components/ui/NeoButton"
 import { CodeBlock, Codepreview } from "@/components/CodeDemo"
 import PropsTable, { type PropDefinition } from "@/components/PropsTable"
 import DocSection from "@/components/docs/DocSection"
@@ -50,7 +50,7 @@ const dialogProps: PropDefinition[] = [
   },
 ]
 
-const demoCode = `import NeoButton from "@/components/ui/NeoButton"
+const demoCode = `import { NeoButton } from "@/components/ui/NeoButton"
 import {
   Dialog,
   DialogTrigger,

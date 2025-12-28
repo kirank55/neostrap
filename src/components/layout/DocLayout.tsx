@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import NeoButton from "../ui/NeoButton";
+import { NeoButton } from "../ui/NeoButton";
 
 interface NavComponent {
   label: string;

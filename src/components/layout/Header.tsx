@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { BookOpen, Star } from "lucide-react"
-import NeoButton from "@/components/ui/NeoButton"
+import { NeoButton } from "@/components/ui/NeoButton"
 
 /**
  * Header component that renders a sticky navigation bar at the top of the page.

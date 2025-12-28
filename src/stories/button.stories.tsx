@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import NeoButton from "@/components/ui/NeoButton"
+import { NeoButton } from "@/components/ui/NeoButton"
 
 
 const meta = {

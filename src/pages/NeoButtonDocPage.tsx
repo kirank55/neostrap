@@ -1,10 +1,10 @@
-import NeoButton, { variantOptions, sizeOptions } from "@/components/ui/NeoButton"
+import { NeoButton, variantOptions, sizeOptions } from "@/components/ui/NeoButton"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import PropsTable, { type PropDefinition } from "@/components/PropsTable"
 import DocSection from "@/components/docs/DocSection"
 import { ShowcaseSurface, InlineWrap } from "@/components/docs/Showcase"
 import DocPageHeader from "@/components/docs/DocPageHeader"
- 
+
 const buttonProps: PropDefinition[] = [
   {
     name: "children",
@@ -44,7 +44,7 @@ const buttonProps: PropDefinition[] = [
   },
 ]
 
-const buttonCode = `import NeoButton from "@/components/ui/NeoButton"
+const buttonCode = `import { NeoButton } from "@/components/ui/NeoButton"
 
 export function ButtonDemo() {
   return <NeoButton>Click me</NeoButton>
@@ -63,7 +63,7 @@ function NeoButtonDocPage() {
           description="Neo-brutalist primary button plus all variants and sizes."
         />
         <Codepreview preview={<NeoButton>Punch Me</NeoButton>} code={buttonCode} />
-      </DocSection> 
+      </DocSection>
 
       <DocSection id="installation" title="Installation">
         <CodeBlock code={installCode} />

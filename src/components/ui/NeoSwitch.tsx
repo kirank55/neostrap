@@ -98,9 +98,7 @@ function NeoSwitch({
 }
 NeoSwitch.displayName = SwitchPrimitives.Root.displayName
 
-export default NeoSwitch
-
-export { switchVariants, switchThumbVariants }
+export { NeoSwitch, switchVariants, switchThumbVariants }
 export type { SwitchProps }
 
 export const variantOptions = [
