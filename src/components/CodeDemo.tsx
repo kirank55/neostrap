@@ -50,17 +50,17 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
       <div className="flex items-center gap-6 pt-4 pb-1">
         <NeoButton
           size="sm"
-          variant={mode === "preview" ? "brutal" : "outline"}
+          // variant={mode === "preview" ? "brutal" : "brutal"}
           onClick={() => setMode("preview")}
-          className={mode === "code" ? "cursor-pointer" : ""}
+          className={mode === "preview" ? "shadow-none hover:translate-y-0" : "cursor-pointer"}
         >
           Preview
         </NeoButton>
         <NeoButton
           size="sm"
-          variant={mode === "code" ? "brutal" : "outline"}
+          // variant={mode === "code" ? "brutal" : "brutal"}
           onClick={() => setMode("code")}
-          className={mode === "preview" ? "cursor-pointer" : ""}
+          className={mode === "code" ? "shadow-none hover:translate-y-0" : "cursor-pointer"}
         >
           Code
         </NeoButton>
