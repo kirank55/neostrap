@@ -1,11 +1,9 @@
 import {
-  NeoDropdown,
-  DropdownTrigger,
-  DropdownContent,
-  DropdownItem,
-  DropdownSeparator,
-  variantOptions,
-  sizeOptions,
+  DropdownMenu,
+  NeoDropdownTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
 } from "@/components/ui/NeoDropdown"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import DocSection from "@/components/docs/DocSection"
@@ -20,6 +18,15 @@ const dropdownProps: PropDefinition[] = [
     default: "N/A",
     description: "The dropdown trigger and content components.",
   },
+]
+
+const triggerProps: PropDefinition[] = [
+  {
+    name: "children",
+    type: "React.ReactNode",
+    default: "N/A",
+    description: "The content of the trigger button.",
+  },
   {
     name: "variant",
     type: '"brutal" | "regular" | "outline"',
@@ -31,15 +38,6 @@ const dropdownProps: PropDefinition[] = [
     type: '"sm" | "default" | "lg"',
     default: '"default"',
     description: "The size of the dropdown trigger.",
-  },
-]
-
-const triggerProps: PropDefinition[] = [
-  {
-    name: "children",
-    type: "React.ReactNode",
-    default: "N/A",
-    description: "The content of the trigger button.",
   },
   {
     name: "className",
@@ -92,40 +90,52 @@ const itemProps: PropDefinition[] = [
 ]
 
 const dropdownCode = `import {
-  NeoDropdown,
-  DropdownTrigger,
-  DropdownContent,
-  DropdownItem,
-  DropdownSeparator,
+  DropdownMenu,
+  NeoDropdownTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
 } from "@/components/ui/NeoDropdown"
 
 export function DropdownDemo() {
   return (
-    <NeoDropdown>
-      <DropdownTrigger>Options</DropdownTrigger>
-      <DropdownContent>
-        <DropdownItem>Profile</DropdownItem>
-        <DropdownItem>Settings</DropdownItem>
-        <DropdownSeparator />
-        <DropdownItem>Logout</DropdownItem>
-      </DropdownContent>
-    </NeoDropdown>
+    <DropdownMenu>
+      <NeoDropdownTrigger>Options</NeoDropdownTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Logout</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }`
 
 const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neodropdown.json`
 
+const variantOptions = [
+  { variant: "brutal", label: "Brutal" },
+  { variant: "regular", label: "Regular" },
+  { variant: "outline", label: "Outline" },
+] as const
+
+const sizeOptions = [
+  { size: "sm", label: "Small" },
+  { size: "default", label: "Default" },
+  { size: "lg", label: "Large" },
+] as const
+
 function DropdownDemo({ variant, size }: { variant?: "brutal" | "regular" | "outline"; size?: "sm" | "default" | "lg" }) {
   return (
-    <NeoDropdown variant={variant} size={size}>
-      <DropdownTrigger>Options</DropdownTrigger>
-      <DropdownContent>
-        <DropdownItem>Profile</DropdownItem>
-        <DropdownItem>Settings</DropdownItem>
-        <DropdownSeparator />
-        <DropdownItem>Logout</DropdownItem>
-      </DropdownContent>
-    </NeoDropdown>
+    <DropdownMenu>
+      <NeoDropdownTrigger variant={variant} size={size}>Options</NeoDropdownTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Logout</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 
@@ -170,7 +180,7 @@ function NeoDropdownDocPage() {
       </DocSection>
 
 
-      <DocSection id="dropdown-props" title="Dropdown Props">
+      <DocSection id="dropdown-props" title="DropdownMenu Props">
         <div className="py-4">
           <PropsTable props={dropdownProps} />
         </div>

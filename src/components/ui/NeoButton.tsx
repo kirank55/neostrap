@@ -54,11 +54,13 @@ type ButtonProps = React.ComponentProps<"button"> &
   }
 
 /**
- * Button component for Neostrap UI
- * Supports variant prop for different styles and size prop for scaling
+ * Primary button component with neo-brutalist styling.
+ * Supports various variants, sizes, and can be rendered as a child component.
+ *
  * @example
- * <NeoButton variant="brutal">Click me</NeoButton>
- * <NeoButton variant="outline" size="lg">Learn more</NeoButton>
+ * <NeoButton variant="brutal" onClick={() => console.log('clicked')}>
+ *   Click me
+ * </NeoButton>
  */
 function NeoButton({
   className,

@@ -65,11 +65,28 @@ const accordionContentVariants = cva(
   }
 )
 
+/**
+ * Defines the visual style of the accordion.
+ * - `brutal`: High contrast, neo-brutalist style with heavy borders and shadows.
+ * - `outline`: Clean, minimalist outline style.
+ */
 type AccordionVariant = "brutal" | "outline"
 
 type NeoAccordionProps = React.ComponentProps<typeof AccordionPrimitive.Root> &
   VariantProps<typeof accordionVariants>
 
+/**
+ * The root container for the accordion.
+ * Manages the state and behavior of the accordion items.
+ *
+ * @example
+ * <NeoAccordion type="single" collapsible>
+ *   <NeoAccordionItem value="item-1">
+ *     <NeoAccordionTrigger>Is it accessible?</NeoAccordionTrigger>
+ *     <NeoAccordionContent>Yes.</NeoAccordionContent>
+ *   </NeoAccordionItem>
+ * </NeoAccordion>
+ */
 function NeoAccordion({
   className,
   variant = "brutal",
@@ -89,6 +106,10 @@ type NeoAccordionItemProps = React.ComponentProps<typeof AccordionPrimitive.Item
   variant?: AccordionVariant
 }
 
+/**
+ * An individual item within the accordion.
+ * Contains the header (trigger) and content.
+ */
 function NeoAccordionItem({ className, variant = "brutal", ...props }: NeoAccordionItemProps) {
   return (
     <AccordionPrimitive.Item
@@ -103,6 +124,10 @@ type NeoAccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.T
   variant?: AccordionVariant
 }
 
+/**
+ * The clickable header that toggles the accordion content.
+ * Includes a chevron icon that rotates based on state.
+ */
 function NeoAccordionTrigger({
   className,
   children,
@@ -127,6 +152,10 @@ type NeoAccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.C
   variant?: AccordionVariant
 }
 
+/**
+ * The collapsible content section associated with an item.
+ * Animates height when opening/closing.
+ */
 function NeoAccordionContent({
   className,
   children,
@@ -159,13 +188,13 @@ export type {
 }
 
 export const variantOptions = [
-    { variant: "brutal", label: "Brutal" },
-    { variant: "outline", label: "Outline" },
+  { variant: "brutal", label: "Brutal" },
+  { variant: "outline", label: "Outline" },
 ] as const
 
 export const behaviorOptions = [
-    { type: "single", label: "Single open", collapsible: true },
-    { type: "multiple", label: "Multiple open" },
-    { type: "single", label: "Non-Collapsible", collapsible: false, defaultValue: "item-1" },
-    { type: "single", label: "Default Open", collapsible: true, defaultValue: "item-1" },
+  { type: "single", label: "Single open", collapsible: true },
+  { type: "multiple", label: "Multiple open" },
+  { type: "single", label: "Non-Collapsible", collapsible: false, defaultValue: "item-1" },
+  { type: "single", label: "Default Open", collapsible: true, defaultValue: "item-1" },
 ] as const

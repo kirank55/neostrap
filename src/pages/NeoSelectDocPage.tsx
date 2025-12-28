@@ -1,4 +1,12 @@
-import { NeoSelect, variantOptions, sizeOptions } from "@/components/ui/NeoSelect"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/NeoSelect"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import DocSection from "@/components/docs/DocSection"
 import { LabeledItem, ShowcaseSurface, InlineWrap } from "@/components/docs/Showcase"
@@ -10,65 +18,77 @@ const selectProps: PropDefinition[] = [
     name: "children",
     type: "React.ReactNode",
     default: "N/A",
-    description: "The option elements to be displayed inside the select.",
+    description: "The content of the select.",
   },
   {
     name: "variant",
-    type: '"brutal" | "regular" | "disabled"',
+    type: '"brutal" | "regular" | "plain"',
     default: '"brutal"',
-    description: "The visual style variant of the select.",
-  },
-  {
-    name: "size",
-    type: '"sm" | "default" | "lg"',
-    default: '"default"',
-    description: "The size of the select.",
-  },
-  {
-    name: "className",
-    type: "string (optional)",
-    default: "N/A",
-    description: "Additional CSS classes to apply to the select for styling.",
-  },
-  {
-    name: "disabled",
-    type: "boolean (optional)",
-    default: "false",
-    description: "Whether the select is disabled.",
-  },
-  {
-    name: "onChange",
-    type: "(e: ChangeEvent) => void (optional)",
-    default: "N/A",
-    description: "Function to be called when the selection changes.",
+    description: "The visual style variant of the trigger (on SelectTrigger).",
   },
 ]
 
-const selectCode = `import { NeoSelect } from "@/components/ui/NeoSelect"
+const selectCode = `import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/NeoSelect"
 
 export function SelectDemo() {
   return (
-    <NeoSelect>
-      <option value="">Choose an option</option>
-      <option value="alpha">Alpha</option>
-      <option value="beta">Beta</option>
-      <option value="gamma">Gamma</option>
-    </NeoSelect>
+    <Select>
+      <SelectTrigger className="w-[280px]">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="blueberry">Blueberry</SelectItem>
+          <SelectItem value="grapes">Grapes</SelectItem>
+          <SelectItem value="pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   )
 }`
 
 const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neoselect.json`
 
-const demoOptions = (
-  <>
-    <option value="">Choose an option</option>
-    <option value="alpha">Alpha</option>
-    <option value="beta">Beta</option>
-    <option value="gamma">Gamma</option>
-  </>
-)
+const variantOptions = [
+  { variant: "brutal", label: "Brutal" },
+  { variant: "outline", label: "Outline" },
+  { variant: "disabled", label: "Disabled" },
+] as const
+
+const sizeOptions = [
+  { size: "sm", label: "Small" },
+  { size: "default", label: "Default" },
+  { size: "lg", label: "Large" },
+] as const
 
 function NeoSelectDocPage() {
+
+  const renderSelect = (props: any = {}) => (
+    <Select>
+      <SelectTrigger className="w-[200px]" {...props}>
+        <SelectValue placeholder="Select a specific option used for testing" />
+      </SelectTrigger>
+      <SelectContent variant={props.variant}>
+        <SelectGroup>
+          <SelectLabel>Options</SelectLabel>
+          <SelectItem value="alpha">Alpha</SelectItem>
+          <SelectItem value="beta">Beta</SelectItem>
+          <SelectItem value="gamma">Gamma</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  )
 
   return (
     <>
@@ -76,23 +96,21 @@ function NeoSelectDocPage() {
         <DocPageHeader
           category="Select"
           title="Neostrap UI Select"
-          description="Neo-brutalist select dropdown plus all variants and sizes."
+          description="Displays a list of options for the user to pick from—triggered by a button."
         />
-        <Codepreview preview={<NeoSelect>{demoOptions}</NeoSelect>} code={selectCode} />
+        <Codepreview preview={renderSelect()} code={selectCode} />
       </DocSection>
-
 
       <DocSection id="installation" title="Installation">
         <CodeBlock code={installCode} />
       </DocSection>
 
-
       <DocSection id="variants" title="Variants">
         <ShowcaseSurface>
           <InlineWrap>
-            {variantOptions.map(({ variant, label, disabled = false }) => (
+            {variantOptions.map(({ variant, label }) => (
               <LabeledItem key={label} label={label}>
-                <NeoSelect variant={variant} disabled={disabled}>{demoOptions}</NeoSelect>
+                {renderSelect({ variant })}
               </LabeledItem>
             ))}
           </InlineWrap>
@@ -104,7 +122,7 @@ function NeoSelectDocPage() {
           <InlineWrap alignEnd>
             {sizeOptions.map(({ size, label }) => (
               <LabeledItem key={label} label={label}>
-                <NeoSelect size={size}>{demoOptions}</NeoSelect>
+                {renderSelect({ size })}
               </LabeledItem>
             ))}
           </InlineWrap>

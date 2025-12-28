@@ -49,6 +49,10 @@ const typeOptions: { type: InputType; label: string; placeholder: string }[] = [
 type NeoInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> &
   VariantProps<typeof inputVariants>
 
+/**
+ * Input component with neo-brutalist styling.
+ * Supports various types (text, number, password).
+ */
 const NeoInput = React.forwardRef<HTMLInputElement, NeoInputProps>(
   ({ className, variant, size, type = "text", ...props }, ref) => {
     return (

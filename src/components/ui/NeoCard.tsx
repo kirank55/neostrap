@@ -22,12 +22,19 @@ const cardVariants = cva(
   }
 )
 
+/**
+ * Visual variant for the card.
+ */
 type CardVariant = "brutal" | "outline"
 
 interface NeoCardProps
   extends React.HTMLAttributes<HTMLDivElement>,
   VariantProps<typeof cardVariants> { }
 
+/**
+ * Root container for card content.
+ * Applies base styles including border and shadow based on the variant.
+ */
 function NeoCard({ className, variant = "brutal", ...props }: NeoCardProps) {
   return (
     <div
@@ -41,6 +48,9 @@ function NeoCard({ className, variant = "brutal", ...props }: NeoCardProps) {
 
 interface NeoCardHeaderProps extends React.HTMLAttributes<HTMLDivElement> { }
 
+/**
+ * Container for the card's header section.
+ */
 function NeoCardHeader({ className, ...props }: NeoCardHeaderProps) {
   return (
     <div
@@ -53,6 +63,9 @@ function NeoCardHeader({ className, ...props }: NeoCardHeaderProps) {
 
 interface NeoCardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> { }
 
+/**
+ * The title element of the card.
+ */
 function NeoCardTitle({ className, ...props }: NeoCardTitleProps) {
   return (
     <h3
@@ -65,6 +78,9 @@ function NeoCardTitle({ className, ...props }: NeoCardTitleProps) {
 
 interface NeoCardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> { }
 
+/**
+ * A description or subtitle for the card.
+ */
 function NeoCardDescription({ className, ...props }: NeoCardDescriptionProps) {
   return (
     <p
@@ -77,6 +93,9 @@ function NeoCardDescription({ className, ...props }: NeoCardDescriptionProps) {
 
 interface NeoCardContentProps extends React.HTMLAttributes<HTMLDivElement> { }
 
+/**
+ * The main content area of the card.
+ */
 function NeoCardContent({ className, ...props }: NeoCardContentProps) {
   return (
     <div
@@ -89,6 +108,9 @@ function NeoCardContent({ className, ...props }: NeoCardContentProps) {
 
 interface NeoCardFooterProps extends React.HTMLAttributes<HTMLDivElement> { }
 
+/**
+ * Container for the card's footer, typically used for actions.
+ */
 function NeoCardFooter({ className, ...props }: NeoCardFooterProps) {
   return (
     <div
@@ -108,6 +130,9 @@ interface DefaultCardProps {
   className?: string
 }
 
+/**
+ * A pre-configured card with title and description.
+ */
 function DefaultCard({ title, description, variant = "brutal", className }: DefaultCardProps) {
   return (
     <NeoCard variant={variant} className={cn("max-w-sm", className)}>
@@ -128,6 +153,9 @@ interface CardWithButtonProps {
   className?: string
 }
 
+/**
+ * A pre-configured card with title, description, and an action button in the footer.
+ */
 function CardWithButton({
   title,
   description,
@@ -173,6 +201,9 @@ interface TestimonialCardProps {
   className?: string
 }
 
+/**
+ * A pre-configured card for displaying testimonials/quotes.
+ */
 function TestimonialCard({
   quote,
   author,

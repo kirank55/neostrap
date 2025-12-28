@@ -70,11 +70,11 @@ type SwitchProps = React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> 
   VariantProps<typeof switchVariants>
 
 /**
- * NeoSwitch component for Neostrap UI
- * Supports variant prop for different styles and size prop for scaling
+ * Switch toggle component with neo-brutalist styling.
+ * Supports various variants and sizes.
+ *
  * @example
- * <NeoSwitch variant="brutal" />
- * <NeoSwitch variant="outline" size="lg" />
+ * <NeoSwitch variant="brutal" checked={isChecked} onCheckedChange={setIsChecked} />
  */
 function NeoSwitch({
   className,
