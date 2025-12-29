@@ -87,12 +87,12 @@ SelectScrollDownButton.displayName =
   SelectPrimitive.ScrollDownButton.displayName
 
 const selectContentVariants = cva(
-  "relative z-50 max-h-96 min-w-32 overflow-hidden rounded-lg border-2 border-black text-black data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+  "relative z-50 max-h-96 min-w-32 overflow-hidden rounded-lg border-2 border-black text-black data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-white",
   {
     variants: {
       variant: {
-        brutal: "bg-white shadow-[4px_4px_0_#000]",
-        outline: "bg-white",
+        brutal: "shadow-[4px_4px_0_#000]",
+        outline: "rounded-none",
       },
     },
     defaultVariants: {
@@ -122,7 +122,7 @@ const SelectContent = React.forwardRef<
         className={cn(
           "p-1",
           position === "popper" &&
-          "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+          "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width)"
         )}
       >
         {children}
@@ -152,7 +152,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm font-medium outline-none border-2 border-transparent focus:bg-amber-300 focus:border-black focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm font-medium outline-none border-2 border-transparent focus:bg-(--primary) focus:border-black focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
       className
     )}
     {...props}

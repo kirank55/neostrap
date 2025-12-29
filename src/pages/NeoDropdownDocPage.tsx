@@ -29,7 +29,7 @@ const triggerProps: PropDefinition[] = [
   },
   {
     name: "variant",
-    type: '"brutal" | "regular" | "outline"',
+    type: '"brutal" | "outline"',
     default: '"brutal"',
     description: "The visual style variant of the dropdown.",
   },
@@ -115,7 +115,6 @@ const installCode = `npx shadcn@latest add https://neostrapui.pages.dev/r/neodro
 
 const variantOptions = [
   { variant: "brutal", label: "Brutal" },
-  { variant: "regular", label: "Regular" },
   { variant: "outline", label: "Outline" },
 ] as const
 
@@ -125,11 +124,11 @@ const sizeOptions = [
   { size: "lg", label: "Large" },
 ] as const
 
-function DropdownDemo({ variant, size }: { variant?: "brutal" | "regular" | "outline"; size?: "sm" | "default" | "lg" }) {
+function DropdownDemo({ variant, size }: { variant?: "brutal" | "outline"; size?: "sm" | "default" | "lg" }) {
   return (
     <DropdownMenu>
       <NeoDropdownTrigger variant={variant} size={size}>Options</NeoDropdownTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent variant={variant}>
         <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />

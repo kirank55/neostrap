@@ -24,8 +24,6 @@ const buttonVariants = cva(
     variants: {
       variant: {
         brutal: `bg-[var(--primary)] text-black ${baseBrutalStyle}`,
-        danger: `bg-red-500 text-white ${baseBrutalStyle}`,
-        success: `bg-green-500 text-white ${baseBrutalStyle}`,
         inverter: `bg-black text-[var(--color-bg)] hover:bg-[var(--color-bg)] hover:text-black ${baseBrutalStyle}`,
         outline:
           "border-2 border-black rounded-none bg-white text-black hover:bg-accent hover:text-accent-foreground",
@@ -92,8 +90,6 @@ export const variantOptions = [
   { variant: "outline", label: "Outline", disabled: false },
   { variant: "inverter", label: "Inverter", disabled: false },
   { variant: "disabled", label: "Disabled", disabled: true },
-  { variant: "danger", label: "Danger", disabled: false },
-  { variant: "success", label: "Success", disabled: false },
   { variant: "link", label: "Link", disabled: false },
 ] as const
 

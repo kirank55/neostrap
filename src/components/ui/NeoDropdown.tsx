@@ -26,8 +26,7 @@ const dropdownTriggerVariants = cva(
     variants: {
       variant: {
         brutal: "bg-amber-300 text-black border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5 data-[state=open]:translate-x-0.5 data-[state=open]:translate-y-0.5 data-[state=open]:shadow-[2px_2px_0_#000]",
-        regular: "bg-white text-black border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5 data-[state=open]:translate-x-0.5 data-[state=open]:translate-y-0.5 data-[state=open]:shadow-[2px_2px_0_#000]",
-        outline: "bg-transparent text-black border-black hover:bg-black/5 shadow-none",
+        outline: "bg-transparent text-black border-black hover:bg-black/5 shadow-none rounded-none",
       },
       size: {
         sm: "h-9 text-sm px-3",
@@ -38,6 +37,23 @@ const dropdownTriggerVariants = cva(
     defaultVariants: {
       variant: "brutal",
       size: "default",
+    },
+  }
+)
+
+
+
+const dropdownContentVariants = cva(
+  "bg-white z-50 min-w-48 overflow-hidden rounded-lg border-2 p-1 text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+  {
+    variants: {
+      variant: {
+        brutal: "border-black  text-black shadow-[4px_4px_0_#000]",
+        outline: "shadow-none rounded-none",
+      },
+    },
+    defaultVariants: {
+      variant: "brutal",
     },
   }
 )
@@ -102,16 +118,14 @@ DropdownMenuSubContent.displayName =
 
 const DropdownMenuContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, sideOffset = 4, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> &
+  VariantProps<typeof dropdownContentVariants>
+>(({ className, sideOffset = 4, variant, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={cn(
-        "z-50 min-w-48 overflow-hidden rounded-lg border-2 border-black bg-white p-1 shadow-[4px_4px_0_#000] text-black data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-        className
-      )}
+      className={cn(dropdownContentVariants({ variant, className }))}
       {...props}
     />
   </DropdownMenuPrimitive.Portal>
