@@ -7,38 +7,29 @@
   --color-amber: #FEC437;
   --color-baby-blue: #C9D9F0;
   --color-lavender: #9A90CB;
-  
-  /* --color-bg: #f4f3f2; */
+
   --color-bg: theme(colors.amber.100);
   --color-text: #000;
 
-  --color-danger: #dc3545;
-  --color-success: #218838;
-
   --primary: var(--color-lavender);
-  /* --primary: var(--color-pink); */
-  /* --primary: #eee; */
   --secondary: var(--color-amber);
-
+  --accent: var(--color-pink);
+  --neutral: var(--color-baby-blue);
 }
 
 
-body{
+body {
   background-color: var(--color-bg);
-  /* background-color: #f2f3f4; */
   color: var(--color-text);
-  /* background-color: hsl(343, 98%, 95%); */
 }
 
-.container {
-  max-width: 1100px;
-}
 
-/* Add to your existing CSS */
+/* Accordion animations */
 @keyframes accordion-down {
   from {
     height: 0;
   }
+
   to {
     height: var(--radix-accordion-content-height);
   }
@@ -48,6 +39,7 @@ body{
   from {
     height: var(--radix-accordion-content-height);
   }
+
   to {
     height: 0;
   }

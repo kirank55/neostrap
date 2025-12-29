@@ -46,7 +46,7 @@ function DocLayout() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="container mx-auto flex px-6 py-10">
+      <div className="container max-w-[1100px] mx-auto flex px-6 py-10">
         <div className="grid w-full grid-cols-[220px_1fr] gap-8">
           <aside className="h-full p-4 shadow-md overflow-auto scrollbar-hide hover:scrollbar-default sticky top-16 max-h-screen">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
