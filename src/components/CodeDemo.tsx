@@ -67,7 +67,7 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
       </div>
 
       {mode === "preview" && (
-        <div className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-sm">
+        <div className="rounded-xl my-3 p-8 shadow-sm border-3 border-black">
           <div className="flex justify-center">{preview}</div>
         </div>
       )}

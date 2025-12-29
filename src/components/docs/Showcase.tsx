@@ -22,13 +22,13 @@ type ShowcaseSurfaceProps = {
   type?: "border" | "bg"
 }
 
-export function ShowcaseSurface({ children, type = "border" }: ShowcaseSurfaceProps) {
+export function ShowcaseSurface({ children, type = "bg" }: ShowcaseSurfaceProps) {
   return (
     <div
       className={cn(
-        "rounded-xl p-4",
+        "rounded-xl p-8",
         type === "border" && "border border-border/60 bg-card/60 shadow-sm",
-        type === "bg" && "bg-(--primary)/50"
+        type === "bg" && "border-3 border-black"
       )}
     >
       {children}

@@ -8,10 +8,20 @@
   --color-baby-blue: #C9D9F0;
   --color-lavender: #9A90CB;
 
-  --color-bg: theme(colors.amber.100);
+  /* --color-bg: theme(colors.amber.100); */
+  /* --color-bg: var(--color-amber); */
+  --color-bg: var(--color-pink);
   --color-text: #000;
 
-  --primary: var(--color-lavender);
+  /* --primary: var(--color-lavender); */
+  /* --primary: var(--color-pink); */
+  /* --primary: var(--color-baby-blue); */
+
+  /* --primary-bg: linear-gradient(90deg, var(--color-lavender) 0%, var(--color-baby-blue) 100%); */
+  /* --primary-bg: linear-gradient(90deg, var(--color-baby-blue) 0%, #fff 100%); */
+  --primary-bg: linear-gradient(90deg, #fff 0%, var(--color-pink) 100%);
+
+  /* --primary-bg-reverse: linear-gradient(90deg, rgba(254, 91, 214, 1) 0%, rgba(254, 196, 55, 1) 90%); */
   --secondary: var(--color-amber);
   --accent: var(--color-pink);
   --neutral: var(--color-baby-blue);
@@ -20,9 +30,25 @@
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-text);
+  /* background-color: var(--color-bg); */
+
+  background: var(--primary-bg);
+
 }
 
+header {
+  background-color: var(--color-amber);
+  /* background-color: #fff; */
+  /* background-color: inherit; */
+  /* background: var(--primary-bg); */
+
+}
+
+aside {
+  background: rgb(166 250 255 / 1)
+    /* background-color: #fff; */
+    /* background-color: inherit; */
+}
 
 /* Accordion animations */
 @keyframes accordion-down {

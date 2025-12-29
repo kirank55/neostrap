@@ -14,8 +14,8 @@ import { NeoButton } from "@/components/ui/NeoButton"
 function Header() {
   return (
     // <header className="sticky top-0 z-50 w-full border-b-2 border-black bg-(--color-bg) py-1">
-    <header className="sticky top-0 z-50 w-full border-b-2 border-black py-1">
-      <div className="container mx-auto flex h-14 items-center justify-between px-6">
+    <header className="bg-(--accent) sticky top-0 z-50 py-1 w-full">
+      <div className="w-full flex h-14 items-center justify-between px-6">
         {/* Left side: Logo and Docs button */}
         <div className="flex items-center gap-4">
 
