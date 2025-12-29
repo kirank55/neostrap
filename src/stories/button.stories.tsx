@@ -35,19 +35,6 @@ export const Brutal: Story = {
   },
 }
 
-export const Danger: Story = {
-  args: {
-    variant: "danger",
-    children: "Danger",
-  },
-}
-
-export const Success: Story = {
-  args: {
-    variant: "success",
-    children: "Success",
-  },
-}
 
 export const Inverter: Story = {
   args: {

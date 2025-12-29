@@ -118,7 +118,7 @@ export const DangerAction: Story = {
     render: () => (
         <Dialog>
             <DialogTrigger asChild>
-                <NeoButton variant="danger">Delete Account</NeoButton>
+                <NeoButton variant="brutal">Delete Account</NeoButton>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -130,7 +130,7 @@ export const DangerAction: Story = {
                 </DialogHeader>
                 <DialogFooter className="gap-2">
                     <NeoButton variant="brutal">Cancel</NeoButton>
-                    <NeoButton variant="danger">Delete Account</NeoButton>
+                    <NeoButton variant="brutal">Delete Account</NeoButton>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
