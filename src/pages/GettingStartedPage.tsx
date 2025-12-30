@@ -1,6 +1,6 @@
 import DocSection from "@/components/docs/DocSection"
 import { CodeBlock } from "@/components/CodeDemo"
-import { TriangleAlert, Info, Rocket, Wrench, Copy, Terminal, ExternalLink, Zap } from "lucide-react"
+import { Info, Rocket, Wrench, Copy, Terminal, ExternalLink, Zap } from "lucide-react"
 import { NeoButton } from "@/components/ui/NeoButton"
 import {
     Dialog,
