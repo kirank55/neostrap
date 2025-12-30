@@ -40,11 +40,21 @@
 
 
 body {
+  font-family: "Syne", sans-serif;
   background-color: var(--color-bg);
   /* background-color: var(--color-bg); */
 
   background: var(--primary-bg);
 
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Syne Mono", monospace;
 }
 
 header {
@@ -187,6 +197,8 @@ aside {
 }
 
 @theme {
+  --font-sans: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Syne Mono", monospace;
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-marquee: marquee 30s linear infinite;
