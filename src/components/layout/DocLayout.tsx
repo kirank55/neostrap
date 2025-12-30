@@ -28,6 +28,30 @@ function DocLayout() {
       <div className="grid w-full grid-cols-[17em_1fr] gap-8">
         {/* shadow-md */}
         <aside className="h-full bg-(--primary-bg) p-4  overflow-auto scrollbar-hide hover:scrollbar-default sticky top-16 max-h-screen px-5 py-10 ">
+          {/* Getting Started Section */}
+          <p className="text-lg font-semibold uppercase tracking-[0.2em] text-muted-foreground ">
+            Getting Started
+          </p>
+          <nav className="mt-3 flex flex-col gap-3 text-sm mb-6">
+            <NeoButton
+              asChild
+              variant={location.pathname === "/docs/getting-started" ? "outline" : "link"}
+              className={cn(
+                "rounded-lg px-6 py-2 justify-start font-medium transition-colors",
+                "hover:bg-accent hover:text-accent-foreground",
+                location.pathname === "/docs/getting-started" && "bg-accent"
+              )}
+            >
+              <Link
+                to="/docs/getting-started"
+                aria-current={location.pathname === "/docs/getting-started" ? "page" : undefined}
+              >
+                Introduction
+              </Link>
+            </NeoButton>
+          </nav>
+
+          {/* Components Section */}
           <p className="text-lg font-semibold uppercase tracking-[0.2em] text-muted-foreground ">
             Components
           </p>

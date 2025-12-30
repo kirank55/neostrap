@@ -2,14 +2,16 @@ import { Navigate, Route, Routes } from "react-router-dom"
 
 // Global Components
 import Header from "@/components/layout/Header"
+import ScrollToTop from "@/components/layout/ScrollToTop"
 
 // Static Pages
-import HomePage  from "./pages/static/Homepage"
+import HomePage from "./pages/static/Homepage"
 
 // Layouts
 import DocLayout from "./components/layout/DocLayout"
 
 // Doc Pages
+import GettingStartedPage from "@/pages/GettingStartedPage"
 import NeoButtonDocPage from "@/pages/NeoButtonDocPage"
 import NeoSelectDocPage from "@/pages/NeoSelectDocPage"
 import NeoAccordionDocPage from "@/pages/NeoAccordionDocPage"
@@ -24,11 +26,13 @@ import NeoDialogDocPage from "@/pages/NeoDialogDocPage"
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/docs" element={<DocLayout />}>
-          <Route index element={<Navigate to="NeoButton" replace />} />
+          <Route index element={<Navigate to="getting-started" replace />} />
+          <Route path="getting-started" element={<GettingStartedPage />} />
           <Route path="NeoButton" element={<NeoButtonDocPage />} />
           <Route path="NeoSelect" element={<NeoSelectDocPage />} />
           <Route path="NeoAccordion" element={<NeoAccordionDocPage />} />
