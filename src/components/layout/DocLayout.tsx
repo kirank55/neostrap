@@ -8,7 +8,6 @@ interface NavComponent {
 }
 
 const navSections: NavComponent[] = [
-
   { label: "Accordion", to: "/docs/NeoAccordion" },
   { label: "Button", to: "/docs/NeoButton" },
   { label: "Card", to: "/docs/NeoCard" },
@@ -16,7 +15,8 @@ const navSections: NavComponent[] = [
   { label: "Dropdown", to: "/docs/NeoDropdown" },
   { label: "Input", to: "/docs/NeoInput" },
   { label: "Select", to: "/docs/NeoSelect" },
-  { label: "Switch", to: "/docs/NeoSwitch" }
+  { label: "Switch", to: "/docs/NeoSwitch" },
+  { label: "Tabs", to: "/docs/NeoTabs" },
 ];
 
 function DocLayout() {
@@ -24,69 +24,79 @@ function DocLayout() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* <div className="mx-auto flex px-6 py-10"> */}
-      <div className="grid w-full grid-cols-[17em_1fr] gap-8">
-        {/* shadow-md */}
-        <aside className="h-full bg-(--primary-bg) p-4  overflow-auto scrollbar-hide hover:scrollbar-default sticky top-16 max-h-screen px-5 py-10 ">
+      <div className="grid w-full grid-cols-[17rem_1fr]">
+        {/* Sidebar */}
+        <aside className="h-full border-r-3 border-black bg-white p-6 overflow-auto scrollbar-hide hover:scrollbar-default sticky top-16 max-h-screen">
           {/* Getting Started Section */}
-          <p className="text-lg font-semibold uppercase tracking-[0.2em] text-muted-foreground ">
-            Getting Started
-          </p>
-          <nav className="mt-3 flex flex-col gap-3 text-sm mb-6">
-            <NeoButton
-              asChild
-              variant={location.pathname === "/docs/getting-started" ? "outline" : "link"}
-              className={cn(
-                "rounded-lg px-6 py-2 justify-start font-medium transition-colors",
-                "hover:bg-accent hover:text-accent-foreground",
-                location.pathname === "/docs/getting-started" && "bg-accent"
-              )}
-            >
-              <Link
-                to="/docs/getting-started"
-                aria-current={location.pathname === "/docs/getting-started" ? "page" : undefined}
+          <div className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <p className="text-sm font-black uppercase tracking-wider">
+                Getting Started
+              </p>
+            </div>
+            <nav className="flex flex-col gap-2 pl-4">
+              <NeoButton
+                asChild
+                variant={location.pathname === "/docs/getting-started" ? "brutal" : "link"}
+                size="sm"
+                className={cn(
+                  "justify-start font-semibold transition-all",
+                  location.pathname === "/docs/getting-started"
+                    ? "bg-(--color-baby-blue)"
+                    : "hover:translate-x-1"
+                )}
               >
-                Introduction
-              </Link>
-            </NeoButton>
-          </nav>
+                <Link
+                  to="/docs/getting-started"
+                  aria-current={location.pathname === "/docs/getting-started" ? "page" : undefined}
+                >
+                  Introduction
+                </Link>
+              </NeoButton>
+            </nav>
+          </div>
 
           {/* Components Section */}
-          <p className="text-lg font-semibold uppercase tracking-[0.2em] text-muted-foreground ">
-            Components
-          </p>
-          <nav className="mt-3 flex flex-col gap-3 text-sm">
-            {navSections.map((component) => {
-              const isActive = location.pathname === component.to;
-              return (
-                <NeoButton
-                  key={component.to}
-                  asChild
-                  variant={isActive ? "outline" : "link"}
-                  className={cn(
-                    "rounded-lg px-6 py-2 justify-start font-medium transition-colors",
-                    "hover:bg-accent hover:text-accent-foreground",
-                    isActive &&
-                    "bg-accent"
-                  )}
-                >
-                  <Link
-                    to={component.to}
-                    aria-current={isActive ? "page" : undefined}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <p className="text-sm font-black uppercase tracking-wider">
+                Components
+              </p>
+            </div>
+            <nav className="flex flex-col gap-2 pl-4">
+              {navSections.map((component) => {
+                const isActive = location.pathname === component.to;
+                return (
+                  <NeoButton
+                    key={component.to}
+                    asChild
+                    variant={isActive ? "outline" : "link"}
+                    size="sm"
+                    className={cn(
+                      "justify-start font-semibold transition-all",
+                      isActive
+                        ? "bg-(--color-lavender)"
+                        : "hover:translate-x-1"
+                    )}
                   >
-                    {component.label}
-                  </Link>
-                </NeoButton>
-              );
-            })}
-          </nav>
+                    <Link
+                      to={component.to}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {component.label}
+                    </Link>
+                  </NeoButton>
+                );
+              })}
+            </nav>
+          </div>
         </aside>
-        <main className="flex flex-col gap-8 container max-w-[1100px] mx-auto py-10">
 
+        {/* Main Content */}
+        <main className="flex flex-col gap-10 container max-w-[1100px] mx-auto py-12 px-8">
           <Outlet />
         </main>
       </div>
-      {/* </div> */}
     </div>
   );
 }

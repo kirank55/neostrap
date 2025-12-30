@@ -230,14 +230,14 @@ function NeoAccordionDocPage() {
       </DocSection>
 
       <DocSection id="multiple" title="Behaviors">
-        <InlineWrap>
-          {behaviorOptions.map((option) => (
-            <LabeledItem
-              key={option.label}
-              label={option.label}
-              widthClass="w-full max-w-xl"
-            >
-              <ShowcaseSurface>
+        <ShowcaseSurface>
+          <InlineWrap>
+            {behaviorOptions.map((option) => (
+              <LabeledItem
+                key={option.label}
+                label={option.label}
+                widthClass="w-full max-w-xl"
+              >
                 <AccordionDemo
                   items={variantDemoItems}
                   type={option.type}
@@ -248,11 +248,12 @@ function NeoAccordionDocPage() {
                     "defaultValue" in option ? option.defaultValue : undefined
                   }
                 />
-              </ShowcaseSurface>
-            </LabeledItem>
-          ))}
-        </InlineWrap>
-      </DocSection>
+              </LabeledItem>
+            ))}
+          </InlineWrap>
+        </ShowcaseSurface>
+
+      </DocSection >
 
       <DocSection id="props" title="Accordion Props">
         <div className="py-4">

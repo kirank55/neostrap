@@ -6,15 +6,19 @@ interface DocPageHeaderProps {
 
 function DocPageHeader({ category, title, description }: DocPageHeaderProps) {
   return (
-    <>
-      <p className="text-sm font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-        Components / {category}
-      </p>
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold">{title}</h1>
-        <p className="text-base text-muted-foreground">{description}</p>
+    <div className="relative">
+      {/* Decorative element */}
+
+      <div className="space-y-4">
+        <span className="inline-block px-3 py-1 border border-black text-xs font-bold uppercase tracking-wider shadow-md rounded-md">
+          Components / {category}
+        </span>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-4xl font-black tracking-tight">{title}</h1>
+          <p className="text-lg text-black/70 font-medium max-w-2xl">{description}</p>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 

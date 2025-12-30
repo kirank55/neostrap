@@ -42,49 +42,55 @@ const COMPONENT_CARDS = [
   {
     name: "NeoButton",
     description: "Bold, chunky buttons that demand attention",
-    color: "bg-[var(--color-amber)]",
+    color: "bg-(--color-amber)",
     icon: "✦",
   },
   {
     name: "NeoCard",
     description: "Striking cards with brutal shadows",
-    color: "bg-[var(--color-baby-blue)]",
+    color: "bg-(--color-baby-blue)",
     icon: "◈",
   },
   {
     name: "NeoInput",
     description: "Inputs that break the mold",
-    color: "bg-[var(--color-lavender)]",
+    color: "bg-(--color-lavender)",
     icon: "▧",
   },
   {
     name: "NeoSelect",
     description: "Dropdowns with personality",
-    color: "bg-[var(--color-pink)]",
+    color: "bg-(--color-pink)",
     icon: "◉",
   },
   {
     name: "NeoSwitch",
     description: "Toggles that feel alive",
-    color: "bg-[var(--color-amber)]",
+    color: "bg-(--color-amber)",
     icon: "◐",
+  },
+  {
+    name: "NeoTabs",
+    description: "Switchable content regions",
+    color: "bg-(--color-baby-blue)",
+    icon: "◫",
   },
   {
     name: "NeoAccordion",
     description: "Collapsible content with style",
-    color: "bg-[var(--color-baby-blue)]",
+    color: "bg-(--color-lavender)",
     icon: "≡",
   },
   {
     name: "NeoDialog",
     description: "Modals that make a statement",
-    color: "bg-[var(--color-lavender)]",
+    color: "bg-(--color-pink)",
     icon: "❖",
   },
   {
     name: "NeoDropdown",
     description: "Context menus reimagined",
-    color: "bg-[var(--color-pink)]",
+    color: "bg-(--color-amber)",
     icon: "⬡",
   },
 ];
@@ -95,28 +101,28 @@ const FEATURES = [
     description:
       "Drop in components that just work. No complex setup or configuration needed.",
     icon: Zap,
-    color: "bg-[var(--color-amber)]",
+    color: "bg-(--color-amber)",
   },
   {
     title: "Design System",
     description:
       "Built on a cohesive neo-brutalist design language with consistent tokens.",
     icon: Palette,
-    color: "bg-[var(--color-baby-blue)]",
+    color: "bg-(--color-baby-blue)",
   },
   {
     title: "TypeScript First",
     description:
       "Full type safety with comprehensive interfaces for all components.",
     icon: Code2,
-    color: "bg-[var(--color-lavender)]",
+    color: "bg-(--color-lavender)",
   },
   {
     title: "Composable",
     description:
       "Mix and match components. Build complex UIs from simple primitives.",
     icon: Boxes,
-    color: "bg-[var(--color-pink)]",
+    color: "bg-(--color-pink)",
   },
 ];
 
@@ -152,8 +158,7 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
   return (
     <div className="overflow-hidden py-4 border-y-2 border-black bg-black">
       <div
-        className={`flex whitespace-nowrap ${reverse ? "animate-marquee-reverse" : "animate-marquee"
-          }`}
+        className={`flex whitespace-nowrap ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
       >
         {[...items, ...items, ...items].map((item, i) => (
           <span
@@ -161,7 +166,7 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
             className="mx-8 text-2xl font-black text-white tracking-widest"
           >
             {item}
-            <span className="ml-8 text-[var(--color-pink)]">✦</span>
+            <span className="ml-8 text-(--color-pink)">✦</span>
           </span>
         ))}
       </div>
@@ -184,7 +189,7 @@ function FloatingShape({
         animationDelay: `${delay}s`,
       }}
     >
-      <div className="w-12 h-12 border-4 border-black bg-[var(--color-amber)] rotate-45 shadow-[4px_4px_0_#000]" />
+      <div className="w-12 h-12 border-4 border-black bg-(--color-amber) rotate-45 shadow-[4px_4px_0_#000]" />
     </div>
   );
 }
@@ -264,8 +269,8 @@ function HeroSection() {
       <FloatingShape className="bottom-20 right-[10%]" delay={0.5} />
 
       {/* Decorative corner blocks */}
-      <div className="absolute top-8 left-8 w-24 h-24 border-4 border-black bg-[var(--color-baby-blue)] shadow-[8px_8px_0_#000] hidden lg:block" />
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-4 border-black bg-[var(--color-lavender)] shadow-[6px_6px_0_#000] hidden lg:block" />
+      <div className="absolute top-8 left-8 w-24 h-24 border-4 border-black bg-(--color-baby-blue) shadow-[8px_8px_0_#000] hidden lg:block" />
+      <div className="absolute bottom-8 right-8 w-16 h-16 border-4 border-black bg-(--color-lavender) shadow-[6px_6px_0_#000] hidden lg:block" />
 
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
@@ -280,7 +285,7 @@ function HeroSection() {
           {/* Main headline */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[0.9] tracking-tight">
             <span className="block">BUILD</span>
-            <span className="block text-[var(--color-amber)] [-webkit-text-stroke:3px_black] [text-stroke:3px_black]">
+            <span className="block text-(--color-amber) [-webkit-text-stroke:3px_black] [text-stroke:3px_black]">
               <TypewriterText text="BRUTAL" />
             </span>
             <span className="block">INTERFACES</span>
@@ -297,7 +302,7 @@ function HeroSection() {
             <NeoButton
               variant="brutal"
               size="lg"
-              className="bg-black text-white hover:bg-[var(--color-amber)] hover:text-black text-lg px-8 py-6 h-auto"
+              className="bg-black text-white hover:bg-(--color-amber) hover:text-black text-lg px-8 py-6 h-auto"
               asChild
             >
               <Link to="/docs/getting-started">
@@ -320,9 +325,9 @@ function HeroSection() {
           {/* Install command */}
           <div
             onClick={handleCopy}
-            className="inline-flex items-center gap-3 px-6 py-4 border-2 border-black bg-black text-white font-mono text-lg shadow-[6px_6px_0_var(--color-amber)] hover:shadow-[4px_4px_0_var(--color-amber)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer rounded-lg"
+            className="inline-flex items-center gap-3 px-6 py-4 border-2 border-black bg-black text-white font-mono text-lg shadow-[6px_6px_0_(--color-amber)] hover:shadow-[4px_4px_0_(--color-amber)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer rounded-lg relative overflow-hidden"
           >
-            <span className="text-[var(--color-pink)]">$</span>
+            <span className="text-(--color-pink)">$</span>
             <span>npm install neostrap-ui</span>
             {copied ? (
               <Check className="w-5 h-5 text-green-400" />
@@ -343,13 +348,13 @@ function ComponentShowcase() {
         {/* Section header */}
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
           <div>
-            <span className="inline-block px-3 py-1 border-2 border-black bg-[var(--color-baby-blue)] text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
+            <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-baby-blue) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
               Components
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black">
               BUILT FOR
               <br />
-              <span className="text-[var(--color-pink)]">IMPACT</span>
+              <span className="text-(--color-pink)">IMPACT</span>
             </h2>
           </div>
           <p className="text-lg text-black/70 max-w-md">
@@ -392,8 +397,8 @@ function LiveDemo() {
   return (
     <section className="py-24 bg-black text-white relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 border-4 border-[var(--color-pink)] opacity-20 rotate-12" />
-      <div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-[var(--color-amber)] opacity-20 -rotate-12" />
+      <div className="absolute top-10 left-10 w-32 h-32 border-4 border-(--color-pink) opacity-20 rotate-12" />
+      <div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-(--color-amber) opacity-20 -rotate-12" />
 
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-12 items-center">
@@ -405,7 +410,7 @@ function LiveDemo() {
             <h2 className="text-4xl md:text-5xl font-black mb-6">
               EXPERIENCE THE
               <br />
-              <span className="text-[var(--color-amber)]">BRUTALITY</span>
+              <span className="text-(--color-amber)">BRUTALITY</span>
             </h2>
             <p className="text-lg text-white/70 mb-8 max-w-lg">
               Interact with real components. No mockups, no illusions — just pure,
@@ -413,10 +418,10 @@ function LiveDemo() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <NeoButton variant="brutal" className="bg-[var(--color-pink)]">
+              <NeoButton variant="brutal" className="bg-(--color-pink)">
                 Primary Action
               </NeoButton>
-              <NeoButton variant="brutal" className="bg-[var(--color-amber)]">
+              <NeoButton variant="brutal" className="bg-(--color-amber)">
                 Secondary
               </NeoButton>
               <NeoButton variant="brutal" className="bg-white text-black">
@@ -449,7 +454,7 @@ function LiveDemo() {
                 </div>
 
                 {/* Switch demo */}
-                <div className="flex items-center justify-between py-3 px-4 border-2 border-black bg-[var(--color-baby-blue)] shadow-[3px_3px_0_#000] rounded-lg">
+                <div className="flex items-center justify-between py-3 px-4 border-2 border-black bg-(--color-baby-blue) shadow-[3px_3px_0_#000] rounded-lg">
                   <span className="font-bold">NeoSwitch</span>
                   <NeoSwitch checked={switchOn} onCheckedChange={setSwitchOn} />
                 </div>
@@ -482,13 +487,13 @@ function FeaturesSection() {
       <div className="container mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="inline-block px-3 py-1 border-2 border-black bg-[var(--color-lavender)] text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
+          <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-lavender) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
             Why NeoStrap
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4">
             DESIGNED FOR
             <br />
-            <span className="text-[var(--color-amber)]">DEVELOPERS</span>
+            <span className="text-(--color-amber)">DEVELOPERS</span>
           </h2>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
             Built by developers, for developers who want their UIs to make an impact.
@@ -516,7 +521,7 @@ function FeaturesSection() {
 
 function TestimonialsSection() {
   return (
-    <section className="py-24 bg-[var(--color-baby-blue)] border-y-2 border-black relative overflow-hidden">
+    <section className="py-24 bg-(--color-baby-blue) border-y-2 border-black relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div
@@ -542,7 +547,7 @@ function TestimonialsSection() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black">
             LOVED BY
             <br />
-            <span className="text-[var(--color-pink)]">BUILDERS</span>
+            <span className="text-(--color-pink)">BUILDERS</span>
           </h2>
         </div>
 
@@ -567,7 +572,7 @@ function TestimonialsSection() {
               </blockquote>
 
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 border-2 border-black bg-[var(--color-amber)] flex items-center justify-center font-black text-lg shadow-[2px_2px_0_#000] rounded-full">
+                <div className="w-12 h-12 border-2 border-black bg-(--color-amber) flex items-center justify-center font-black text-lg shadow-[2px_2px_0_#000] rounded-full">
                   {testimonial.avatar}
                 </div>
                 <div>
@@ -596,7 +601,7 @@ function CTASection() {
           <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-8">
             READY TO BUILD
             <br />
-            <span className="text-[var(--color-pink)] relative inline-block">
+            <span className="text-(--color-pink) relative inline-block">
               SOMETHING BRUTAL?
               {/* Underline decoration */}
               <svg
@@ -623,7 +628,7 @@ function CTASection() {
             <NeoButton
               variant="brutal"
               size="lg"
-              className="bg-black text-white hover:bg-[var(--color-amber)] hover:text-black text-xl px-10 py-7 h-auto"
+              className="bg-black text-white hover:bg-(--color-amber) hover:text-black text-xl px-10 py-7 h-auto"
               asChild
             >
               <Link to="/docs/getting-started">
@@ -655,13 +660,13 @@ function CTASection() {
 
 function Footer() {
   return (
-    <footer className="bg-black text-white py-16 border-t-4 border-[var(--color-amber)]">
+    <footer className="bg-black text-white py-16 border-t-4 border-(--color-amber)">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
             <h3 className="text-3xl font-black mb-4">
-              NEO<span className="text-[var(--color-pink)]">STRAP</span>
+              NEO<span className="text-(--color-pink)">STRAP</span>
             </h3>
             <p className="text-white/60 mb-6 max-w-md">
               A neo-brutalist React component library for developers who want their
@@ -672,7 +677,7 @@ function Footer() {
                 href="https://github.com/kirank55/neostrap"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 border-2 border-white/30 flex items-center justify-center hover:border-[var(--color-amber)] hover:bg-[var(--color-amber)] hover:text-black transition-all rounded-lg"
+                className="w-10 h-10 border-2 border-white/30 flex items-center justify-center hover:border-(--color-amber) hover:bg-(--color-amber) hover:text-black transition-all rounded-lg"
               >
                 <Github className="w-5 h-5" />
               </a>
@@ -680,7 +685,7 @@ function Footer() {
                 href="https://x.com/kirankumargs04"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 border-2 border-white/30 flex items-center justify-center hover:border-[var(--color-pink)] hover:bg-[var(--color-pink)] hover:text-black transition-all rounded-lg"
+                className="w-10 h-10 border-2 border-white/30 flex items-center justify-center hover:border-(--color-pink) hover:bg-(--color-pink) hover:text-black transition-all rounded-lg"
               >
                 <Twitter className="w-5 h-5" />
               </a>
@@ -689,7 +694,7 @@ function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-bold text-lg mb-4 text-[var(--color-amber)]">
+            <h4 className="font-bold text-lg mb-4 text-(--color-amber)">
               Documentation
             </h4>
             <ul className="space-y-2">
@@ -713,7 +718,7 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-4 text-[var(--color-amber)]">
+            <h4 className="font-bold text-lg mb-4 text-(--color-amber)">
               Community
             </h4>
             <ul className="space-y-2">
@@ -745,12 +750,12 @@ function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-sm">
             © {new Date().getFullYear()} NeoStrap. Built with{" "}
-            <Heart className="inline w-4 h-4 text-[var(--color-pink)]" /> by{" "}
+            <Heart className="inline w-4 h-4 text-(--color-pink)" /> by{" "}
             <a
               href="https://x.com/kirankumargs04"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[var(--color-amber)] transition-colors"
+              className="text-white hover:text-(--color-amber) transition-colors"
             >
               Kiran
             </a>
@@ -768,38 +773,17 @@ function Footer() {
   );
 }
 
-// ============================================================================
-// MAIN HOMEPAGE COMPONENT
-// ============================================================================
-
 function HomePage() {
   return (
     <div className="min-h-screen overflow-x-hidden">
-      {/* Hero */}
       <HeroSection />
-
-      {/* Marquee */}
       <Marquee items={MARQUEE_ITEMS} />
-
-      {/* Component Showcase */}
       <ComponentShowcase />
-
-      {/* Live Demo */}
       <LiveDemo />
-
-      {/* Marquee reversed */}
       <Marquee items={MARQUEE_ITEMS} reverse />
-
-      {/* Features */}
       <FeaturesSection />
-
-      {/* Testimonials */}
       <TestimonialsSection />
-
-      {/* CTA */}
       <CTASection />
-
-      {/* Footer */}
       <Footer />
     </div>
   );
