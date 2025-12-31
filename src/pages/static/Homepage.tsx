@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NeoButton } from "@/components/ui/NeoButton";
 import {
   NeoCard,
@@ -211,39 +211,39 @@ function GridBackground() {
   );
 }
 
-function TypewriterText({ text }: { text: string }) {
-  const [displayText, setDisplayText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
+// function TypewriterText({ text }: { text: string }) {
+//   const [displayText, setDisplayText] = useState("");
+//   const [isTyping, setIsTyping] = useState(true);
 
-  useEffect(() => {
-    if (isTyping) {
-      if (displayText.length < text.length) {
-        const timeout = setTimeout(() => {
-          setDisplayText(text.slice(0, displayText.length + 1));
-        }, 100);
-        return () => clearTimeout(timeout);
-      } else {
-        setTimeout(() => setIsTyping(false), 2000);
-      }
-    } else {
-      if (displayText.length > 0) {
-        const timeout = setTimeout(() => {
-          setDisplayText(displayText.slice(0, -1));
-        }, 50);
-        return () => clearTimeout(timeout);
-      } else {
-        setTimeout(() => setIsTyping(true), 500);
-      }
-    }
-  }, [displayText, isTyping, text]);
+//   useEffect(() => {
+//     if (isTyping) {
+//       if (displayText.length < text.length) {
+//         const timeout = setTimeout(() => {
+//           setDisplayText(text.slice(0, displayText.length + 1));
+//         }, 100);
+//         return () => clearTimeout(timeout);
+//       } else {
+//         setTimeout(() => setIsTyping(false), 2000);
+//       }
+//     } else {
+//       if (displayText.length > 0) {
+//         const timeout = setTimeout(() => {
+//           setDisplayText(displayText.slice(0, -1));
+//         }, 50);
+//         return () => clearTimeout(timeout);
+//       } else {
+//         setTimeout(() => setIsTyping(true), 500);
+//       }
+//     }
+//   }, [displayText, isTyping, text]);
 
-  return (
-    <span>
-      {displayText}
-      <span className="animate-blink">|</span>
-    </span>
-  );
-}
+//   return (
+//     <span>
+//       {displayText}
+//       <span className="animate-blink">|</span>
+//     </span>
+//   );
+// }
 
 // ============================================================================
 // SECTION COMPONENTS
@@ -285,9 +285,10 @@ function HeroSection() {
           {/* Main headline */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[0.9] tracking-tight">
             <span className="block">BUILD</span>
-            <span className="block text-(--color-amber) [-webkit-text-stroke:3px_black] [text-stroke:3px_black]">
+            {/* <span className="block text-(--color-amber) [-webkit-text-stroke:3px_black] [text-stroke:3px_black]">
               <TypewriterText text="BRUTAL" />
-            </span>
+            </span> */}
+            <span className="block">BRUTAL</span>
             <span className="block">INTERFACES</span>
           </h1>
 
