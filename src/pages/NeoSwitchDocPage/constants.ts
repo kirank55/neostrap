@@ -52,7 +52,7 @@ export const INSTALL_CLI_CODE = `npx shadcn@latest add https://neostrapui.pages.
 
 export const INSTALL_DEPENDENCIES_CODE = `npm install @radix-ui/react-switch class-variance-authority clsx tailwind-merge`
 
-const DOLLAR = "$"
+// const DOLLAR = "$"
 
 export const SWITCH_COMPONENT_CODE = `import * as React from "react"
 import * as SwitchPrimitives from "@radix-ui/react-switch"
