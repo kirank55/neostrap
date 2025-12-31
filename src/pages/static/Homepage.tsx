@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NeoButton } from "@/components/ui/NeoButton";
 import {
   NeoCard,
@@ -321,6 +321,21 @@ function GridBackground() {
 
 function HeroSection() {
   const [copied, setCopied] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        const scrollProgress = Math.max(0, Math.min(1, -rect.top / (rect.height * 0.5)));
+        setScrollY(scrollProgress);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText("npm install neostrap-ui");
@@ -329,7 +344,7 @@ function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <GridBackground />
 
       {/* Orbiting decorative components */}
@@ -349,15 +364,30 @@ function HeroSection() {
             </span>
           </div>
 
-          {/* Main headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[0.9] tracking-tight">
-            <span className="block">BUILD</span>
-            {/* <span className="block text-(--color-amber) [-webkit-text-stroke:3px_black] [text-stroke:3px_black]">
-              <TypewriterText text="BRUTAL" />
-            </span> */}
-            <span className="block">BRUTAL</span>
-            <span className="block">INTERFACES</span>
-          </h1>
+          {/* Main headline - sticky scroll to h2 */}
+          <div className="mb-6">
+            <h1
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight transition-all duration-300"
+              style={{
+                position: scrollY > 0.3 ? "fixed" : "relative",
+                top: scrollY > 0.3 ? `${50 + scrollY * 300}px` : "auto",
+                left: scrollY > 0.3 ? "50%" : "auto",
+                transform: scrollY > 0.3
+                  ? `translateX(-50%) scale(${1 - scrollY * 0.4})`
+                  : "none",
+                opacity: scrollY > 0.8 ? 0 : 1,
+                zIndex: 50,
+                textShadow: `
+                  4px 4px 0 var(--color-amber),
+                  8px 8px 0 #000
+                `,
+              }}
+            >
+              <span className="block">BUILD</span>
+              <span className="block text-(--color-pink)">BRUTAL</span>
+              <span className="block">INTERFACES</span>
+            </h1>
+          </div>
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl font-medium text-black/80 max-w-2xl mx-auto mb-10 leading-relaxed">
