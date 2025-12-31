@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { NeoButton } from "@/components/ui/NeoButton";
 import {
   NeoCard,
@@ -23,6 +23,11 @@ import {
   Twitter,
   Heart,
 } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // ============================================================================
 // CONFIGURATION
@@ -36,6 +41,46 @@ const MARQUEE_ITEMS = [
   "OPEN SOURCE",
   "MODERN UI",
   "FULLY TYPED",
+];
+
+// Section headline configuration for scroll animation
+const SECTION_HEADLINES = [
+  {
+    id: "hero",
+    text: ["BUILD", "BRUTAL", "INTERFACES"],
+    accentIndex: 1,
+    accentColor: "var(--color-pink)",
+  },
+  {
+    id: "components",
+    text: ["BUILT FOR", "IMPACT", ""],
+    accentIndex: 1,
+    accentColor: "var(--color-pink)",
+  },
+  {
+    id: "demo",
+    text: ["EXPERIENCE THE", "BRUTALITY", ""],
+    accentIndex: 1,
+    accentColor: "var(--color-amber)",
+  },
+  {
+    id: "features",
+    text: ["DESIGNED FOR", "DEVELOPERS", ""],
+    accentIndex: 1,
+    accentColor: "var(--color-amber)",
+  },
+  {
+    id: "testimonials",
+    text: ["LOVED BY", "BUILDERS", ""],
+    accentIndex: 1,
+    accentColor: "var(--color-pink)",
+  },
+  {
+    id: "cta",
+    text: ["READY TO BUILD", "SOMETHING BRUTAL?", ""],
+    accentIndex: 1,
+    accentColor: "var(--color-pink)",
+  },
 ];
 
 const COMPONENT_CARDS = [
@@ -156,7 +201,7 @@ const TESTIMONIALS = [
 
 function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   return (
-    <div className="overflow-hidden py-4 border-y-2 border-black bg-black">
+    <div className="overflow-hidden py-4 border-y-2 border-black bg-black relative z-20">
       <div
         className={`flex whitespace-nowrap ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
       >
@@ -174,7 +219,7 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
   );
 }
 
-// Orbiting components container - all components on a single clockwise orbit
+// Orbiting components container
 function OrbitingComponents() {
   const orbitItems = [
     { type: "button" as const, angle: 0 },
@@ -238,10 +283,9 @@ function OrbitingComponents() {
       }}
     >
       {orbitItems.map((item, index) => {
-        // Calculate position on orbit (radius ~40% of container)
         const radians = (item.angle * Math.PI) / 180;
-        const radiusX = 42; // percentage from center
-        const radiusY = 38; // slightly elliptical
+        const radiusX = 42;
+        const radiusY = 38;
         const x = 50 + radiusX * Math.cos(radians);
         const y = 50 + radiusY * Math.sin(radians);
 
@@ -252,7 +296,6 @@ function OrbitingComponents() {
             style={{
               left: `${x}%`,
               top: `${y}%`,
-              // Counter-rotate to keep components upright
               animation: "counter-spin 30s linear infinite",
             }}
           >
@@ -281,61 +324,12 @@ function GridBackground() {
   );
 }
 
-// function TypewriterText({ text }: { text: string }) {
-//   const [displayText, setDisplayText] = useState("");
-//   const [isTyping, setIsTyping] = useState(true);
-
-//   useEffect(() => {
-//     if (isTyping) {
-//       if (displayText.length < text.length) {
-//         const timeout = setTimeout(() => {
-//           setDisplayText(text.slice(0, displayText.length + 1));
-//         }, 100);
-//         return () => clearTimeout(timeout);
-//       } else {
-//         setTimeout(() => setIsTyping(false), 2000);
-//       }
-//     } else {
-//       if (displayText.length > 0) {
-//         const timeout = setTimeout(() => {
-//           setDisplayText(displayText.slice(0, -1));
-//         }, 50);
-//         return () => clearTimeout(timeout);
-//       } else {
-//         setTimeout(() => setIsTyping(true), 500);
-//       }
-//     }
-//   }, [displayText, isTyping, text]);
-
-//   return (
-//     <span>
-//       {displayText}
-//       <span className="animate-blink">|</span>
-//     </span>
-//   );
-// }
-
 // ============================================================================
 // SECTION COMPONENTS
 // ============================================================================
 
-function HeroSection() {
+function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | null> }) {
   const [copied, setCopied] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const heroRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        const scrollProgress = Math.max(0, Math.min(1, -rect.top / (rect.height * 0.5)));
-        setScrollY(scrollProgress);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText("npm install neostrap-ui");
@@ -344,10 +338,8 @@ function HeroSection() {
   };
 
   return (
-    <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section data-section="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <GridBackground />
-
-      {/* Orbiting decorative components */}
       <OrbitingComponents />
 
       {/* Decorative corner blocks */}
@@ -364,28 +356,21 @@ function HeroSection() {
             </span>
           </div>
 
-          {/* Main headline - sticky scroll to h2 */}
+          {/* Main headline - this is the animated element */}
           <div className="mb-6">
             <h1
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight transition-all duration-300"
+              ref={h1Ref}
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight"
               style={{
-                position: scrollY > 0.3 ? "fixed" : "relative",
-                top: scrollY > 0.3 ? `${50 + scrollY * 300}px` : "auto",
-                left: scrollY > 0.3 ? "50%" : "auto",
-                transform: scrollY > 0.3
-                  ? `translateX(-50%) scale(${1 - scrollY * 0.4})`
-                  : "none",
-                opacity: scrollY > 0.8 ? 0 : 1,
-                zIndex: 50,
                 textShadow: `
                   4px 4px 0 var(--color-amber),
                   8px 8px 0 #000
                 `,
               }}
             >
-              <span className="block">BUILD</span>
-              <span className="block text-(--color-pink)">BRUTAL</span>
-              <span className="block">INTERFACES</span>
+              <span className="block" data-line="0">BUILD</span>
+              <span className="block text-(--color-pink)" data-line="1">BRUTAL</span>
+              <span className="block" data-line="2">INTERFACES</span>
             </h1>
           </div>
 
@@ -441,7 +426,7 @@ function HeroSection() {
 
 function ComponentShowcase() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section data-section="components" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         {/* Section header */}
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
@@ -449,7 +434,7 @@ function ComponentShowcase() {
             <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-baby-blue) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
               Components
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black">
+            <h2 data-section-heading="components" className="text-4xl md:text-5xl lg:text-6xl font-black">
               BUILT FOR
               <br />
               <span className="text-(--color-pink)">IMPACT</span>
@@ -493,7 +478,7 @@ function LiveDemo() {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <section className="py-24 bg-black text-white relative overflow-hidden">
+    <section data-section="demo" className="py-24 bg-black text-white relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 w-32 h-32 border-4 border-(--color-pink) opacity-20 rotate-12" />
       <div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-(--color-amber) opacity-20 -rotate-12" />
@@ -505,7 +490,7 @@ function LiveDemo() {
             <span className="inline-block px-3 py-1 border-2 border-white bg-transparent text-sm font-bold uppercase tracking-wider mb-4">
               Live Preview
             </span>
-            <h2 className="text-4xl md:text-5xl font-black mb-6">
+            <h2 data-section-heading="demo" className="text-4xl md:text-5xl font-black mb-6">
               EXPERIENCE THE
               <br />
               <span className="text-(--color-amber)">BRUTALITY</span>
@@ -541,7 +526,6 @@ function LiveDemo() {
                 </NeoCardDescription>
               </NeoCardHeader>
               <NeoCardContent className="space-y-6">
-                {/* Input demo */}
                 <div className="space-y-2">
                   <label className="font-bold text-sm">NeoInput</label>
                   <NeoInput
@@ -551,13 +535,11 @@ function LiveDemo() {
                   />
                 </div>
 
-                {/* Switch demo */}
                 <div className="flex items-center justify-between py-3 px-4 border-2 border-black bg-(--color-baby-blue) shadow-[3px_3px_0_#000] rounded-lg">
                   <span className="font-bold">NeoSwitch</span>
                   <NeoSwitch checked={switchOn} onCheckedChange={setSwitchOn} />
                 </div>
 
-                {/* Button row */}
                 <div className="flex gap-3">
                   <NeoButton variant="brutal" size="sm" className="flex-1">
                     Accept
@@ -581,14 +563,14 @@ function LiveDemo() {
 
 function FeaturesSection() {
   return (
-    <section className="py-24 relative">
+    <section data-section="features" className="py-24 relative">
       <div className="container mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16">
           <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-lavender) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
             Why NeoStrap
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4">
+          <h2 data-section-heading="features" className="text-4xl md:text-5xl lg:text-6xl font-black mb-4">
             DESIGNED FOR
             <br />
             <span className="text-(--color-amber)">DEVELOPERS</span>
@@ -619,7 +601,7 @@ function FeaturesSection() {
 
 function TestimonialsSection() {
   return (
-    <section className="py-24 bg-(--color-baby-blue) border-y-2 border-black relative overflow-hidden">
+    <section data-section="testimonials" className="py-24 bg-(--color-baby-blue) border-y-2 border-black relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div
@@ -642,7 +624,7 @@ function TestimonialsSection() {
           <span className="inline-block px-3 py-1 border-2 border-black bg-white text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
             Testimonials
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black">
+          <h2 data-section-heading="testimonials" className="text-4xl md:text-5xl lg:text-6xl font-black">
             LOVED BY
             <br />
             <span className="text-(--color-pink)">BUILDERS</span>
@@ -656,7 +638,6 @@ function TestimonialsSection() {
               key={index}
               className="bg-white border-2 border-black p-6 shadow-[6px_6px_0_#000] rounded-lg"
             >
-              {/* Quote icon */}
               <svg
                 className="w-10 h-10 text-black/20 mb-4"
                 fill="currentColor"
@@ -688,7 +669,7 @@ function TestimonialsSection() {
 
 function CTASection() {
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section data-section="cta" className="py-32 relative overflow-hidden">
       <div className="container mx-auto px-6 text-center">
         {/* Large decorative text */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
@@ -696,12 +677,11 @@ function CTASection() {
         </div>
 
         <div className="relative z-10">
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-8">
+          <h2 data-section-heading="cta" className="text-4xl md:text-5xl lg:text-7xl font-black mb-8">
             READY TO BUILD
             <br />
             <span className="text-(--color-pink) relative inline-block">
               SOMETHING BRUTAL?
-              {/* Underline decoration */}
               <svg
                 className="absolute -bottom-4 left-0 w-full"
                 viewBox="0 0 300 12"
@@ -871,10 +851,204 @@ function Footer() {
   );
 }
 
+// ============================================================================
+// MAIN HOMEPAGE COMPONENT WITH GSAP SCROLL ANIMATION
+// ============================================================================
+
 function HomePage() {
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!h1Ref.current) return;
+
+      const h1 = h1Ref.current;
+      const lines = h1.querySelectorAll('[data-line]');
+
+      // Cache initial h1 position (in document coordinates)
+      const initialH1Rect = h1.getBoundingClientRect();
+      // const initialH1Top = initialH1Rect.top + window.scrollY;
+      const initialH1Left = initialH1Rect.left;
+      const initialH1Width = initialH1Rect.width;
+
+      // Track current active section
+      let currentSectionIndex = -1;
+      let isFixed = false;
+
+      // Get all section headings and cache their document positions
+      const sectionHeadings = Array.from(document.querySelectorAll('[data-section-heading]'));
+      const sectionData = sectionHeadings.map((heading) => {
+        const sectionId = heading.getAttribute('data-section-heading');
+        const section = document.querySelector(`[data-section="${sectionId}"]`);
+        const headlineConfig = SECTION_HEADLINES.find(h => h.id === sectionId);
+
+        if (!section || !headlineConfig) return null;
+
+        // Cache heading position in document coordinates
+        const headingRect = heading.getBoundingClientRect();
+        const headingTop = headingRect.top + window.scrollY;
+        const headingLeft = headingRect.left + (headingRect.width / 2);
+
+        return {
+          heading,
+          section,
+          headlineConfig,
+          headingTop,
+          headingLeft,
+          headingWidth: headingRect.width
+        };
+      }).filter(Boolean);
+
+      // Function to update h1 text content
+      const updateHeadlineText = (config: typeof SECTION_HEADLINES[0]) => {
+        const tl = gsap.timeline();
+        tl.to(lines, { opacity: 0, duration: 0.4, stagger: 0.08 });
+        tl.call(() => {
+          const line0 = h1.querySelector('[data-line="0"]');
+          const line1 = h1.querySelector('[data-line="1"]');
+          const line2 = h1.querySelector('[data-line="2"]');
+          if (line0) line0.textContent = config.text[0];
+          if (line1) {
+            line1.textContent = config.text[1];
+            (line1 as HTMLElement).style.color = config.accentColor;
+          }
+          if (line2) line2.textContent = config.text[2];
+        });
+        tl.to(lines, { opacity: 1, duration: 0.4, stagger: 0.08 });
+      };
+
+      // Pin h1 when leaving hero
+      ScrollTrigger.create({
+        trigger: '[data-section="hero"]',
+        start: "bottom 70%",
+        endTrigger: '[data-section="cta"]',
+        end: "top bottom",
+        onEnter: () => {
+          if (!isFixed) {
+            isFixed = true;
+            // Switch to fixed positioning
+            h1.style.position = 'fixed';
+            h1.style.top = `${initialH1Rect.top}px`;
+            h1.style.left = `${initialH1Left}px`;
+            h1.style.width = `${initialH1Width}px`;
+            h1.style.zIndex = '100';
+          }
+        },
+        onLeaveBack: () => {
+          if (isFixed) {
+            isFixed = false;
+            currentSectionIndex = -1;
+            // Reset to static positioning
+            gsap.to(h1, {
+              x: 0,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              ease: "power2.inOut",
+              onComplete: () => {
+                h1.style.position = '';
+                h1.style.top = '';
+                h1.style.left = '';
+                h1.style.width = '';
+                h1.style.zIndex = '';
+              }
+            });
+            // Reset to hero headline
+            updateHeadlineText(SECTION_HEADLINES[0]);
+            // Show all section headings
+            sectionData.forEach(s => {
+              if (s) gsap.to(s.heading, { opacity: 1, duration: 0.3 });
+            });
+          }
+        }
+      });
+
+      // Create ScrollTrigger for each section
+      sectionData.forEach((data, index) => {
+        if (!data) return;
+
+        const { section, heading, headlineConfig, headingTop, headingLeft } = data;
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top 60%",
+          end: "bottom 40%",
+          onEnter: () => {
+            if (currentSectionIndex === index) return;
+            currentSectionIndex = index;
+
+            // Calculate fixed position target (viewport coordinates)
+            const targetTop = headingTop - window.scrollY;
+            const targetLeft = headingLeft - (initialH1Width * 0.7 / 2); // centered, scaled
+
+            // Animate h1 to the section heading position
+            gsap.to(h1, {
+              top: targetTop,
+              left: targetLeft,
+              scale: 0.7,
+              duration: 0.8,
+              ease: "power2.out",
+            });
+
+            // Update text
+            updateHeadlineText(headlineConfig);
+
+            // Hide the static heading
+            gsap.to(heading, { opacity: 0, duration: 0.5 });
+
+            // Show previous section headings
+            sectionData.forEach((s, i) => {
+              if (s && i < index) {
+                gsap.to(s.heading, { opacity: 1, duration: 0.3 });
+              }
+            });
+          },
+          onLeaveBack: () => {
+            if (currentSectionIndex !== index) return;
+
+            // Go to previous section or reset to hero
+            const prevIndex = index - 1;
+
+            if (prevIndex < 0) {
+              // Will be handled by hero pin trigger
+              return;
+            }
+
+            currentSectionIndex = prevIndex;
+            const prevData = sectionData[prevIndex];
+            if (!prevData) return;
+
+            // Animate back to previous heading position
+            const targetTop = prevData.headingTop - window.scrollY;
+            const targetLeft = prevData.headingLeft - (initialH1Width * 0.7 / 2);
+
+            gsap.to(h1, {
+              top: targetTop,
+              left: targetLeft,
+              scale: 0.7,
+              duration: 0.8,
+              ease: "power2.out",
+            });
+
+            // Update text to previous section
+            updateHeadlineText(prevData.headlineConfig);
+
+            // Show current heading, hide previous
+            gsap.to(heading, { opacity: 1, duration: 0.3 });
+            gsap.to(prevData.heading, { opacity: 0, duration: 0.3 });
+          }
+        });
+      });
+
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <HeroSection />
+    <div ref={containerRef} className="min-h-screen overflow-x-hidden">
+      <HeroSection h1Ref={h1Ref} />
       <Marquee items={MARQUEE_ITEMS} />
       <ComponentShowcase />
       <LiveDemo />
