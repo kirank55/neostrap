@@ -14,9 +14,9 @@ import DocLayout from "./components/layout/DocLayout"
 import GettingStartedPage from "@/pages/GettingStartedPage"
 import NeoAccordionDocPage from "@/pages/NeoAccordionDocPage"
 import NeoButtonDocPage from "@/pages/NeoButtonDocPage"
+import NeoCardDocPage from "@/pages/NeoCardDocPage"
 
 import NeoSelectDocPage from "@/pages/NeoSelectDocPage"
-import NeoCardDocPage from "@/pages/NeoCardDocPage"
 import NeoInputDocPage from "./pages/NeoInputDocPage.tsx"
 import NeoDropdownDocPage from "@/pages/NeoDropdownDocPage"
 

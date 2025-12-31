@@ -174,22 +174,92 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
   );
 }
 
-function FloatingShape({
-  className,
-  delay = 0,
-}: {
-  className?: string;
-  delay?: number;
-}) {
+// Orbiting components container - all components on a single clockwise orbit
+function OrbitingComponents() {
+  const orbitItems = [
+    { type: "button" as const, angle: 0 },
+    { type: "switch" as const, angle: 72 },
+    { type: "card" as const, angle: 144 },
+    { type: "badge" as const, angle: 216 },
+    { type: "input" as const, angle: 288 },
+  ];
+
+  const renderComponent = (type: "button" | "switch" | "card" | "input" | "badge") => {
+    switch (type) {
+      case "button":
+        return (
+          <NeoButton variant="brutal" size="sm" className="bg-(--color-amber) text-xs px-3 py-1 pointer-events-none">
+            Click
+          </NeoButton>
+        );
+      case "switch":
+        return (
+          <div className="flex items-center gap-2 px-3 py-2 border-2 border-black bg-white shadow-[3px_3px_0_#000] rounded-lg">
+            <NeoSwitch size="sm" checked={true} />
+          </div>
+        );
+      case "card":
+        return (
+          <NeoCard variant="brutal" className="w-28 p-2 bg-(--color-baby-blue)">
+            <NeoCardHeader className="p-1">
+              <NeoCardTitle className="text-[10px] font-bold">Mini Card</NeoCardTitle>
+            </NeoCardHeader>
+            <NeoCardContent className="p-1">
+              <div className="h-4 w-full bg-black/10 rounded" />
+            </NeoCardContent>
+          </NeoCard>
+        );
+      case "input":
+        return (
+          <NeoInput
+            variant="brutal"
+            size="sm"
+            placeholder="Type..."
+            className="w-24 text-xs pointer-events-none"
+            readOnly
+          />
+        );
+      case "badge":
+        return (
+          <div className="px-3 py-1 border-2 border-black bg-(--color-pink) shadow-[3px_3px_0_#000] rounded-full">
+            <span className="text-xs font-bold uppercase tracking-wider">New</span>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div
-      className={`absolute pointer-events-none ${className}`}
+      className="absolute inset-0 pointer-events-none hidden lg:block"
       style={{
-        animation: `float 6s ease-in-out infinite`,
-        animationDelay: `${delay}s`,
+        animation: "spin 30s linear infinite",
       }}
     >
-      <div className="w-12 h-12 border-4 border-black bg-(--color-amber) rotate-45 shadow-[4px_4px_0_#000]" />
+      {orbitItems.map((item, index) => {
+        // Calculate position on orbit (radius ~40% of container)
+        const radians = (item.angle * Math.PI) / 180;
+        const radiusX = 42; // percentage from center
+        const radiusY = 38; // slightly elliptical
+        const x = 50 + radiusX * Math.cos(radians);
+        const y = 50 + radiusY * Math.sin(radians);
+
+        return (
+          <div
+            key={index}
+            className="absolute transform -translate-x-1/2 -translate-y-1/2"
+            style={{
+              left: `${x}%`,
+              top: `${y}%`,
+              // Counter-rotate to keep components upright
+              animation: "counter-spin 30s linear infinite",
+            }}
+          >
+            {renderComponent(item.type)}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -262,11 +332,8 @@ function HeroSection() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <GridBackground />
 
-      {/* Floating decorative elements */}
-      <FloatingShape className="top-20 left-[10%]" delay={0} />
-      <FloatingShape className="top-40 right-[15%]" delay={1} />
-      <FloatingShape className="bottom-32 left-[20%]" delay={2} />
-      <FloatingShape className="bottom-20 right-[10%]" delay={0.5} />
+      {/* Orbiting decorative components */}
+      <OrbitingComponents />
 
       {/* Decorative corner blocks */}
       <div className="absolute top-8 left-8 w-24 h-24 border-4 border-black bg-(--color-baby-blue) shadow-[8px_8px_0_#000] hidden lg:block" />
