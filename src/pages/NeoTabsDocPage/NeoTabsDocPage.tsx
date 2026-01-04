@@ -2,7 +2,7 @@
  * @fileoverview Documentation page for the NeoTabs component.
  */
 
-import { NeoTabs, NeoTabsList, NeoTabsTrigger, NeoTabsContent } from "@/components/ui/NeoTabs"
+import { NeoTabs, NeoTabsList, NeoTabsTrigger, NeoTabsContent, NeoTabsCarousel } from "@/components/ui/NeoTabs"
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import PropsTable from "@/components/PropsTable"
 import DocSection from "@/components/docs/DocSection"
@@ -36,18 +36,20 @@ function TabsDemoRender() {
                 <NeoTabsTrigger value="tab2">Features</NeoTabsTrigger>
                 <NeoTabsTrigger value="tab3">Settings</NeoTabsTrigger>
             </NeoTabsList>
-            <NeoTabsContent value="tab1" className="p-4 border-2 border-black rounded-lg bg-white shadow-[4px_4px_0_#000]">
-                <h3 className="font-bold text-lg mb-2">Overview</h3>
-                <p className="text-black/70">Welcome to NeoStrap Tabs. Click on other tabs to explore.</p>
-            </NeoTabsContent>
-            <NeoTabsContent value="tab2" className="p-4 border-2 border-black rounded-lg bg-white shadow-[4px_4px_0_#000]">
-                <h3 className="font-bold text-lg mb-2">Features</h3>
-                <p className="text-black/70">Neo-brutalist styling with bold shadows and clean design.</p>
-            </NeoTabsContent>
-            <NeoTabsContent value="tab3" className="p-4 border-2 border-black rounded-lg bg-white shadow-[4px_4px_0_#000]">
-                <h3 className="font-bold text-lg mb-2">Settings</h3>
-                <p className="text-black/70">Configure your preferences here.</p>
-            </NeoTabsContent>
+            <NeoTabsCarousel>
+                <NeoTabsContent value="tab1" className="p-4 border-2 border-black rounded-lg shadow-[4px_4px_0_#000]">
+                    <h3 className="font-bold text-lg mb-2">Overview</h3>
+                    <p className="text-black/70">Welcome to NeoStrap Tabs. Click on other tabs to explore.</p>
+                </NeoTabsContent>
+                <NeoTabsContent value="tab2" className="p-4 border-2 border-black rounded-lg shadow-[4px_4px_0_#000]">
+                    <h3 className="font-bold text-lg mb-2">Features</h3>
+                    <p className="text-black/70">Neo-brutalist styling with bold shadows and clean design.</p>
+                </NeoTabsContent>
+                <NeoTabsContent value="tab3" className="p-4 border-2 border-black rounded-lg shadow-[4px_4px_0_#000]">
+                    <h3 className="font-bold text-lg mb-2">Settings</h3>
+                    <p className="text-black/70">Configure your preferences here.</p>
+                </NeoTabsContent>
+            </NeoTabsCarousel>
         </NeoTabs>
     )
 }
@@ -118,21 +120,23 @@ function UsageExamplesSection() {
                                 <NeoTabsTrigger value="second">Second</NeoTabsTrigger>
                                 <NeoTabsTrigger value="third">Third</NeoTabsTrigger>
                             </NeoTabsList>
-                            <NeoTabsContent value="first">
-                                <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-baby-blue)">
-                                    First tab content
-                                </div>
-                            </NeoTabsContent>
-                            <NeoTabsContent value="second">
-                                <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-lavender)">
-                                    Second tab content
-                                </div>
-                            </NeoTabsContent>
-                            <NeoTabsContent value="third">
-                                <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-amber)">
-                                    Third tab content
-                                </div>
-                            </NeoTabsContent>
+                            <NeoTabsCarousel>
+                                <NeoTabsContent value="first">
+                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-baby-blue)">
+                                        First tab content
+                                    </div>
+                                </NeoTabsContent>
+                                <NeoTabsContent value="second">
+                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-lavender)">
+                                        Second tab content
+                                    </div>
+                                </NeoTabsContent>
+                                <NeoTabsContent value="third">
+                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-amber)">
+                                        Third tab content
+                                    </div>
+                                </NeoTabsContent>
+                            </NeoTabsCarousel>
                         </NeoTabs>
                     </div>
 
@@ -144,16 +148,18 @@ function UsageExamplesSection() {
                                 <NeoTabsTrigger value="disabled" disabled>Disabled</NeoTabsTrigger>
                                 <NeoTabsTrigger value="another">Another</NeoTabsTrigger>
                             </NeoTabsList>
-                            <NeoTabsContent value="enabled">
-                                <div className="p-4 mt-2 border-2 border-black rounded-lg bg-white shadow-[3px_3px_0_#000]">
-                                    This tab is enabled and interactive.
-                                </div>
-                            </NeoTabsContent>
-                            <NeoTabsContent value="another">
-                                <div className="p-4 mt-2 border-2 border-black rounded-lg bg-white shadow-[3px_3px_0_#000]">
-                                    Another enabled tab.
-                                </div>
-                            </NeoTabsContent>
+                            <NeoTabsCarousel>
+                                <NeoTabsContent value="enabled">
+                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-white shadow-[3px_3px_0_#000]">
+                                        This tab is enabled and interactive.
+                                    </div>
+                                </NeoTabsContent>
+                                <NeoTabsContent value="another">
+                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-white shadow-[3px_3px_0_#000]">
+                                        Another enabled tab.
+                                    </div>
+                                </NeoTabsContent>
+                            </NeoTabsCarousel>
                         </NeoTabs>
                     </div>
                 </div>
