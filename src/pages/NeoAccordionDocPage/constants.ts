@@ -351,6 +351,11 @@ export const VARIANT_DEMO_ITEMS = [
     trigger: "Second Section",
     content: "Content for the second accordion section.",
   },
+  {
+    value: "item-3",
+    trigger: "Third Section",
+    content: "Content for the third accordion section.",
+  },
 ]
 
 /**
