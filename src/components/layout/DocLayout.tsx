@@ -11,7 +11,6 @@ const navSections: NavComponent[] = [
   { label: "Accordion", to: "/docs/NeoAccordion" },
   { label: "Button", to: "/docs/NeoButton" },
   { label: "Card", to: "/docs/NeoCard" },
-  { label: "Dialog", to: "/docs/NeoDialog" },
   { label: "Dropdown", to: "/docs/NeoDropdown" },
   { label: "Input", to: "/docs/NeoInput" },
   { label: "Select", to: "/docs/NeoSelect" },
@@ -93,7 +92,7 @@ function DocLayout() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex flex-col gap-10 container max-w-[1100px] mx-auto py-12 px-8">
+        <main className="flex flex-col gap-10 container max-w-275 mx-auto py-12 px-8">
           <Outlet />
         </main>
       </div>

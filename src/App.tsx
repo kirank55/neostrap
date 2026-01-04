@@ -20,7 +20,6 @@ import NeoSelectDocPage from "@/pages/NeoSelectDocPage"
 import NeoInputDocPage from "@/pages/NeoInputDocPage"
 import NeoDropdownDocPage from "@/pages/NeoDropdownDocPage"
 import NeoSwitchDocPage from "@/pages/NeoSwitchDocPage"
-import NeoDialogDocPage from "@/pages/NeoDialogDocPage"
 import NeoTabsDocPage from "@/pages/NeoTabsDocPage"
 
 
@@ -42,7 +41,6 @@ function App() {
           <Route path="NeoDropdown" element={<NeoDropdownDocPage />} />
 
           <Route path="NeoSwitch" element={<NeoSwitchDocPage />} />
-          <Route path="NeoDialog" element={<NeoDialogDocPage />} />
           <Route path="NeoTabs" element={<NeoTabsDocPage />} />
 
         </Route>

@@ -57,7 +57,7 @@ const tabsCode = `import { NeoTabs, NeoTabsList, NeoTabsTrigger, NeoTabsContent 
 
 export function TabsDemo() {
   return (
-    <NeoTabs defaultValue="account" className="w-[400px]">
+    <NeoTabs defaultValue="account" className="w-100">
       <NeoTabsList>
         <NeoTabsTrigger value="account">Account</NeoTabsTrigger>
         <NeoTabsTrigger value="password">Password</NeoTabsTrigger>
