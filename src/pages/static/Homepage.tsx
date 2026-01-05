@@ -26,7 +26,6 @@ import {
   Heart,
 } from "lucide-react";
 
-
 // =========================================================================== =
 // CONFIGURATION
 // ============================================================================
@@ -39,6 +38,17 @@ const MARQUEE_ITEMS = [
   "OPEN SOURCE",
   "MODERN UI",
   "FULLY TYPED",
+];
+
+// Section headlines configuration for scroll-linked animation
+const FLOATING_HEADLINES = [
+  {
+    id: "components",
+    lines: ["BUILD BRUTAL", "INTERFACES"],
+    // lines: ["BUILD BRUTAL", "INTERFACES"],
+    accentIndex: 1,
+    accentColor: "text-(--color-pink)",
+  },
 ];
 
 // Section headline configuration for scroll animation
@@ -197,11 +207,19 @@ const TESTIMONIALS = [
 // ANIMATED COMPONENTS
 // ============================================================================
 
-function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
+function Marquee({
+  items,
+  reverse = false,
+}: {
+  items: string[];
+  reverse?: boolean;
+}) {
   return (
     <div className="overflow-hidden py-4 border-y-2 border-black bg-black relative z-20">
       <div
-        className={`flex whitespace-nowrap ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
+        className={`flex whitespace-nowrap ${
+          reverse ? "animate-marquee-reverse" : "animate-marquee"
+        }`}
       >
         {[...items, ...items, ...items].map((item, i) => (
           <span
@@ -227,11 +245,17 @@ function OrbitingComponents() {
     { type: "input" as const },
   ];
 
-  const renderComponent = (type: "button" | "switch" | "card" | "input" | "badge") => {
+  const renderComponent = (
+    type: "button" | "switch" | "card" | "input" | "badge"
+  ) => {
     switch (type) {
       case "button":
         return (
-          <NeoButton variant="brutal" size="sm" className="bg-(--color-amber) text-xs px-3 py-1 pointer-events-none">
+          <NeoButton
+            variant="brutal"
+            size="sm"
+            className="bg-(--color-amber) text-xs px-3 py-1 pointer-events-none"
+          >
             Click
           </NeoButton>
         );
@@ -245,7 +269,9 @@ function OrbitingComponents() {
         return (
           <NeoCard variant="brutal" className="w-28 p-2 bg-(--color-baby-blue)">
             <NeoCardHeader className="p-1">
-              <NeoCardTitle className="text-[10px] font-bold">Mini Card</NeoCardTitle>
+              <NeoCardTitle className="text-[10px] font-bold">
+                Mini Card
+              </NeoCardTitle>
             </NeoCardHeader>
             <NeoCardContent className="p-1">
               <div className="h-4 w-full bg-black/10 rounded" />
@@ -265,7 +291,9 @@ function OrbitingComponents() {
       case "badge":
         return (
           <div className="px-3 py-1 border-2 border-black bg-(--color-pink) shadow-[3px_3px_0_#000] rounded-full">
-            <span className="text-xs font-bold uppercase tracking-wider">New</span>
+            <span className="text-xs font-bold uppercase tracking-wider">
+              New
+            </span>
           </div>
         );
       default:
@@ -339,11 +367,204 @@ function GridBackground() {
   );
 }
 
+// Floating headlines that animate from hero to their sections
+function FloatingHeadlines() {
+  const headlineRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Only run on lg+ screens
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      const tweens: gsap.core.Tween[] = [];
+
+      FLOATING_HEADLINES.forEach((headline, index) => {
+        const floatingEl = headlineRefs.current[index];
+        const targetSection = document.querySelector(
+          `[data-section="${headline.id}"]`
+        );
+        const targetH2 = document.querySelector(
+          `[data-section-heading="${headline.id}"]`
+        );
+
+        if (!floatingEl || !targetSection || !targetH2) return;
+
+        // Get the target h2's position relative to the document
+        const getTargetPosition = () => {
+          const targetRect = targetH2.getBoundingClientRect();
+          const scrollY = window.scrollY;
+          return {
+            x: targetRect.left,
+            y: targetRect.top + scrollY,
+          };
+        };
+
+        // Calculate initial stacked position (staggered vertically near h1)
+        const initialX = window.innerWidth * 0.5; // Center horizontally
+
+        const h1 = document.querySelector("h1"); // or use a ref
+        const h1Rect = h1?.getBoundingClientRect();
+        const baseY = h1Rect ? h1Rect.top + window.scrollY + 20 : 180;
+        const initialY = baseY; // Stack below hero h1
+
+        // Set initial state
+        gsap.set(floatingEl, {
+          position: "fixed",
+          top: initialY,
+          left: initialX,
+          xPercent: -50,
+          opacity: 1,
+          scale: 1,
+          rotateX: 18,
+          rotateZ: -6,
+          transformPerspective: 1000,
+          transformOrigin: "50% 50%",
+          zIndex: 100 - index,
+        });
+
+        // Create scroll-linked animation
+        const tween = gsap.to(floatingEl, {
+          scrollTrigger: {
+            trigger: targetSection,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const target = getTargetPosition();
+
+              // Interpolate position
+              const currentX = gsap.utils.interpolate(
+                initialX,
+                target.x + (targetH2 as HTMLElement).offsetWidth / 2,
+                progress
+              );
+              const currentY = gsap.utils.interpolate(
+                initialY,
+                target.y - window.scrollY,
+                progress
+              );
+
+              gsap.set(floatingEl, {
+                left: currentX,
+                top: currentY,
+                scale: gsap.utils.interpolate(1, 0.6, progress),
+                rotateX: gsap.utils.interpolate(18, 0, progress),
+                rotateZ: gsap.utils.interpolate(-6, 0, progress),
+                opacity: gsap.utils.interpolate(1, 1, progress),
+              });
+
+              // Hide original h2 while floating one is visible, show when animation completes
+              (targetH2 as HTMLElement).style.opacity =
+                progress > 0.95 ? "1" : "0";
+            },
+            onLeave: () => {
+              // Hide floating element and show original
+              gsap.set(floatingEl, { opacity: 0 });
+              (targetH2 as HTMLElement).style.opacity = "1";
+            },
+            onEnterBack: () => {
+              // Show floating element and hide original
+              gsap.set(floatingEl, { opacity: 1 });
+              (targetH2 as HTMLElement).style.opacity = "0";
+            },
+            onLeaveBack: () => {
+              // Reset to initial state
+              gsap.set(floatingEl, {
+                opacity: 1,
+                top: initialY,
+                left: initialX,
+                scale: 1,
+                rotateX: 18,
+                rotateZ: -6,
+              });
+              (targetH2 as HTMLElement).style.opacity = "0";
+            },
+          },
+        });
+
+        tweens.push(tween);
+      });
+
+      // Initially hide all target h2s on lg screens
+      FLOATING_HEADLINES.forEach((headline) => {
+        const targetH2 = document.querySelector(
+          `[data-section-heading="${headline.id}"]`
+        );
+        if (targetH2) {
+          (targetH2 as HTMLElement).style.opacity = "0";
+        }
+      });
+
+      return () => {
+        tweens.forEach((tween) => {
+          tween.scrollTrigger?.kill();
+          tween.kill();
+        });
+        // Reset h2 visibility
+        FLOATING_HEADLINES.forEach((headline) => {
+          const targetH2 = document.querySelector(
+            `[data-section-heading="${headline.id}"]`
+          );
+          if (targetH2) {
+            (targetH2 as HTMLElement).style.opacity = "1";
+          }
+        });
+      };
+    });
+
+    return () => {
+      mm.revert();
+    };
+  }, []);
+
+  return (
+    <div
+      className="hidden lg:block pointer-events-none"
+      style={{ position: "fixed", inset: 0, zIndex: 50 }}
+    >
+      {FLOATING_HEADLINES.map((headline, index) => (
+        <div
+          key={headline.id}
+          ref={(el) => {
+            headlineRefs.current[index] = el;
+          }}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight text-center"
+          style={{
+            filter: "drop-shadow(0 0px 7px #FE5BD6)",
+            willChange: "transform, opacity",
+            backfaceVisibility: "hidden",
+          }}
+        >
+          {headline.lines.map((line, lineIndex) => (
+            <span
+              key={lineIndex}
+              className={`block ${
+                lineIndex === headline.accentIndex
+                  ? headline.accentColor
+                  : "text-black"
+              }`}
+            >
+              {line}
+            </span>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ============================================================================
 // SECTION COMPONENTS
 // ============================================================================
 
-function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | null> }) {
+function HeroSection({
+  h1Ref,
+}: {
+  h1Ref: React.RefObject<HTMLHeadingElement | null>;
+}) {
   // const [copied, setCopied] = useState(false);
 
   // const handleCopy = () => {
@@ -353,7 +574,10 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
   // };
 
   return (
-    <section data-section="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
+    <section
+      data-section="hero"
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white"
+    >
       <GridBackground />
       <OrbitingComponents />
 
@@ -375,31 +599,41 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
           <div className="mb-6">
             <h1
               ref={h1Ref}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight bg-linear-to-r from-(--color-pink) via-(--color-pink) to-pink-500 bg-clip-text"
+              className="text-[rgba(0,0,0,0)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] t "
+              // className="text-[rgba(0,0,0,0)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight bg-linear-to-r from-(--color-pink) via-(--color-pink) to-pink-500 bg-clip-text"
               style={{
-                filter: 'drop-shadow(0 0px 7px #FE5BD6)',
+                filter: "drop-shadow(0 0px 7px #FE5BD6)",
                 // base glow + subtle extrusion shadow for depth
                 // textShadow: '0 5px 10px #FE5BD6, 0 18px 0 rgba(0,0,0,0.6)',
                 // make transform work on the heading block
-                display: 'inline-block',
-                willChange: 'transform',
-                backfaceVisibility: 'hidden',
+                display: "inline-block",
+                willChange: "transform",
+                backfaceVisibility: "hidden",
                 // isometric-ish tilt using perspective + rotations
-                transform: 'perspective(1000px) rotateX(18deg) rotateZ(-6deg)',
-                transformOrigin: '50% 40%',
-                WebkitTransform: 'perspective(1000px) rotateX(18deg) rotateZ(-6deg)',
+                transform: "perspective(1000px) rotateX(18deg) rotateZ(-6deg)",
+                transformOrigin: "50% 40%",
+                WebkitTransform:
+                  "perspective(1000px) rotateX(18deg) rotateZ(-6deg)",
               }}
             >
-              <span className="block" data-line="0">BUILD</span>
-              <span className="block" data-line="1">BRUTAL</span>
-              <span className="block" data-line="2">INTERFACES</span>
+              <span className="block" data-line="0">
+                BUILD
+              </span>
+              <span className="block" data-line="1">
+                BRUTAL
+              </span>
+              <span className="block" data-line="2">
+                INTERFACES
+              </span>
             </h1>
           </div>
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl font-medium text-black/80 max-w-2xl mx-auto mb-10 leading-relaxed">
             A neo-brutalist React component library that breaks the rules.{" "}
-            <span className="font-bold text-black">Bold. Unapologetic. Beautiful.</span>
+            <span className="font-bold text-black">
+              Bold. Unapologetic. Beautiful.
+            </span>
           </p>
 
           {/* CTA Buttons */}
@@ -421,9 +655,7 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
               className="bg-white text-lg px-8 py-6 h-auto"
               asChild
             >
-              <Link to="/docs/NeoButton">
-                Explore Components
-              </Link>
+              <Link to="/docs/NeoButton">Explore Components</Link>
             </NeoButton>
           </div>
 
@@ -489,13 +721,20 @@ function ComponentShowcase() {
     switch (componentName) {
       case "NeoButton":
         return (
-          <NeoButton variant="brutal" size="sm" className="bg-(--color-amber) text-xs px-3 py-1 pointer-events-none">
+          <NeoButton
+            variant="brutal"
+            size="sm"
+            className="bg-(--color-amber) text-xs px-3 py-1 pointer-events-none"
+          >
             Button
           </NeoButton>
         );
       case "NeoCard":
         return (
-          <NeoCard variant="brutal" className="w-24 p-2 bg-(--color-baby-blue) pointer-events-none">
+          <NeoCard
+            variant="brutal"
+            className="w-24 p-2 bg-(--color-baby-blue) pointer-events-none"
+          >
             <NeoCardHeader className="p-1">
               <NeoCardTitle className="text-[9px] font-bold">Card</NeoCardTitle>
             </NeoCardHeader>
@@ -529,7 +768,9 @@ function ComponentShowcase() {
       case "NeoTabs":
         return (
           <div className="flex gap-1 p-1 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
-            <div className="px-2 py-0.5 bg-black text-white text-[9px] font-bold rounded">Tab 1</div>
+            <div className="px-2 py-0.5 bg-black text-white text-[9px] font-bold rounded">
+              Tab 1
+            </div>
             <div className="px-2 py-0.5 text-[9px] font-bold">Tab 2</div>
           </div>
         );
@@ -556,13 +797,19 @@ function ComponentShowcase() {
       case "NeoDropdown":
         return (
           <div className="w-28 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
-            <div className="px-2 py-1 text-[9px] font-bold border-b border-black">Menu ▼</div>
+            <div className="px-2 py-1 text-[9px] font-bold border-b border-black">
+              Menu ▼
+            </div>
             <div className="px-2 py-0.5 text-[8px]">Option 1</div>
             <div className="px-2 py-0.5 text-[8px]">Option 2</div>
           </div>
         );
       default:
-        return <div className="text-4xl">{COMPONENT_CARDS.find(c => c.name === componentName)?.icon}</div>;
+        return (
+          <div className="text-4xl">
+            {COMPONENT_CARDS.find((c) => c.name === componentName)?.icon}
+          </div>
+        );
     }
   };
 
@@ -580,15 +827,18 @@ function ComponentShowcase() {
               <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-baby-blue) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
                 Components
               </span>
-              <h2 data-section-heading="components" className="text-4xl md:text-5xl lg:text-6xl font-black">
-                BUILT FOR
+              <h2
+                data-section-heading="components"
+                className="text-4xl md:text-5xl lg:text-6xl font-black"
+              >
+                BUILD BRUTAL
                 <br />
-                <span className="text-(--color-pink)">IMPACT</span>
+                <span className="text-(--color-pink)">INTERFACES</span>
               </h2>
             </div>
             <p className="text-lg text-black/70 max-w-md">
-              Every component is designed to stand out. No boring defaults — just
-              bold, memorable interfaces.
+              Every component is designed to stand out. No boring defaults —
+              just bold, memorable interfaces.
             </p>
           </div>
         </div>
@@ -612,7 +862,9 @@ function ComponentShowcase() {
                   {renderComponentPreview(component.name)}
                 </div>
                 <h3 className="text-xl font-black mb-2">{component.name}</h3>
-                <p className="text-black/70 text-sm flex-1">{component.description}</p>
+                <p className="text-black/70 text-sm flex-1">
+                  {component.description}
+                </p>
                 <div className="mt-4 flex items-center gap-2 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
                   View Docs <ArrowRight className="w-4 h-4" />
                 </div>
@@ -630,7 +882,10 @@ function LiveDemo() {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <section data-section="demo" className="py-24 bg-black text-white relative overflow-hidden">
+    <section
+      data-section="demo"
+      className="py-24 bg-black text-white relative overflow-hidden"
+    >
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 w-32 h-32 border-4 border-(--color-pink) opacity-20 rotate-12" />
       <div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-(--color-amber) opacity-20 -rotate-12" />
@@ -642,14 +897,17 @@ function LiveDemo() {
             <span className="inline-block px-3 py-1 border-2 border-white bg-transparent text-sm font-bold uppercase tracking-wider mb-4">
               Live Preview
             </span>
-            <h2 data-section-heading="demo" className="text-4xl md:text-5xl font-black mb-6">
+            <h2
+              data-section-heading="demo"
+              className="text-4xl md:text-5xl font-black mb-6"
+            >
               EXPERIENCE THE
               <br />
               <span className="text-(--color-amber)">BRUTALITY</span>
             </h2>
             <p className="text-lg text-white/70 mb-8 max-w-lg">
-              Interact with real components. No mockups, no illusions — just pure,
-              unadulterated neo-brutalist design in action.
+              Interact with real components. No mockups, no illusions — just
+              pure, unadulterated neo-brutalist design in action.
             </p>
 
             {/* <div className="flex flex-wrap gap-4">
@@ -722,13 +980,17 @@ function FeaturesSection() {
           <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-lavender) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
             Why NeoStrap
           </span>
-          <h2 data-section-heading="features" className="text-4xl md:text-5xl lg:text-6xl font-black mb-4">
+          <h2
+            data-section-heading="features"
+            className="text-4xl md:text-5xl lg:text-6xl font-black mb-4"
+          >
             DESIGNED FOR
             <br />
             <span className="text-red-700">DEVELOPERS</span>
           </h2>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
-            Built by developers, for developers who want their UIs to make an impact.
+            Built by developers, for developers who want their UIs to make an
+            impact.
           </p>
         </div>
 
@@ -753,7 +1015,10 @@ function FeaturesSection() {
 
 function TestimonialsSection() {
   return (
-    <section data-section="testimonials" className="py-24 bg-(--color-baby-blue) border-y-2 border-black relative overflow-hidden">
+    <section
+      data-section="testimonials"
+      className="py-24 bg-(--color-baby-blue) border-y-2 border-black relative overflow-hidden"
+    >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div
@@ -776,7 +1041,10 @@ function TestimonialsSection() {
           <span className="inline-block px-3 py-1 border-2 border-black bg-white text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
             Testimonials
           </span>
-          <h2 data-section-heading="testimonials" className="text-4xl md:text-5xl lg:text-6xl font-black">
+          <h2
+            data-section-heading="testimonials"
+            className="text-4xl md:text-5xl lg:text-6xl font-black"
+          >
             LOVED BY
             <br />
             <span className="text-(--color-pink)">BUILDERS</span>
@@ -821,7 +1089,10 @@ function TestimonialsSection() {
 
 function CTASection() {
   return (
-    <section data-section="cta" className="py-32 relative overflow-hidden bg-white">
+    <section
+      data-section="cta"
+      className="py-32 relative overflow-hidden bg-white"
+    >
       <div className="container mx-auto px-6 text-center">
         {/* Large decorative text */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
@@ -829,7 +1100,10 @@ function CTASection() {
         </div>
 
         <div className="relative z-10">
-          <h2 data-section-heading="cta" className="text-4xl md:text-5xl lg:text-7xl font-black mb-8">
+          <h2
+            data-section-heading="cta"
+            className="text-4xl md:text-5xl lg:text-7xl font-black mb-8"
+          >
             READY TO BUILD
             <br />
             <span className="text-(--color-pink) relative inline-block">
@@ -899,8 +1173,8 @@ function Footer() {
               NEO<span className="text-(--color-pink)">STRAP</span>
             </h3>
             <p className="text-white/60 mb-6 max-w-md">
-              A neo-brutalist React component library for developers who want their
-              UIs to stand out.
+              A neo-brutalist React component library for developers who want
+              their UIs to stand out.
             </p>
             <div className="flex gap-3">
               <a
@@ -1011,15 +1285,14 @@ function HomePage() {
   const h1Ref = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // H1 scroll animation removed — heading remains static.
-
-
-
   return (
     <div ref={containerRef} className="min-h-screen overflow-x-hidden">
+      {/* Floating headlines that animate from hero to sections */}
+      <FloatingHeadlines />
+
       <HeroSection h1Ref={h1Ref} />
       <Marquee items={MARQUEE_ITEMS} />
-      
+
       <ComponentShowcase />
       <LiveDemo />
       <Marquee items={MARQUEE_ITEMS} reverse />
