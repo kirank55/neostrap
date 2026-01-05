@@ -233,7 +233,7 @@ function GettingStartedPage() {
                                     <h4 className="text-lg font-black uppercase">Via Shadcn CLI</h4>
                                 </div>
                                 <p className="text-sm text-neutral-600 font-medium">
-                                    The fastest way. Use our private registry URL to add components directly to your project.
+                                    The fastest way. Use our registry URL to add components directly to your project.
                                 </p>
                                 <CodeBlock
                                     code="npx shadcn@latest add https://neostrapui.pages.dev/r/neobutton.json"

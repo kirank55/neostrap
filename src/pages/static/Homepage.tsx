@@ -14,8 +14,8 @@ import { NeoSwitch } from "@/components/ui/NeoSwitch";
 import { NeoInput } from "@/components/ui/NeoInput";
 import {
   ArrowRight,
-  Copy,
-  Check,
+  // Copy,
+  // Check,
   Zap,
   Palette,
   Code2,
@@ -42,44 +42,44 @@ const MARQUEE_ITEMS = [
 ];
 
 // Section headline configuration for scroll animation
-const SECTION_HEADLINES = [
-  {
-    id: "hero",
-    text: ["BUILD", "BRUTAL", "INTERFACES"],
-    accentIndex: 1,
-    accentColor: "var(--color-pink)",
-  },
-  {
-    id: "components",
-    text: ["BUILT FOR", "IMPACT", ""],
-    accentIndex: 1,
-    accentColor: "var(--color-pink)",
-  },
-  {
-    id: "demo",
-    text: ["EXPERIENCE THE", "BRUTALITY", ""],
-    accentIndex: 1,
-    accentColor: "var(--color-amber)",
-  },
-  {
-    id: "features",
-    text: ["DESIGNED FOR", "DEVELOPERS", ""],
-    accentIndex: 1,
-    accentColor: "var(--color-amber)",
-  },
-  {
-    id: "testimonials",
-    text: ["LOVED BY", "BUILDERS", ""],
-    accentIndex: 1,
-    accentColor: "var(--color-pink)",
-  },
-  {
-    id: "cta",
-    text: ["READY TO BUILD", "SOMETHING BRUTAL?", ""],
-    accentIndex: 1,
-    accentColor: "var(--color-pink)",
-  },
-];
+// const SECTION_HEADLINES = [
+//   {
+//     id: "hero",
+//     text: ["BUILD", "BRUTAL", "INTERFACES"],
+//     accentIndex: 1,
+//     accentColor: "var(--color-pink)",
+//   },
+//   {
+//     id: "components",
+//     text: ["BUILT FOR", "IMPACT", ""],
+//     accentIndex: 1,
+//     accentColor: "var(--color-pink)",
+//   },
+//   {
+//     id: "demo",
+//     text: ["EXPERIENCE THE", "BRUTALITY", ""],
+//     accentIndex: 1,
+//     accentColor: "var(--color-amber)",
+//   },
+//   {
+//     id: "features",
+//     text: ["DESIGNED FOR", "DEVELOPERS", ""],
+//     accentIndex: 1,
+//     accentColor: "var(--color-amber)",
+//   },
+//   {
+//     id: "testimonials",
+//     text: ["LOVED BY", "BUILDERS", ""],
+//     accentIndex: 1,
+//     accentColor: "var(--color-pink)",
+//   },
+//   {
+//     id: "cta",
+//     text: ["READY TO BUILD", "SOMETHING BRUTAL?", ""],
+//     accentIndex: 1,
+//     accentColor: "var(--color-pink)",
+//   },
+// ];
 
 const COMPONENT_CARDS = [
   {
@@ -172,24 +172,24 @@ const FEATURES = [
 const TESTIMONIALS = [
   {
     quote:
-      "NeoStrap made our product look 10x more unique. The brutal aesthetic turned heads at our launch.",
-    author: "Sarah Chen",
+      "NeoStrap made our product look 10x more worst. The brutal aesthetic turned heads to other side at our launch.",
+    author: "John Doe",
     role: "Design Lead, Startup",
+    avatar: "J",
+  },
+  {
+    quote:
+      "Finally, a UI kit that isn't afraid to be ugly. Our conversion rates jumped down 40% after redesigning with NeoStrap.",
+    author: "San Doe",
+    role: "Founder, SaaS",
     avatar: "S",
   },
   {
     quote:
-      "Finally, a UI kit that isn't afraid to be bold. Our conversion rates jumped 40% after redesigning with NeoStrap.",
-    author: "Marcus Rodriguez",
-    role: "Founder, SaaS",
-    avatar: "M",
-  },
-  {
-    quote:
-      "The attention to detail is insane. Every shadow, every border - it all just works together perfectly.",
-    author: "Aisha Patel",
+      "The attention to detail is insane. Every shadow, every border - it all just messed up together perfectly.",
+    author: "Jane Smith",
     role: "Frontend Engineer",
-    avatar: "A",
+    avatar: "J",
   },
 ];
 
@@ -344,13 +344,13 @@ function GridBackground() {
 // ============================================================================
 
 function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | null> }) {
-  const [copied, setCopied] = useState(false);
+  // const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText("npm install neostrap-ui");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  // const handleCopy = () => {
+  //   navigator.clipboard.writeText("npm install neostrap-ui");
+  //   setCopied(true);
+  //   setTimeout(() => setCopied(false), 2000);
+  // };
 
   return (
     <section data-section="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
@@ -419,7 +419,7 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
           </div>
 
           {/* Install command */}
-          <div
+          {/* <div
             onClick={handleCopy}
             className="inline-flex items-center gap-3 px-6 py-4 border-2 border-black bg-black text-white font-mono text-lg shadow-[6px_6px_0_(--color-amber)] hover:shadow-[4px_4px_0_(--color-amber)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer rounded-lg relative overflow-hidden"
           >
@@ -430,7 +430,7 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
             ) : (
               <Copy className="w-5 h-5 opacity-60 hover:opacity-100" />
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
@@ -594,10 +594,10 @@ function ComponentShowcase() {
             <Link
               to={`/docs/${component.name}`}
               key={component.name}
-              className="group flex-shrink-0"
+              className="group shrink-0"
             >
               <div
-                className={`${component.color} border-2 border-black p-6 w-72 h-64 shadow-[6px_6px_0_#000] transition-all group-hover:shadow-[3px_3px_0_#000] group-hover:translate-x-[3px] group-hover:translate-y-[3px] rounded-lg flex flex-col`}
+                className={`${component.color} border-2 border-black p-6 w-72 h-64 shadow-[6px_6px_0_#000] transition-all group-hover:shadow-[3px_3px_0_#000] group-hover:translate-x-0.75 group-hover:translate-y-0.75 rounded-lg flex flex-col`}
               >
                 <div className="mb-4 flex items-center justify-center h-16">
                   {renderComponentPreview(component.name)}
@@ -643,7 +643,7 @@ function LiveDemo() {
               unadulterated neo-brutalist design in action.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            {/* <div className="flex flex-wrap gap-4">
               <NeoButton variant="brutal" className="bg-(--color-pink)">
                 Primary Action
               </NeoButton>
@@ -653,7 +653,7 @@ function LiveDemo() {
               <NeoButton variant="brutal" className="bg-white text-black">
                 Tertiary
               </NeoButton>
-            </div>
+            </div> */}
           </div>
 
           {/* Right: Live component demo */}
@@ -716,7 +716,7 @@ function FeaturesSection() {
           <h2 data-section-heading="features" className="text-4xl md:text-5xl lg:text-6xl font-black mb-4">
             DESIGNED FOR
             <br />
-            <span className="text-(--color-amber)">DEVELOPERS</span>
+            <span className="text-red-700">DEVELOPERS</span>
           </h2>
           <p className="text-lg text-black/70 max-w-2xl mx-auto">
             Built by developers, for developers who want their UIs to make an impact.
@@ -728,7 +728,7 @@ function FeaturesSection() {
           {FEATURES.map((feature, index) => (
             <div
               key={feature.title}
-              className={`${feature.color} border-2 border-black p-8 shadow-[6px_6px_0_#000] hover:shadow-[3px_3px_0_#000] hover:translate-x-[3px] hover:translate-y-[3px] transition-all rounded-lg`}
+              className={`${feature.color} border-2 border-black p-8 shadow-[6px_6px_0_#000] hover:shadow-[3px_3px_0_#000] hover:translate-x-0.75 hover:translate-y-0.75 transition-all rounded-lg`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <feature.icon className="w-10 h-10 mb-4" strokeWidth={2.5} />
@@ -812,7 +812,7 @@ function TestimonialsSection() {
 
 function CTASection() {
   return (
-    <section data-section="cta" className="py-32 relative overflow-hidden">
+    <section data-section="cta" className="py-32 relative overflow-hidden bg-white">
       <div className="container mx-auto px-6 text-center">
         {/* Large decorative text */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">

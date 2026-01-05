@@ -117,7 +117,7 @@ const NeoTabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm border-2 border-black bg-[var(--primary)] text-black font-semibold hover:shadow-[2px_2px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5 data-[state=active]:shadow-[4px_4px_0_#000] data-[state=active]:translate-x-0 data-[state=active]:translate-y-0",
+      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm border-2 border-black bg-(--primary) text-black font-semibold hover:shadow-[2px_2px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5 data-[state=active]:shadow-sm data-[state=active]:translate-x-0 data-[state=active]:translate-y-0",
       className
     )}
     {...props}
