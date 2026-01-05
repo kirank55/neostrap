@@ -50,7 +50,7 @@ function CodeBlock({ code, highlightCode = true }: CodeBlockProps) {
     >
       <div
         className={`w-full rounded-lg border border-border/60 bg-slate-900 p-4 text-sm text-slate-100 relative shadow-[3px_3px_0_#000] 
-        ${shouldTruncate && !isExpanded ? "max-h-[250px] overflow-hidden" : "overflow-x-auto"}`}>
+        ${shouldTruncate && !isExpanded ? "max-h-62.5 overflow-hidden" : "overflow-x-auto"}`}>
         <button
           onClick={handleCopy}
           className="absolute top-3 right-3 p-1.5 rounded hover:bg-slate-800 transition-colors"
@@ -105,7 +105,7 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
   const [mode, setMode] = useState<"preview" | "code">("preview");
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
       <div className="flex items-center gap-6 pt-4 pb-1">
         <NeoButton
           size="sm"
@@ -126,7 +126,7 @@ function Codepreview({ code, preview, language = "tsx" }: CodepreviewProps) {
       </div>
 
       {mode === "preview" && (
-        <div className="rounded-xl my-3 p-8 shadow-sm border-3 border-black">
+        <div className="rounded-xl my-3 p-8 shadow-sm border-3 border-black bg-white">
           <div className="flex justify-center">{preview}</div>
         </div>
       )}

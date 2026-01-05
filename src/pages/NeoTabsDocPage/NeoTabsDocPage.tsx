@@ -31,21 +31,21 @@ import {
 function TabsDemoRender() {
     return (
         <NeoTabs defaultValue="tab1" className="w-full max-w-md">
-            <NeoTabsList className="w-full border-0">
+            <NeoTabsList>
                 <NeoTabsTrigger value="tab1">Overview</NeoTabsTrigger>
                 <NeoTabsTrigger value="tab2">Features</NeoTabsTrigger>
                 <NeoTabsTrigger value="tab3">Settings</NeoTabsTrigger>
             </NeoTabsList>
             <NeoTabsCarousel>
-                <NeoTabsContent value="tab1" className="p-4 border-2 border-black rounded-lg shadow-[4px_4px_0_#000]">
+                <NeoTabsContent value="tab1">
                     <h3 className="font-bold text-lg mb-2">Overview</h3>
                     <p className="text-black/70">Welcome to NeoStrap Tabs. Click on other tabs to explore.</p>
                 </NeoTabsContent>
-                <NeoTabsContent value="tab2" className="p-4 border-2 border-black rounded-lg shadow-[4px_4px_0_#000]">
+                <NeoTabsContent value="tab2">
                     <h3 className="font-bold text-lg mb-2">Features</h3>
                     <p className="text-black/70">Neo-brutalist styling with bold shadows and clean design.</p>
                 </NeoTabsContent>
-                <NeoTabsContent value="tab3" className="p-4 border-2 border-black rounded-lg shadow-[4px_4px_0_#000]">
+                <NeoTabsContent value="tab3">
                     <h3 className="font-bold text-lg mb-2">Settings</h3>
                     <p className="text-black/70">Configure your preferences here.</p>
                 </NeoTabsContent>

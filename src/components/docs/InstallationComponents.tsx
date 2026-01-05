@@ -67,7 +67,7 @@ export function InstallationTabs({ cliCode, children }: InstallationTabsProps) {
     return (
         <DocSection id="installation" title="Installation">
             <ShowcaseSurface>
-                <NeoTabs defaultValue="cli" className="w-full">
+                <NeoTabs defaultValue="cli" className="w-full h-fit">
                     <NeoTabsList className="w-full flex justify-start items-center gap-8 border-0">
                         <NeoTabsTrigger value="cli">CLI</NeoTabsTrigger>
                         <NeoTabsTrigger value="manual">Manual</NeoTabsTrigger>
@@ -77,7 +77,7 @@ export function InstallationTabs({ cliCode, children }: InstallationTabsProps) {
                         <CodeBlock code={cliCode} highlightCode={false} />
                     </NeoTabsContent>
 
-                    <NeoTabsContent value="manual">
+                    <NeoTabsContent value="manual" className="bg-inherit">
                         <div className="space-y-4">{children}</div>
                     </NeoTabsContent>
                 </NeoTabs>
