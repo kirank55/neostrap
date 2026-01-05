@@ -462,7 +462,7 @@ function ComponentShowcase() {
       scrollTrigger: {
         trigger: trigger,
         start: "top top",
-        end: () => `+=${cards.scrollWidth - window.innerWidth + 100}`,
+        end: () => `+=${(cards.scrollWidth - window.innerWidth + 100) * 0.4}`,
         scrub: 1,
         pin: true,
         anticipatePin: 1,
@@ -475,6 +475,87 @@ function ComponentShowcase() {
       tween.kill();
     };
   }, []);
+
+  const renderComponentPreview = (componentName: string) => {
+    switch (componentName) {
+      case "NeoButton":
+        return (
+          <NeoButton variant="brutal" size="sm" className="bg-(--color-amber) text-xs px-3 py-1 pointer-events-none">
+            Button
+          </NeoButton>
+        );
+      case "NeoCard":
+        return (
+          <NeoCard variant="brutal" className="w-24 p-2 bg-(--color-baby-blue) pointer-events-none">
+            <NeoCardHeader className="p-1">
+              <NeoCardTitle className="text-[9px] font-bold">Card</NeoCardTitle>
+            </NeoCardHeader>
+            <NeoCardContent className="p-1">
+              <div className="h-3 w-full bg-black/10 rounded" />
+            </NeoCardContent>
+          </NeoCard>
+        );
+      case "NeoInput":
+        return (
+          <NeoInput
+            variant="brutal"
+            size="sm"
+            placeholder="Input..."
+            className="w-28 text-xs pointer-events-none"
+            readOnly
+          />
+        );
+      case "NeoSelect":
+        return (
+          <div className="w-28 px-3 py-1.5 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded text-xs font-bold pointer-events-none">
+            Select ▼
+          </div>
+        );
+      case "NeoSwitch":
+        return (
+          <div className="flex items-center gap-2 px-3 py-1.5 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
+            <NeoSwitch size="sm" checked={true} />
+          </div>
+        );
+      case "NeoTabs":
+        return (
+          <div className="flex gap-1 p-1 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
+            <div className="px-2 py-0.5 bg-black text-white text-[9px] font-bold rounded">Tab 1</div>
+            <div className="px-2 py-0.5 text-[9px] font-bold">Tab 2</div>
+          </div>
+        );
+      case "NeoAccordion":
+        return (
+          <div className="w-28 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
+            <div className="px-2 py-1.5 flex items-center justify-between">
+              <span className="text-[9px] font-bold">Item</span>
+              <span className="text-[9px]">▼</span>
+            </div>
+          </div>
+        );
+      case "NeoDialog":
+        return (
+          <div className="w-28 p-2 border-2 border-black bg-white shadow-[3px_3px_0_#000] rounded pointer-events-none">
+            <div className="text-[9px] font-bold mb-1">Dialog</div>
+            <div className="h-2 w-full bg-black/10 rounded mb-1" />
+            <div className="flex gap-1">
+              <div className="flex-1 h-2 bg-black rounded" />
+              <div className="flex-1 h-2 bg-black/20 rounded" />
+            </div>
+          </div>
+        );
+      case "NeoDropdown":
+        return (
+          <div className="w-28 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
+            <div className="px-2 py-1 text-[9px] font-bold border-b border-black">Menu ▼</div>
+            <div className="px-2 py-0.5 text-[8px]">Option 1</div>
+            <div className="px-2 py-0.5 text-[8px]">Option 2</div>
+          </div>
+        );
+      default:
+        return <div className="text-4xl">{COMPONENT_CARDS.find(c => c.name === componentName)?.icon}</div>;
+    }
+  };
 
   return (
     <div ref={triggerRef} className="overflow-hidden">
@@ -518,7 +599,9 @@ function ComponentShowcase() {
               <div
                 className={`${component.color} border-2 border-black p-6 w-72 h-64 shadow-[6px_6px_0_#000] transition-all group-hover:shadow-[3px_3px_0_#000] group-hover:translate-x-[3px] group-hover:translate-y-[3px] rounded-lg flex flex-col`}
               >
-                <div className="text-4xl mb-4">{component.icon}</div>
+                <div className="mb-4 flex items-center justify-center h-16">
+                  {renderComponentPreview(component.name)}
+                </div>
                 <h3 className="text-xl font-black mb-2">{component.name}</h3>
                 <p className="text-black/70 text-sm flex-1">{component.description}</p>
                 <div className="mt-4 flex items-center gap-2 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
