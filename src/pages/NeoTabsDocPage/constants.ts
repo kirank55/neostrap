@@ -56,21 +56,30 @@ export const TABS_TRIGGER_PROPS: PropDefinition[] = [
 // Code Snippets
 // ============================================================================
 
-export const TABS_USAGE_CODE = `import { NeoTabs, NeoTabsList, NeoTabsTrigger, NeoTabsContent } from "@/components/ui/NeoTabs"
+export const TABS_USAGE_CODE = `import { NeoTabs, NeoTabsList, NeoTabsTrigger, NeoTabsContent, NeoTabsCarousel } from "@/components/ui/NeoTabs"
 
 export function TabsDemo() {
   return (
-    <NeoTabs defaultValue="account" className="w-100">
-      <NeoTabsList>
-        <NeoTabsTrigger value="account">Account</NeoTabsTrigger>
-        <NeoTabsTrigger value="password">Password</NeoTabsTrigger>
+    <NeoTabs defaultValue="tab1" className="w-full max-w-md">
+      <NeoTabsList className="w-full border-0">
+        <NeoTabsTrigger value="tab1">Overview</NeoTabsTrigger>
+        <NeoTabsTrigger value="tab2">Features</NeoTabsTrigger>
+        <NeoTabsTrigger value="tab3">Settings</NeoTabsTrigger>
       </NeoTabsList>
-      <NeoTabsContent value="account">
-        <p>Make changes to your account here.</p>
-      </NeoTabsContent>
-      <NeoTabsContent value="password">
-        <p>Change your password here.</p>
-      </NeoTabsContent>
+      <NeoTabsCarousel>
+        <NeoTabsContent value="tab1">
+          <h3 className="font-bold text-lg mb-2">Overview</h3>
+          <p className="text-black/70">Welcome to NeoStrap Tabs. Click on other tabs to explore.</p>
+        </NeoTabsContent>
+        <NeoTabsContent value="tab2">
+          <h3 className="font-bold text-lg mb-2">Features</h3>
+          <p className="text-black/70">Neo-brutalist styling with bold shadows and clean design.</p>
+        </NeoTabsContent>
+        <NeoTabsContent value="tab3">
+          <h3 className="font-bold text-lg mb-2">Settings</h3>
+          <p className="text-black/70">Configure your preferences here.</p>
+        </NeoTabsContent>
+      </NeoTabsCarousel>
     </NeoTabs>
   )
 }`

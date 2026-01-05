@@ -114,27 +114,24 @@ function UsageExamplesSection() {
                 <div className="space-y-8">
                     <div>
                         <h3 className="font-bold mb-4">Default Tabs</h3>
-                        <NeoTabs defaultValue="first" className="w-full">
-                            <NeoTabsList className="border-0">
-                                <NeoTabsTrigger value="first">First</NeoTabsTrigger>
-                                <NeoTabsTrigger value="second">Second</NeoTabsTrigger>
-                                <NeoTabsTrigger value="third">Third</NeoTabsTrigger>
+                        <NeoTabs defaultValue="tab1" className="w-full">
+                            <NeoTabsList className="border-0 w-full">
+                                <NeoTabsTrigger value="tab1">Overview</NeoTabsTrigger>
+                                <NeoTabsTrigger value="tab2">Features</NeoTabsTrigger>
+                                <NeoTabsTrigger value="tab3">Settings</NeoTabsTrigger>
                             </NeoTabsList>
                             <NeoTabsCarousel>
-                                <NeoTabsContent value="first">
-                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-baby-blue)">
-                                        First tab content
-                                    </div>
+                                <NeoTabsContent value="tab1">
+                                    <h3 className="font-bold text-lg mb-2">Overview</h3>
+                                    <p className="text-black/70">Welcome to NeoStrap Tabs. Click on other tabs to explore.</p>
                                 </NeoTabsContent>
-                                <NeoTabsContent value="second">
-                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-lavender)">
-                                        Second tab content
-                                    </div>
+                                <NeoTabsContent value="tab2">
+                                    <h3 className="font-bold text-lg mb-2">Features</h3>
+                                    <p className="text-black/70">Neo-brutalist styling with bold shadows and clean design.</p>
                                 </NeoTabsContent>
-                                <NeoTabsContent value="third">
-                                    <div className="p-4 mt-2 border-2 border-black rounded-lg bg-(--color-amber)">
-                                        Third tab content
-                                    </div>
+                                <NeoTabsContent value="tab3">
+                                    <h3 className="font-bold text-lg mb-2">Settings</h3>
+                                    <p className="text-black/70">Configure your preferences here.</p>
                                 </NeoTabsContent>
                             </NeoTabsCarousel>
                         </NeoTabs>
