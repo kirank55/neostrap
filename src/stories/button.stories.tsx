@@ -71,3 +71,32 @@ export const Icon: Story = {
     "aria-label": "Icon button",
   },
 }
+
+export const ExtraLarge: Story = {
+  args: {
+    size: "xl",
+    children: "Extra Large",
+  },
+}
+
+export const AsLink: Story = {
+  render: () => (
+    <NeoButton asChild variant="link">
+      <a href="#" className="underline">
+        Link-styled Button
+      </a>
+    </NeoButton>
+  ),
+}
+
+export const AllVariants: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      {variantOptions.map((v) => (
+        <NeoButton key={v.variant} variant={v.variant as any}>
+          {v.label}
+        </NeoButton>
+      ))}
+    </div>
+  ),
+}
