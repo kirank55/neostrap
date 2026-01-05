@@ -89,14 +89,3 @@ export const AsLink: Story = {
   ),
 }
 
-export const AllVariants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      {variantOptions.map((v) => (
-        <NeoButton key={v.variant} variant={v.variant as any}>
-          {v.label}
-        </NeoButton>
-      ))}
-    </div>
-  ),
-}
