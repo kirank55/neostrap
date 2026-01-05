@@ -375,10 +375,19 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
           <div className="mb-6">
             <h1
               ref={h1Ref}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight bg-linear-to-r from-(--color-pink) via-(--color-pink) to-pink-500 bg-clip-text text-transparent"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight bg-linear-to-r from-(--color-pink) via-(--color-pink) to-pink-500 bg-clip-text"
               style={{
-                filter: 'drop-shadow(0 0px 40px #FE5BD6)',
-                // textShadow: '0 6px 18px rgba(0,0,0,0.6)'
+                filter: 'drop-shadow(0 0px 7px #FE5BD6)',
+                // base glow + subtle extrusion shadow for depth
+                // textShadow: '0 5px 10px #FE5BD6, 0 18px 0 rgba(0,0,0,0.6)',
+                // make transform work on the heading block
+                display: 'inline-block',
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                // isometric-ish tilt using perspective + rotations
+                transform: 'perspective(1000px) rotateX(18deg) rotateZ(-6deg)',
+                transformOrigin: '50% 40%',
+                WebkitTransform: 'perspective(1000px) rotateX(18deg) rotateZ(-6deg)',
               }}
             >
               <span className="block" data-line="0">BUILD</span>

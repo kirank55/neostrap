@@ -41,7 +41,7 @@
   /* --primary-bg: linear-gradient(90deg, var(--color-lavender) 0%, var(--color-baby-blue) 100%); */
   /* --primary-bg: linear-gradient(90deg, var(--color-baby-blue) 0%, #fff 100%); */
   --primary-bg: linear-gradient(90deg, #fff 0%, var(--color-pink) 100%);
-
+  --primary-bg: var(--color-pink);
   /* --primary-bg-reverse: linear-gradient(90deg, rgba(254, 91, 214, 1) 0%, rgba(254, 196, 55, 1) 90%); */
   --secondary: var(--color-amber);
   --accent: var(--color-pink);
