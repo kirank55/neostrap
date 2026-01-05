@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { NeoButton } from "@/components/ui/NeoButton";
 import {
   NeoCard,
@@ -23,13 +25,9 @@ import {
   Twitter,
   Heart,
 } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
 
-// ============================================================================
+// =========================================================================== =
 // CONFIGURATION
 // ============================================================================
 
@@ -219,14 +217,14 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
   );
 }
 
-// Orbiting components container
+// Orbiting components container - infinity symbol path
 function OrbitingComponents() {
   const orbitItems = [
-    { type: "button" as const, angle: 0 },
-    { type: "switch" as const, angle: 72 },
-    { type: "card" as const, angle: 144 },
-    { type: "badge" as const, angle: 216 },
-    { type: "input" as const, angle: 288 },
+    { type: "button" as const },
+    { type: "switch" as const },
+    { type: "card" as const },
+    { type: "badge" as const },
+    { type: "input" as const },
   ];
 
   const renderComponent = (type: "button" | "switch" | "card" | "input" | "badge") => {
@@ -276,33 +274,50 @@ function OrbitingComponents() {
   };
 
   return (
-    <div
-      className="absolute inset-0 pointer-events-none hidden lg:block"
-      style={{
-        animation: "spin 30s linear infinite",
-      }}
-    >
-      {orbitItems.map((item, index) => {
-        const radians = (item.angle * Math.PI) / 180;
-        const radiusX = 42;
-        const radiusY = 38;
-        const x = 50 + radiusX * Math.cos(radians);
-        const y = 50 + radiusY * Math.sin(radians);
+    <div className="absolute inset-0 pointer-events-none hidden lg:block overflow-hidden">
+      {/* Inline styles for infinity path animation - path spans hero section */}
+      <style>{`
+        .infinity-container {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          height: 100%;
+        }
+        .infinity-item {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          /* Horizontally oriented figure-eight, ~1200px wide x 500px tall */
+          offset-path: path('M 0 0 C 300 -250, 600 -250, 600 0 C 600 250, 300 250, 0 0 C -300 -250, -600 -250, -600 0 C -600 250, -300 250, 0 0');
+          offset-rotate: 0deg;
+          offset-anchor: center;
+          animation: orbit-infinity 40s linear infinite;
+        }
+        @keyframes orbit-infinity {
+          0% { offset-distance: 0%; }
+          100% { offset-distance: 100%; }
+        }
+      `}</style>
 
-        return (
-          <div
-            key={index}
-            className="absolute transform -translate-x-1/2 -translate-y-1/2"
-            style={{
-              left: `${x}%`,
-              top: `${y}%`,
-              animation: "counter-spin 30s linear infinite",
-            }}
-          >
-            {renderComponent(item.type)}
-          </div>
-        );
-      })}
+      <div className="infinity-container">
+        {orbitItems.map((item, index) => {
+          const delay = (index / orbitItems.length) * 20; // evenly distribute along path
+
+          return (
+            <div
+              key={index}
+              className="infinity-item"
+              style={{
+                animationDelay: `-${delay}s`,
+              }}
+            >
+              {renderComponent(item.type)}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -338,7 +353,7 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
   };
 
   return (
-    <section data-section="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section data-section="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
       <GridBackground />
       <OrbitingComponents />
 
@@ -360,16 +375,14 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
           <div className="mb-6">
             <h1
               ref={h1Ref}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight bg-linear-to-r from-(--color-pink) via-(--color-pink) to-pink-500 bg-clip-text text-transparent"
               style={{
-                textShadow: `
-                  4px 4px 0 var(--color-amber),
-                  8px 8px 0 #000
-                `,
+                filter: 'drop-shadow(0 0px 40px #FE5BD6)',
+                // textShadow: '0 6px 18px rgba(0,0,0,0.6)'
               }}
             >
               <span className="block" data-line="0">BUILD</span>
-              <span className="block text-(--color-pink)" data-line="1">BRUTAL</span>
+              <span className="block" data-line="1">BRUTAL</span>
               <span className="block" data-line="2">INTERFACES</span>
             </h1>
           </div>
@@ -425,42 +438,89 @@ function HeroSection({ h1Ref }: { h1Ref: React.RefObject<HTMLHeadingElement | nu
 }
 
 function ComponentShowcase() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const cards = cardsContainerRef.current;
+    const section = sectionRef.current;
+    const trigger = triggerRef.current;
+
+    if (!cards || !section || !trigger) return;
+
+    // Calculate total scroll distance (total width - viewport width)
+    const getScrollAmount = () => {
+      return -(cards.scrollWidth - window.innerWidth + 100);
+    };
+
+    const tween = gsap.to(cards, {
+      x: getScrollAmount,
+      ease: "none",
+      scrollTrigger: {
+        trigger: trigger,
+        start: "top top",
+        end: () => `+=${cards.scrollWidth - window.innerWidth + 100}`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, []);
+
   return (
-    <section data-section="components" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        {/* Section header */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
-          <div>
-            <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-baby-blue) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
-              Components
-            </span>
-            <h2 data-section-heading="components" className="text-4xl md:text-5xl lg:text-6xl font-black">
-              BUILT FOR
-              <br />
-              <span className="text-(--color-pink)">IMPACT</span>
-            </h2>
+    <div ref={triggerRef} className="overflow-hidden">
+      <section
+        ref={sectionRef}
+        data-section="components"
+        className="min-h-screen flex flex-col justify-center relative bg-white"
+      >
+        <div className="container mx-auto px-6 pt-12 pb-8">
+          {/* Section header */}
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
+            <div>
+              <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-baby-blue) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
+                Components
+              </span>
+              <h2 data-section-heading="components" className="text-4xl md:text-5xl lg:text-6xl font-black">
+                BUILT FOR
+                <br />
+                <span className="text-(--color-pink)">IMPACT</span>
+              </h2>
+            </div>
+            <p className="text-lg text-black/70 max-w-md">
+              Every component is designed to stand out. No boring defaults — just
+              bold, memorable interfaces.
+            </p>
           </div>
-          <p className="text-lg text-black/70 max-w-md">
-            Every component is designed to stand out. No boring defaults — just
-            bold, memorable interfaces.
-          </p>
         </div>
 
-        {/* Component grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {COMPONENT_CARDS.map((component, index) => (
+        {/* Horizontal scrolling cards container */}
+        <div
+          ref={cardsContainerRef}
+          className="flex gap-6 pl-6 pr-[50vw] pb-12"
+          style={{ willChange: "transform" }}
+        >
+          {COMPONENT_CARDS.map((component) => (
             <Link
               to={`/docs/${component.name}`}
               key={component.name}
-              className="group"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="group flex-shrink-0"
             >
               <div
-                className={`${component.color} border-2 border-black p-6 h-full shadow-[6px_6px_0_#000] transition-all group-hover:shadow-[3px_3px_0_#000] group-hover:translate-x-[3px] group-hover:translate-y-[3px] rounded-lg`}
+                className={`${component.color} border-2 border-black p-6 w-72 h-64 shadow-[6px_6px_0_#000] transition-all group-hover:shadow-[3px_3px_0_#000] group-hover:translate-x-[3px] group-hover:translate-y-[3px] rounded-lg flex flex-col`}
               >
                 <div className="text-4xl mb-4">{component.icon}</div>
                 <h3 className="text-xl font-black mb-2">{component.name}</h3>
-                <p className="text-black/70 text-sm">{component.description}</p>
+                <p className="text-black/70 text-sm flex-1">{component.description}</p>
                 <div className="mt-4 flex items-center gap-2 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
                   View Docs <ArrowRight className="w-4 h-4" />
                 </div>
@@ -468,8 +528,8 @@ function ComponentShowcase() {
             </Link>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 
@@ -852,204 +912,22 @@ function Footer() {
 }
 
 // ============================================================================
-// MAIN HOMEPAGE COMPONENT WITH GSAP SCROLL ANIMATION
+// MAIN HOMEPAGE COMPONENT
 // ============================================================================
 
 function HomePage() {
   const h1Ref = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!h1Ref.current) return;
+  // H1 scroll animation removed — heading remains static.
 
-      const h1 = h1Ref.current;
-      const lines = h1.querySelectorAll('[data-line]');
 
-      // Cache initial h1 position (in document coordinates)
-      const initialH1Rect = h1.getBoundingClientRect();
-      // const initialH1Top = initialH1Rect.top + window.scrollY;
-      const initialH1Left = initialH1Rect.left;
-      const initialH1Width = initialH1Rect.width;
-
-      // Track current active section
-      let currentSectionIndex = -1;
-      let isFixed = false;
-
-      // Get all section headings and cache their document positions
-      const sectionHeadings = Array.from(document.querySelectorAll('[data-section-heading]'));
-      const sectionData = sectionHeadings.map((heading) => {
-        const sectionId = heading.getAttribute('data-section-heading');
-        const section = document.querySelector(`[data-section="${sectionId}"]`);
-        const headlineConfig = SECTION_HEADLINES.find(h => h.id === sectionId);
-
-        if (!section || !headlineConfig) return null;
-
-        // Cache heading position in document coordinates
-        const headingRect = heading.getBoundingClientRect();
-        const headingTop = headingRect.top + window.scrollY;
-        const headingLeft = headingRect.left + (headingRect.width / 2);
-
-        return {
-          heading,
-          section,
-          headlineConfig,
-          headingTop,
-          headingLeft,
-          headingWidth: headingRect.width
-        };
-      }).filter(Boolean);
-
-      // Function to update h1 text content
-      const updateHeadlineText = (config: typeof SECTION_HEADLINES[0]) => {
-        const tl = gsap.timeline();
-        tl.to(lines, { opacity: 0, duration: 0.4, stagger: 0.08 });
-        tl.call(() => {
-          const line0 = h1.querySelector('[data-line="0"]');
-          const line1 = h1.querySelector('[data-line="1"]');
-          const line2 = h1.querySelector('[data-line="2"]');
-          if (line0) line0.textContent = config.text[0];
-          if (line1) {
-            line1.textContent = config.text[1];
-            (line1 as HTMLElement).style.color = config.accentColor;
-          }
-          if (line2) line2.textContent = config.text[2];
-        });
-        tl.to(lines, { opacity: 1, duration: 0.4, stagger: 0.08 });
-      };
-
-      // Pin h1 when leaving hero
-      ScrollTrigger.create({
-        trigger: '[data-section="hero"]',
-        start: "bottom 70%",
-        endTrigger: '[data-section="cta"]',
-        end: "top bottom",
-        onEnter: () => {
-          if (!isFixed) {
-            isFixed = true;
-            // Switch to fixed positioning
-            h1.style.position = 'fixed';
-            h1.style.top = `${initialH1Rect.top}px`;
-            h1.style.left = `${initialH1Left}px`;
-            h1.style.width = `${initialH1Width}px`;
-            h1.style.zIndex = '100';
-          }
-        },
-        onLeaveBack: () => {
-          if (isFixed) {
-            isFixed = false;
-            currentSectionIndex = -1;
-            // Reset to static positioning
-            gsap.to(h1, {
-              x: 0,
-              y: 0,
-              scale: 1,
-              duration: 0.6,
-              ease: "power2.inOut",
-              onComplete: () => {
-                h1.style.position = '';
-                h1.style.top = '';
-                h1.style.left = '';
-                h1.style.width = '';
-                h1.style.zIndex = '';
-              }
-            });
-            // Reset to hero headline
-            updateHeadlineText(SECTION_HEADLINES[0]);
-            // Show all section headings
-            sectionData.forEach(s => {
-              if (s) gsap.to(s.heading, { opacity: 1, duration: 0.3 });
-            });
-          }
-        }
-      });
-
-      // Create ScrollTrigger for each section
-      sectionData.forEach((data, index) => {
-        if (!data) return;
-
-        const { section, heading, headlineConfig, headingTop, headingLeft } = data;
-
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 60%",
-          end: "bottom 40%",
-          onEnter: () => {
-            if (currentSectionIndex === index) return;
-            currentSectionIndex = index;
-
-            // Calculate fixed position target (viewport coordinates)
-            const targetTop = headingTop - window.scrollY;
-            const targetLeft = headingLeft - (initialH1Width * 0.7 / 2); // centered, scaled
-
-            // Animate h1 to the section heading position
-            gsap.to(h1, {
-              top: targetTop,
-              left: targetLeft,
-              scale: 0.7,
-              duration: 0.8,
-              ease: "power2.out",
-            });
-
-            // Update text
-            updateHeadlineText(headlineConfig);
-
-            // Hide the static heading
-            gsap.to(heading, { opacity: 0, duration: 0.5 });
-
-            // Show previous section headings
-            sectionData.forEach((s, i) => {
-              if (s && i < index) {
-                gsap.to(s.heading, { opacity: 1, duration: 0.3 });
-              }
-            });
-          },
-          onLeaveBack: () => {
-            if (currentSectionIndex !== index) return;
-
-            // Go to previous section or reset to hero
-            const prevIndex = index - 1;
-
-            if (prevIndex < 0) {
-              // Will be handled by hero pin trigger
-              return;
-            }
-
-            currentSectionIndex = prevIndex;
-            const prevData = sectionData[prevIndex];
-            if (!prevData) return;
-
-            // Animate back to previous heading position
-            const targetTop = prevData.headingTop - window.scrollY;
-            const targetLeft = prevData.headingLeft - (initialH1Width * 0.7 / 2);
-
-            gsap.to(h1, {
-              top: targetTop,
-              left: targetLeft,
-              scale: 0.7,
-              duration: 0.8,
-              ease: "power2.out",
-            });
-
-            // Update text to previous section
-            updateHeadlineText(prevData.headlineConfig);
-
-            // Show current heading, hide previous
-            gsap.to(heading, { opacity: 1, duration: 0.3 });
-            gsap.to(prevData.heading, { opacity: 0, duration: 0.3 });
-          }
-        });
-      });
-
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <div ref={containerRef} className="min-h-screen overflow-x-hidden">
       <HeroSection h1Ref={h1Ref} />
       <Marquee items={MARQUEE_ITEMS} />
+      
       <ComponentShowcase />
       <LiveDemo />
       <Marquee items={MARQUEE_ITEMS} reverse />
