@@ -27,7 +27,9 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <Header />
+      <Header />  
+
+      
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/docs" element={<DocLayout />}>
