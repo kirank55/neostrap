@@ -122,7 +122,7 @@ export function App() {
         <NeoCard variant="outline">
           <NeoCardHeader>
             <NeoCardTitle>Card Title</NeoCardTitle>
-            <NeoCardDescription>Card description goes here.</NeoCardDescription>
+            <NeoCardDescription>This is a card description showing the variant style.</NeoCardDescription>
           </NeoCardHeader>
           <NeoCardContent>
             <p>Card content</p>
@@ -247,7 +247,7 @@ export function App() {
       </PreviewContainer>
 
 
-      <div className="space-y-9 bg-amber-900 h-100 w-full"></div>
+      <div className=" h-100 w-full"></div>
     </div>
   );
 }
