@@ -13,6 +13,25 @@ import {
   NeoCardHeader,
   NeoCardTitle,
 } from "./components/ui/NeoCard";
+import {
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  NeoDropdownTrigger,
+  DropdownMenuContent,
+  DropdownMenu,
+} from "./components/ui/NeoDropdown";
+import { NeoInput } from "./components/ui/NeoInput";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./components/ui/NeoSelect";
+import { NeoSwitch } from "./components/ui/NeoSwitch";
+import { NeoTabs, NeoTabsCarousel, NeoTabsContent, NeoTabsList, NeoTabsTrigger } from "./components/ui/NeoTabs";
 
 const DEMO_ITEMS = [
   {
@@ -98,7 +117,6 @@ export function App() {
           </NeoCardContent>
           <NeoCardFooter>
             <NeoButton>Action</NeoButton>
-            
           </NeoCardFooter>
         </NeoCard>
         <NeoCard variant="outline">
@@ -114,6 +132,120 @@ export function App() {
           </NeoCardFooter>
         </NeoCard>
       </PreviewContainer>
+
+      <PreviewContainer title="Dropdown Menu">
+        <DropdownMenu>
+          <NeoDropdownTrigger className="bg-white">Options</NeoDropdownTrigger>
+          <DropdownMenuContent className="bg-white">
+            <DropdownMenuItem onClick={() => console.log("profile click")}>
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <NeoDropdownTrigger variant="outline" className="bg-white">
+            Options
+          </NeoDropdownTrigger>
+          <DropdownMenuContent variant="outline" className="bg-white">
+            <DropdownMenuItem onClick={() => console.log("profile click")}>
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </PreviewContainer>
+      <PreviewContainer title="Input">
+        <NeoInput placeholder="Enter text..." />
+        <NeoInput placeholder="Enter text..." variant="outline" />
+      </PreviewContainer>
+
+      <PreviewContainer title="Select">
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Fruits</SelectLabel>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+              <SelectItem value="blueberry">Blueberry</SelectItem>
+              <SelectItem value="grapes">Grapes</SelectItem>
+              <SelectItem value="pineapple">Pineapple</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <Select>
+          <SelectTrigger variant="outline">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent variant="outline">
+            <SelectGroup>
+              <SelectLabel>Fruits</SelectLabel>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+              <SelectItem value="blueberry">Blueberry</SelectItem>
+              <SelectItem value="grapes">Grapes</SelectItem>
+              <SelectItem value="pineapple">Pineapple</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </PreviewContainer>
+      <PreviewContainer title="switch">
+        <NeoSwitch>Toggle me</NeoSwitch>
+        <NeoSwitch variant={"outline"}>Toggle me</NeoSwitch>
+      </PreviewContainer>
+      <PreviewContainer title="tabs">
+        <NeoTabs defaultValue="tab1" className="w-full max-w-md">
+      <NeoTabsList className="w-full border-0">
+        <NeoTabsTrigger value="tab1">Overview</NeoTabsTrigger>
+        <NeoTabsTrigger value="tab2">Features</NeoTabsTrigger>
+        <NeoTabsTrigger value="tab3">Settings</NeoTabsTrigger>
+      </NeoTabsList>
+      <NeoTabsCarousel>
+        <NeoTabsContent value="tab1">
+          <h3 className="font-bold text-lg mb-2">Overview</h3>
+          <p className="text-black/70">Welcome to NeoStrap Tabs. Click on other tabs to explore.</p>
+        </NeoTabsContent>
+        <NeoTabsContent value="tab2">
+          <h3 className="font-bold text-lg mb-2">Features</h3>
+          <p className="text-black/70">Neo-brutalist styling with bold shadows and clean design.</p>
+        </NeoTabsContent>
+        <NeoTabsContent value="tab3">
+          <h3 className="font-bold text-lg mb-2">Settings</h3>
+          <p className="text-black/70">Configure your preferences here.</p>
+        </NeoTabsContent>
+      </NeoTabsCarousel>
+    </NeoTabs>
+        <NeoTabs  defaultValue="tab1" className="w-full max-w-md">
+      <NeoTabsList className="w-full border-0">
+        <NeoTabsTrigger value="tab1">Overview</NeoTabsTrigger>
+        <NeoTabsTrigger disabled value="tab2">Features</NeoTabsTrigger>
+        <NeoTabsTrigger value="tab3">Settings</NeoTabsTrigger>
+      </NeoTabsList>
+      <NeoTabsCarousel>
+        <NeoTabsContent value="tab1">
+          <h3 className="font-bold text-lg mb-2">Overview</h3>
+          <p className="text-black/70">Welcome to NeoStrap Tabs. Click on other tabs to explore.</p>
+        </NeoTabsContent>
+        <NeoTabsContent value="tab2">
+          <h3 className="font-bold text-lg mb-2">Features</h3>
+          <p className="text-black/70">Neo-brutalist styling with bold shadows and clean design.</p>
+        </NeoTabsContent>
+        <NeoTabsContent value="tab3">
+          <h3 className="font-bold text-lg mb-2">Settings</h3>
+          <p className="text-black/70">Configure your preferences here.</p>
+        </NeoTabsContent>
+      </NeoTabsCarousel>
+    </NeoTabs>
+      </PreviewContainer>
+
 
       <div className="space-y-9 bg-amber-900 h-100 w-full"></div>
     </div>
