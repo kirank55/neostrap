@@ -87,12 +87,16 @@ export const ACCORDION_USAGE_CODE = `import {
 
 export function AccordionDemo() {
   return (
-    <NeoAccordion type="single" collapsible>
-      <NeoAccordionItem value="1" variant="brutal">
-        <NeoAccordionTrigger variant="brutal">Title</NeoAccordionTrigger>
-        <NeoAccordionContent variant="brutal">Content</NeoAccordionContent>
-      </NeoAccordionItem>
-    </NeoAccordion>
+          <NeoAccordion
+            type="single"
+            collapsible
+            className="w-full max-w-md mx-auto"
+          >
+              <NeoAccordionItem key={value} value={value}>
+                <NeoAccordionTrigger>{trigger}</NeoAccordionTrigger>
+                <NeoAccordionContent>{content}</NeoAccordionContent>
+              </NeoAccordionItem>
+          </NeoAccordion>
   )
 }`
 
