@@ -19,9 +19,9 @@ function Header() {
         {/* Left side: Logo and Docs button */}
         <div className="flex items-center gap-4">
 
-          <NeoButton variant="brutal" size="default" asChild className="font-bold text-xl">
+          <NeoButton variant="brutal" size="default" asChild className="font-bold text-xl gap-0 bg-white">
             <Link to="/">
-              NeoStrap
+             <span className="text-(--color-pink)">N</span>eoStrap
             </Link>
           </NeoButton>
           <NeoButton variant="brutal" className="bg-white" size="sm" asChild>
