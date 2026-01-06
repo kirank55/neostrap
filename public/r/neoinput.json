@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "neoinput",
+  "type": "registry:ui",
+  "title": "NeoInput",
+  "description": "Neo-brutalist input component with multiple variants and sizes.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "https://neostrapui.pages.dev/r/utils.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/NeoInput.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst inputVariants = cva(\r\n  \"w-full rounded-lg border-2 px-3 py-2 font-semibold transition-all focus-visible:-translate-y-px focus-visible:translate-x-px focus-visible:ring-4 focus-visible:ring-black/10 focus-visible:outline-none disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-black\",\r\n  {\r\n    variants: {\r\n      variant: {\r\n        brutal: \"bg-[var(--primary)]  text-black border-black shadow-[4px_4px_0_#000] hover:shadow-[2px_2px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5 focus-visible:shadow-[3px_3px_0_#000]  \",\r\n        outline: \"bg-white rounded-none shadow-none text-black border-black focus-visible:shadow-[3px_3px_0_#000]\",\r\n        disabled: \"bg-gray-200 text-gray-500 border-gray-400 shadow-none cursor-not-allowed\",\r\n      },\r\n      size: {\r\n        sm: \"h-9 text-sm\",\r\n        default: \"h-10 text-base\",\r\n        lg: \"h-12 text-lg\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      variant: \"brutal\",\r\n      size: \"default\",\r\n    },\r\n  }\r\n)\r\n\r\ntype InputVariant = \"brutal\" | \"outline\" | \"disabled\"\r\ntype InputSize = \"sm\" | \"default\" | \"lg\"\r\ntype InputType = \"text\" | \"number\" | \"password\"\r\n\r\nconst variantOptions: { variant: InputVariant; label: string; disabled?: boolean }[] = [\r\n  { variant: \"brutal\", label: \"Brutal\" },\r\n  { variant: \"outline\", label: \"Outline\" },\r\n  { variant: \"disabled\", label: \"Disabled\", disabled: true },\r\n]\r\n\r\nconst sizeOptions: { size: InputSize; label: string }[] = [\r\n  { size: \"sm\", label: \"Small\" },\r\n  { size: \"default\", label: \"Default\" },\r\n  { size: \"lg\", label: \"Large\" },\r\n]\r\n\r\nconst typeOptions: { type: InputType; label: string; placeholder: string }[] = [\r\n  { type: \"text\", label: \"Text\", placeholder: \"Enter text...\" },\r\n  { type: \"number\", label: \"Number\", placeholder: \"Enter number...\" },\r\n  { type: \"password\", label: \"Password\", placeholder: \"Enter password...\" },\r\n]\r\n\r\ntype NeoInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\"> &\r\n  VariantProps<typeof inputVariants>\r\n\r\n/**\r\n * Input component with neo-brutalist styling.\r\n * Supports various types (text, number, password).\r\n */\r\nconst NeoInput = React.forwardRef<HTMLInputElement, NeoInputProps>(\r\n  ({ className, variant, size, type = \"text\", ...props }, ref) => {\r\n    return (\r\n      <input\r\n        ref={ref}\r\n        type={type}\r\n        className={cn(inputVariants({ variant, size, className }))}\r\n        {...props}\r\n      />\r\n    )\r\n  }\r\n)\r\n\r\nNeoInput.displayName = \"NeoInput\"\r\n\r\nexport { NeoInput, inputVariants, variantOptions, sizeOptions, typeOptions }\r\nexport type { NeoInputProps }\r\n"
+    }
+  ]
+}

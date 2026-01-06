@@ -1,0 +1,57 @@
+{
+  "components": [
+    {
+      "name": "neobutton",
+      "path": "r/neobutton.json",
+      "description": "Neo-brutalist button with multiple variants and sizes."
+    },
+    {
+      "name": "neoaccordion",
+      "path": "r/neoaccordion.json",
+      "description": "Neo-brutalist accordion component with collapsible sections."
+    },
+    {
+      "name": "neocard",
+      "path": "r/neocard.json",
+      "description": "Neo-brutalist card component with multiple layouts and variants."
+    },
+    {
+      "name": "neodialog",
+      "path": "r/neodialog.json",
+      "description": "Neo-brutalist dialog/modal component with overlay."
+    },
+    {
+      "name": "neodropdown",
+      "path": "r/neodropdown.json",
+      "description": "Neo-brutalist dropdown menu with multiple variants."
+    },
+    {
+      "name": "neoinput",
+      "path": "r/neoinput.json",
+      "description": "Neo-brutalist input component with multiple variants and sizes."
+    },
+    {
+      "name": "neoselect",
+      "path": "r/neoselect.json",
+      "description": "Neo-brutalist select dropdown component."
+    },
+    {
+      "name": "neoswitch",
+      "path": "r/neoswitch.json",
+      "description": "Neo-brutalist switch toggle component with multiple variants."
+    },
+    {
+      "name": "neotabs",
+      "path": "r/neotabs.json",
+      "description": "Neo-brutalist tabs component with GSAP animations."
+    },
+    {
+      "name": "utils",
+      "path": "r/utils.json",
+      "description": "Shared utility helpers for NeoStrap (e.g., cn)"
+    }
+  ],
+  "version": "1.0.0",
+  "registry": "@neostrap/ui",
+  "description": "Neo-brutalist UI components registry"
+}

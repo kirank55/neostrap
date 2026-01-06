@@ -4,6 +4,11 @@
   "type": "registry:lib",
   "title": "Utils",
   "description": "Shared utility helpers for NeoStrap (e.g., cn)",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [],
   "files": [
     {
       "path": "lib/utils.ts",
