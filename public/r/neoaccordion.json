@@ -10,6 +10,9 @@
     "lucide-react"
   ],
   "registryDependencies": ["utils"],
+  "cssVars": {
+    "root": "@keyframes accordion-down {\n  from { height: 0; }\n  to { height: var(--radix-accordion-content-height); }\n}\n\n@keyframes accordion-up {\n  from { height: var(--radix-accordion-content-height); }\n  to { height: 0; }\n}\n\n@theme {\n  --animate-accordion-down: accordion-down 0.2s ease-out;\n  --animate-accordion-up: accordion-up 0.2s ease-out;\n}"
+  },
   "files": [
     {
       "path": "components/ui/NeoAccordion.tsx",
