@@ -2,6 +2,8 @@
 
 A modern, accessible, and highly customizable React UI component library built with TypeScript, Tailwind CSS v4, and Radix UI primitives.
 
+[Live Preview](https://neostrapui.pages.dev)
+
 ## Overview
 
 Neostrap provides a collection of production-ready UI components with a focus on accessibility, type safety, and developer experience. Each component is designed to be composable, customizable, and easy to integrate into your React applications.
@@ -199,4 +201,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For issues, questions, or contributions, please visit the project repository.
+For issues, questions, or contributions, please see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+For direct inquiries, contact: kirankumargs04@gmail.com
