@@ -248,7 +248,7 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    <div ref={carouselRef} className="overflow-hidden w-full">
       <div
         ref={ref}
         className={cn(
@@ -346,28 +346,83 @@ const CarouselNext = React.forwardRef<
 })
 CarouselNext.displayName = "CarouselNext"
 
+type IndicatorVariant = "bullets" | "content"
+
+interface SlideContent {
+  headline: string
+  description?: string
+}
+
+interface CarouselIndicatorsProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: IndicatorVariant
+  slides?: SlideContent[]
+}
+
 const CarouselIndicators = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  CarouselIndicatorsProps
+>(({ className, variant = "bullets", slides = [], ...props }, ref) => {
   const { slideCount, selectedIndex, scrollTo } = useCarousel()
 
   if (!slideCount || slideCount <= 1) return null
 
+  // Bullets variant - dots centered below carousel
+  if (variant === "bullets") {
+    return (
+      <div ref={ref} className={cn("flex gap-2 justify-center", className)} {...props}>
+        {Array.from({ length: slideCount }).map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            aria-label={`Go to slide ${i + 1}`}
+            aria-pressed={selectedIndex === i}
+            className={cn(
+              "h-2 w-2 rounded-full transition-colors translate-y-3 cursor-pointer",
+              selectedIndex === i ? "bg-slate-800" : "bg-slate-200"
+            )}
+            onClick={() => scrollTo(i)}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  // Content variant - headline & paragraph on the left side
   return (
-    <div ref={ref} className={cn("flex gap-2 justify-center", className)} {...props}>
-      {Array.from({ length: slideCount }).map((_, i) => (
+    <div ref={ref} className={cn("flex flex-col gap-2", className)} {...props}>
+      {slides.map((slide, i) => (
         <button
           key={i}
           type="button"
           aria-label={`Go to slide ${i + 1}`}
           aria-pressed={selectedIndex === i}
           className={cn(
-            "h-2 w-8 rounded-full transition-colors",
-            selectedIndex === i ? "bg-slate-800" : "bg-slate-200"
+            "text-left p-3 rounded-lg transition-all border-2",
+            selectedIndex === i
+              ? "border-black bg-slate-100"
+              : "border-transparent hover:bg-slate-50"
           )}
           onClick={() => scrollTo(i)}
-        />
+        >
+          <h4
+            className={cn(
+              "font-bold text-sm transition-colors",
+              selectedIndex === i ? "text-black" : "text-slate-500"
+            )}
+          >
+            {slide.headline}
+          </h4>
+          {slide.description && (
+            <p
+              className={cn(
+                "text-xs mt-1 transition-colors",
+                selectedIndex === i ? "text-slate-700" : "text-slate-400"
+              )}
+            >
+              {slide.description}
+            </p>
+          )}
+        </button>
       ))}
     </div>
   )
@@ -376,6 +431,8 @@ CarouselIndicators.displayName = "CarouselIndicators"
 
 export {
   type CarouselApi,
+  type IndicatorVariant,
+  type SlideContent,
   Carousel,
   CarouselContent,
   CarouselItem,

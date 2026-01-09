@@ -29,11 +29,18 @@ import {
   CarouselNext,
   CarouselContent,
   CarouselIndicators,
+  type SlideContent,
 } from "@/components/ui/NeoCarousel"
+
+const DEMO_SLIDES: SlideContent[] = [
+  { headline: "Slide 1", description: "First slide description" },
+  { headline: "Slide 2", description: "Second slide description" },
+  { headline: "Slide 3", description: "Third slide description" },
+]
 
 function DemoCarousel({ ...props }: React.ComponentProps<typeof Carousel>) {
   return (
-    <Carousel className="w-full max-w-xl" {...props}>
+    <Carousel className="w-full mx-10" {...props}>
       <CarouselPrevious />
       <CarouselContent>
         <CarouselItem>
@@ -46,8 +53,33 @@ function DemoCarousel({ ...props }: React.ComponentProps<typeof Carousel>) {
           <div className="h-75 bg-linear-to-br from-sky-200 to-indigo-300 flex items-center justify-center text-black font-bold">Slide 3</div>
         </CarouselItem>
       </CarouselContent>
-        <CarouselIndicators />
+      <CarouselIndicators />
       <CarouselNext />
+    </Carousel>
+  )
+}
+
+function DemoCarouselWithContentIndicators({ ...props }: React.ComponentProps<typeof Carousel>) {
+  return (
+    <Carousel className="w-full " {...props}>
+      <div className="flex gap-6">
+        <CarouselIndicators variant="content" slides={DEMO_SLIDES} className="w-48 shrink-0" />
+        <div className="flex-1 relative flex items-center ">
+          {/* <CarouselPrevious /> */}
+          <CarouselContent className="w-full ">
+            <CarouselItem>
+              <div className="h-75 bg-linear-to-br from-pink-300 to-purple-400 flex items-center justify-center text-black font-bold">Slide 1</div>
+            </CarouselItem>
+            <CarouselItem>
+              <div className="h-75 bg-linear-to-br from-green-200 to-lime-300 flex items-center justify-center text-black font-bold">Slide 2</div>
+            </CarouselItem>
+            <CarouselItem>
+              <div className="h-75 bg-linear-to-br from-sky-200 to-indigo-300 flex items-center justify-center text-black font-bold">Slide 3</div>
+            </CarouselItem>
+          </CarouselContent>
+          {/* <CarouselNext /> */}
+        </div>
+      </div>
     </Carousel>
   )
 }
@@ -57,20 +89,29 @@ function ExamplesSection() {
     <DocSection id="examples" title="Examples">
       <ShowcaseSurface>
         <InlineWrap>
-          <LabeledItem label="Basic" widthClass="w-full max-w-xl">
-            <div className="flex justify-center">
+          <LabeledItem label="Bullets Indicator" widthClass="w-full">
+            <div className="flex justify-center w-full">
               <DemoCarousel />
             </div>
           </LabeledItem>
 
-          <LabeledItem label="Autoplay" widthClass="w-full max-w-xl">
-            <div className="flex justify-center">
-              <DemoCarousel interval={1000} autoplay />
+          <LabeledItem label="Content Indicator" widthClass="w-full">
+            <div className="flex justify-center w-full">
+            
+              <DemoCarouselWithContentIndicators autoplay interval={3000}/>
             </div>
           </LabeledItem>
 
-          <LabeledItem label="Without Loop" widthClass="w-full max-w-xl">
-            <div className="flex justify-center">
+          <LabeledItem label="Autoplay" widthClass="w-full">
+            <div className="flex justify-center w-full">
+            
+              <DemoCarousel interval={3000} autoplay />
+            </div>
+          </LabeledItem>
+
+          <LabeledItem label="Without Loop" widthClass="w-full ">
+            <div className="flex justify-center w-full">
+            
               <DemoCarousel opts={{ loop: false }} />
             </div>
           </LabeledItem>
