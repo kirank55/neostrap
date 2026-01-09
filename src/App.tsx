@@ -21,6 +21,7 @@ import NeoInputDocPage from "@/pages/NeoInputDocPage"
 import NeoDropdownDocPage from "@/pages/NeoDropdownDocPage"
 import NeoSwitchDocPage from "@/pages/NeoSwitchDocPage"
 import NeoTabsDocPage from "@/pages/NeoTabsDocPage"
+import NeoCarouselDocPage from "@/pages/NeoCarouselDocPage"
 
 
 function App() {
@@ -38,13 +39,14 @@ function App() {
           <Route path="NeoButton" element={<NeoButtonDocPage />} />
           <Route path="NeoSelect" element={<NeoSelectDocPage />} />
           <Route path="NeoAccordion" element={<NeoAccordionDocPage />} />
-          <Route path="NeoCard" element={<NeoCardDocPage />} />
           <Route path="NeoInput" element={<NeoInputDocPage />} />
           <Route path="NeoDropdown" element={<NeoDropdownDocPage />} />
 
           <Route path="NeoSwitch" element={<NeoSwitchDocPage />} />
           <Route path="NeoTabs" element={<NeoTabsDocPage />} />
 
+          <Route path="NeoCard" element={<NeoCardDocPage />} />
+          <Route path="NeoCarousel" element={<NeoCarouselDocPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

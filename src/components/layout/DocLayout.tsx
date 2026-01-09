@@ -11,6 +11,7 @@ const navSections: NavComponent[] = [
   { label: "Accordion", to: "/docs/NeoAccordion" },
   { label: "Button", to: "/docs/NeoButton" },
   { label: "Card", to: "/docs/NeoCard" },
+  { label: "Carousel", to: "/docs/NeoCarousel" },
   { label: "Dropdown", to: "/docs/NeoDropdown" },
   { label: "Input", to: "/docs/NeoInput" },
   { label: "Select", to: "/docs/NeoSelect" },

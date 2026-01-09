@@ -73,6 +73,15 @@ const components = [
     registryDependencies: ['utils', 'neobutton']
   },
   {
+    name: 'neocarousel',
+    sourcePath: 'src/components/ui/NeoCarousel.tsx',
+    targetPath: 'components/ui/NeoCarousel.tsx',
+    title: 'NeoCarousel',
+    description: 'Neo-brutalist carousel component with autoplay and controls.',
+    dependencies: [],
+    registryDependencies: ['utils']
+  },
+  {
     name: 'neodialog',
     sourcePath: 'src/components/ui/NeoDialog.tsx',
     targetPath: 'components/ui/NeoDialog.tsx',
