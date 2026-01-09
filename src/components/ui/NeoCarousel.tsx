@@ -12,11 +12,14 @@ type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
 type CarouselOptions = UseCarouselParameters[0]
 type CarouselPlugin = UseCarouselParameters[1]
 
-type CarouselProps = {
+// Exported props interface extends HTML attributes so JSX recognizes custom props
+export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
+  autoplay?: boolean
+  interval?: number
 }
 
 type CarouselContextProps = {
@@ -26,6 +29,9 @@ type CarouselContextProps = {
   scrollNext: () => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  selectedIndex: number
+  slideCount: number
+  scrollTo: (index: number) => void
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -40,10 +46,7 @@ function useCarousel() {
   return context
 }
 
-const Carousel = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & CarouselProps
->(
+const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   (
     {
       orientation = "horizontal",
@@ -52,6 +55,8 @@ const Carousel = React.forwardRef<
       plugins,
       className,
       children,
+      autoplay = false,
+      interval = 3000,
       ...props
     },
     ref
@@ -60,20 +65,84 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
+        // ensure carousel loops when autoplay is enabled
+        loop: autoplay ? true : opts?.loop,
       },
       plugins
     )
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const [selectedIndex, setSelectedIndex] = React.useState(0)
+    const [slideCount, setSlideCount] = React.useState(0)
 
-    const onSelect = React.useCallback((api: CarouselApi) => {
-      if (!api) {
-        return
+    const scrollTo = React.useCallback(
+      (index: number) => api?.scrollTo(index),
+      [api]
+    )
+
+    // Autoplay refs/state
+    const autoplayTimer = React.useRef<number | null>(null)
+    const interactionRef = React.useRef(false)
+
+    const clearAutoplay = React.useCallback(() => {
+      if (autoplayTimer.current !== null) {
+        window.clearInterval(autoplayTimer.current)
+        autoplayTimer.current = null
       }
-
-      setCanScrollPrev(api.canScrollPrev())
-      setCanScrollNext(api.canScrollNext())
     }, [])
+
+    const startAutoplay = React.useCallback(() => {
+      clearAutoplay()
+      if (!api || !autoplay) return
+      autoplayTimer.current = window.setInterval(() => {
+        api?.scrollNext()
+      }, interval)
+    }, [api, autoplay, interval, clearAutoplay])
+
+    const pauseAutoplay = React.useCallback(() => {
+      interactionRef.current = true
+      clearAutoplay()
+    }, [clearAutoplay])
+
+    const resumeAutoplay = React.useCallback(() => {
+      interactionRef.current = false
+      if (autoplay) startAutoplay()
+    }, [autoplay, startAutoplay])
+
+    // Pause when page is hidden, resume when visible
+    React.useEffect(() => {
+      function onVisibility() {
+        if (document.hidden) {
+          clearAutoplay()
+        } else {
+          if (!interactionRef.current) startAutoplay()
+        }
+      }
+      document.addEventListener("visibilitychange", onVisibility)
+      return () => document.removeEventListener("visibilitychange", onVisibility)
+    }, [startAutoplay, clearAutoplay])
+
+    // Start/stop autoplay on api/autoplay/interval changes
+    React.useEffect(() => {
+      if (!api) return
+      clearAutoplay()
+      if (autoplay && !interactionRef.current) {
+        startAutoplay()
+      }
+      return () => clearAutoplay()
+    }, [api, autoplay, interval, startAutoplay, clearAutoplay])
+
+    const onSelect = React.useCallback(
+      (api: CarouselApi) => {
+        if (!api) return
+
+        setCanScrollPrev(api.canScrollPrev())
+        setCanScrollNext(api.canScrollNext())
+        setSelectedIndex(api.selectedScrollSnap())
+        setSlideCount(api.scrollSnapList().length)
+      },
+      []
+    )
 
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev()
@@ -118,6 +187,16 @@ const Carousel = React.forwardRef<
       }
     }, [api, onSelect])
 
+    React.useEffect(() => {
+      if (!api) return
+      const shouldLoop = Boolean(autoplay) || Boolean(opts?.loop)
+      api.reInit({
+        ...opts,
+        axis: orientation === "horizontal" ? "x" : "y",
+        loop: shouldLoop,
+      })
+    }, [api, autoplay, opts, orientation])
+
     return (
       <CarouselContext.Provider
         value={{
@@ -130,11 +209,20 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          selectedIndex,
+          slideCount,
+          scrollTo,
         }}
       >
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
+          onPointerDownCapture={pauseAutoplay}
+          onPointerUpCapture={resumeAutoplay}
+          onFocusCapture={pauseAutoplay}
+          onBlurCapture={resumeAutoplay}
+          onMouseEnter={pauseAutoplay}
+          onMouseLeave={resumeAutoplay}
           className={cn("relative", className)}
           role="region"
           aria-roledescription="carousel"
@@ -148,10 +236,15 @@ const Carousel = React.forwardRef<
 )
 Carousel.displayName = "Carousel"
 
+interface CarouselContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  minHeight?: string
+}
+
+
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  CarouselContentProps
+>(({ className, minHeight, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel()
 
   return (
@@ -163,8 +256,9 @@ const CarouselContent = React.forwardRef<
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className
         )}
+        style={{ minHeight }} 
         {...props}
-      />
+        />
     </div>
   )
 })
@@ -204,7 +298,7 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute  h-8 w-8 rounded-full",
+        "absolute h-8 w-8 rounded-full",
         orientation === "horizontal"
           ? "-left-12 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -250,6 +344,34 @@ const CarouselNext = React.forwardRef<
 })
 CarouselNext.displayName = "CarouselNext"
 
+const CarouselIndicators = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const { slideCount, selectedIndex, scrollTo } = useCarousel()
+
+  if (!slideCount || slideCount <= 1) return null
+
+  return (
+    <div ref={ref} className={cn("flex gap-2 justify-center", className)} {...props}>
+      {Array.from({ length: slideCount }).map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          aria-label={`Go to slide ${i + 1}`}
+          aria-pressed={selectedIndex === i}
+          className={cn(
+            "h-2 w-8 rounded-full transition-colors",
+            selectedIndex === i ? "bg-slate-800" : "bg-slate-200"
+          )}
+          onClick={() => scrollTo(i)}
+        />
+      ))}
+    </div>
+  )
+})
+CarouselIndicators.displayName = "CarouselIndicators"
+
 export {
   type CarouselApi,
   Carousel,
@@ -257,4 +379,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselIndicators,
 }

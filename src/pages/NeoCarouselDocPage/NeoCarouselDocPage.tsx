@@ -13,7 +13,6 @@ import {
   InlineCode,
 } from "@/components/docs/InstallationComponents"
 
-// import { DefaultCarousel } from "@/components/ui/NeoCarousel"
 import {
   CAROUSEL_PROPS,
   CAROUSEL_USAGE_CODE,
@@ -21,7 +20,6 @@ import {
   INSTALL_DEPENDENCIES_CODE,
   CAROUSEL_COMPONENT_CODE,
   UTILS_CODE,
-  VARIANT_OPTIONS,
 } from "./constants"
 
 import {
@@ -30,9 +28,10 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselIndicators,
 } from "@/components/ui/NeoCarousel"
 
-function DemoCarousel(props: { interval?: number }) {
+function DemoCarousel({ ...props }: React.ComponentProps<typeof Carousel>) {
   return (
     <Carousel className="w-full max-w-xl" {...props}>
       <CarouselPrevious />
@@ -48,25 +47,8 @@ function DemoCarousel(props: { interval?: number }) {
         </CarouselItem>
       </CarouselContent>
       <CarouselNext />
+      <CarouselIndicators />
     </Carousel>
-  )
-}
-
-function VariantsSection() {
-  return (
-    <DocSection id="variants" title="Variants">
-      <ShowcaseSurface>
-        <InlineWrap>
-          {VARIANT_OPTIONS.map(({ variant, label }) => (
-            <LabeledItem key={variant} label={label} widthClass="w-full max-w-xl">
-              <div className="flex justify-center">
-                <DemoCarousel />
-              </div>
-            </LabeledItem>
-          ))}
-        </InlineWrap>
-      </ShowcaseSurface>
-    </DocSection>
   )
 }
 
@@ -83,13 +65,13 @@ function ExamplesSection() {
 
           <LabeledItem label="Autoplay" widthClass="w-full max-w-xl">
             <div className="flex justify-center">
-              <DemoCarousel interval={1000} />
+              <DemoCarousel interval={1000} autoplay />
             </div>
           </LabeledItem>
 
-          <LabeledItem label="Controlled" widthClass="w-full max-w-xl">
+          <LabeledItem label="Without Loop" widthClass="w-full max-w-xl">
             <div className="flex justify-center">
-              <DemoCarousel />
+              <DemoCarousel opts={{ loop: false }} />
             </div>
           </LabeledItem>
         </InlineWrap>
@@ -115,7 +97,7 @@ export default function NeoCarouselDocPage() {
         <DocPageHeader
           category="Carousel"
           title="Neostrap UI Carousel"
-          description="Carousel component for cycling through slides. This page uses a minimal carousel implementation used for previews in the docs."
+          description="Carousel component for cycling through slides with autoplay, indicators, and keyboard navigation support."
         />
         <Codepreview preview={<DemoCarousel />} code={CAROUSEL_USAGE_CODE} />
       </DocSection>
@@ -153,7 +135,6 @@ export default function NeoCarouselDocPage() {
         </div>
       </InstallationTabs>
 
-      <VariantsSection />
       <ExamplesSection />
       <PropsSection />
     </>
