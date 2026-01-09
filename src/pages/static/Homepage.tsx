@@ -379,6 +379,18 @@ function FloatingHeadlines() {
 
     mm.add("(min-width: 1024px)", () => {
       const tweens: gsap.core.Tween[] = [];
+      const scrollTriggers: ScrollTrigger[] = [];
+
+      // Helper to get initial position - recalculated on resize
+      const getInitialPosition = () => {
+        const h1 = document.querySelector("h1");
+        const h1Rect = h1?.getBoundingClientRect();
+        const baseY = h1Rect ? h1Rect.top + window.scrollY + 20 : 180;
+        return {
+          x: window.innerWidth * 0.5,
+          y: baseY,
+        };
+      };
 
       FLOATING_HEADLINES.forEach((headline, index) => {
         const floatingEl = headlineRefs.current[index];
@@ -396,24 +408,19 @@ function FloatingHeadlines() {
           const targetRect = targetH2.getBoundingClientRect();
           const scrollY = window.scrollY;
           return {
-            x: targetRect.left,
+            x: targetRect.left + (targetH2 as HTMLElement).offsetWidth / 2,
             y: targetRect.top + scrollY,
           };
         };
 
-        // Calculate initial stacked position (staggered vertically near h1)
-        const initialX = window.innerWidth * 0.5; // Center horizontally
-
-        const h1 = document.querySelector("h1"); // or use a ref
-        const h1Rect = h1?.getBoundingClientRect();
-        const baseY = h1Rect ? h1Rect.top + window.scrollY + 20 : 180;
-        const initialY = baseY; // Stack below hero h1
+        // Get initial position
+        const initialPos = getInitialPosition();
 
         // Set initial state
         gsap.set(floatingEl, {
           position: "fixed",
-          top: initialY,
-          left: initialX,
+          top: initialPos.y,
+          left: "50%",
           xPercent: -50,
           opacity: 1,
           scale: 1,
@@ -431,24 +438,27 @@ function FloatingHeadlines() {
             start: "top 80%",
             end: "top 20%",
             scrub: 1,
+            invalidateOnRefresh: true,
             onUpdate: (self) => {
               const progress = self.progress;
+              const currentInitialPos = getInitialPosition();
               const target = getTargetPosition();
 
-              // Interpolate position
+              // Interpolate position - use percentage-based for initial, pixel for target
               const currentX = gsap.utils.interpolate(
-                initialX,
-                target.x + (targetH2 as HTMLElement).offsetWidth / 2,
+                currentInitialPos.x,
+                target.x,
                 progress
               );
               const currentY = gsap.utils.interpolate(
-                initialY,
+                currentInitialPos.y,
                 target.y - window.scrollY,
                 progress
               );
 
               gsap.set(floatingEl, {
                 left: currentX,
+                xPercent: gsap.utils.interpolate(-50, -50, progress),
                 top: currentY,
                 scale: gsap.utils.interpolate(1, 0.6, progress),
                 rotateX: gsap.utils.interpolate(18, 0, progress),
@@ -471,11 +481,13 @@ function FloatingHeadlines() {
               (targetH2 as HTMLElement).style.opacity = "0";
             },
             onLeaveBack: () => {
-              // Reset to initial state
+              // Reset to initial state with current viewport size
+              const currentInitialPos = getInitialPosition();
               gsap.set(floatingEl, {
                 opacity: 1,
-                top: initialY,
-                left: initialX,
+                top: currentInitialPos.y,
+                left: "50%",
+                xPercent: -50,
                 scale: 1,
                 rotateX: 18,
                 rotateZ: -6,
@@ -486,6 +498,9 @@ function FloatingHeadlines() {
         });
 
         tweens.push(tween);
+        if (tween.scrollTrigger) {
+          scrollTriggers.push(tween.scrollTrigger);
+        }
       });
 
       // Initially hide all target h2s on lg screens
@@ -498,7 +513,30 @@ function FloatingHeadlines() {
         }
       });
 
+      // Handle resize to recenter floating headlines
+      const handleResize = () => {
+        ScrollTrigger.refresh();
+        
+        // If not scrolled, reset floating elements to center
+        FLOATING_HEADLINES.forEach((_, index) => {
+          const floatingEl = headlineRefs.current[index];
+          const st = scrollTriggers[index];
+          
+          if (floatingEl && st && st.progress === 0) {
+            const currentInitialPos = getInitialPosition();
+            gsap.set(floatingEl, {
+              top: currentInitialPos.y,
+              left: "50%",
+              xPercent: -50,
+            });
+          }
+        });
+      };
+
+      window.addEventListener("resize", handleResize);
+
       return () => {
+        window.removeEventListener("resize", handleResize);
         tweens.forEach((tween) => {
           tween.scrollTrigger?.kill();
           tween.kill();
@@ -531,9 +569,9 @@ function FloatingHeadlines() {
           ref={(el) => {
             headlineRefs.current[index] = el;
           }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight text-center"
+          className="text-5xl sm:text-6xl md:text-7xl  lg:text-8xl font-black leading-[0.9] tracking-tight text-center"
           style={{
-            filter: "drop-shadow(0 0px 7px #FE5BD6)",
+            // filter: "drop-shadow(0 0px 7px #FE5BD6)",
             willChange: "transform, opacity",
             backfaceVisibility: "hidden",
           }}
@@ -599,7 +637,7 @@ function HeroSection({
           <div className="mb-6">
             <h1
               ref={h1Ref}
-              className="text-[rgba(0,0,0,0)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] t "
+              className="text-red-500 opacity-100 lg:opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9]"
               // className="text-[rgba(0,0,0,0)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight bg-linear-to-r from-(--color-pink) via-(--color-pink) to-pink-500 bg-clip-text"
               style={{
                 filter: "drop-shadow(0 0px 7px #FE5BD6)",
@@ -1291,9 +1329,9 @@ function HomePage() {
       <FloatingHeadlines />
 
       <HeroSection h1Ref={h1Ref} />
-      <Marquee items={MARQUEE_ITEMS} />
 
       <ComponentShowcase />
+      <Marquee items={MARQUEE_ITEMS} />
       <LiveDemo />
       <Marquee items={MARQUEE_ITEMS} reverse />
       <FeaturesSection />
