@@ -258,7 +258,9 @@ const CarouselContent = React.forwardRef<
         )}
         style={{ minHeight }} 
         {...props}
-        />
+       />
+        {/* {children}
+        </div> */}
     </div>
   )
 })

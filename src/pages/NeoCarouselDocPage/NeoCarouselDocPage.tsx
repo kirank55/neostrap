@@ -24,10 +24,10 @@ import {
 
 import {
   Carousel,
-  CarouselContent,
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselContent,
   CarouselIndicators,
 } from "@/components/ui/NeoCarousel"
 
@@ -37,17 +37,17 @@ function DemoCarousel({ ...props }: React.ComponentProps<typeof Carousel>) {
       <CarouselPrevious />
       <CarouselContent>
         <CarouselItem>
-          <div className="h-40 bg-linear-to-br from-pink-300 to-purple-400 flex items-center justify-center text-black font-bold">Slide 1</div>
+          <div className="h-75 bg-linear-to-br from-pink-300 to-purple-400 flex items-center justify-center text-black font-bold">Slide 1</div>
         </CarouselItem>
         <CarouselItem>
-          <div className="h-40 bg-linear-to-br from-green-200 to-lime-300 flex items-center justify-center text-black font-bold">Slide 2</div>
+          <div className="h-75 bg-linear-to-br from-green-200 to-lime-300 flex items-center justify-center text-black font-bold">Slide 2</div>
         </CarouselItem>
         <CarouselItem>
-          <div className="h-40 bg-linear-to-br from-sky-200 to-indigo-300 flex items-center justify-center text-black font-bold">Slide 3</div>
+          <div className="h-75 bg-linear-to-br from-sky-200 to-indigo-300 flex items-center justify-center text-black font-bold">Slide 3</div>
         </CarouselItem>
       </CarouselContent>
+        <CarouselIndicators />
       <CarouselNext />
-      <CarouselIndicators />
     </Carousel>
   )
 }
