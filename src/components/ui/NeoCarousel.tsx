@@ -212,6 +212,8 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
           selectedIndex,
           slideCount,
           scrollTo,
+          autoplay,
+          interval
         }}
       >
         <div
@@ -362,7 +364,7 @@ const CarouselIndicators = React.forwardRef<
   HTMLDivElement,
   CarouselIndicatorsProps
 >(({ className, variant = "bullets", slides = [], ...props }, ref) => {
-  const { slideCount, selectedIndex, scrollTo } = useCarousel()
+  const { slideCount, selectedIndex, scrollTo, autoplay, interval } = useCarousel()
 
   if (!slideCount || slideCount <= 1) return null
 
@@ -389,7 +391,7 @@ const CarouselIndicators = React.forwardRef<
 
   // Content variant - headline & paragraph on the left side
   return (
-    <div ref={ref} className={cn("flex flex-col gap-2", className)} {...props}>
+    <div ref={ref} className={cn("flex flex-col gap-2 justify-between", className)} {...props}>
       {slides.map((slide, i) => (
         <button
           key={i}
@@ -397,17 +399,17 @@ const CarouselIndicators = React.forwardRef<
           aria-label={`Go to slide ${i + 1}`}
           aria-pressed={selectedIndex === i}
           className={cn(
-            "text-left p-3 rounded-lg transition-all border-2",
-            selectedIndex === i
-              ? "border-black bg-slate-100"
-              : "border-transparent hover:bg-slate-50"
+            "text-left p-3 rounded-lg transition-all ",
+            // selectedIndex === i
+            //   ? "border-black bg-slate-100"
+            //   : "border-transparent hover:bg-slate-50"
           )}
           onClick={() => scrollTo(i)}
         >
           <h4
             className={cn(
               "font-bold text-sm transition-colors",
-              selectedIndex === i ? "text-black" : "text-slate-500"
+              // selectedIndex === i ? "text-black" : "text-slate-500"
             )}
           >
             {slide.headline}
@@ -416,12 +418,26 @@ const CarouselIndicators = React.forwardRef<
             <p
               className={cn(
                 "text-xs mt-1 transition-colors",
-                selectedIndex === i ? "text-slate-700" : "text-slate-400"
+                // selectedIndex === i ? "text-slate-700" : "text-slate-400"
               )}
             >
               {slide.description}
             </p>
           )}
+
+            {/* Red progress bar at bottom */}
+            <div className="mt-3 h-1 w-full bg-slate-200 rounded-full overflow-hidden">
+              <div
+                aria-hidden
+                className="h-full bg-black"
+                style={{
+                  width: selectedIndex === i && autoplay ? "100%" : "0%",
+                  transitionProperty: "width",
+                  transitionDuration: selectedIndex === i && autoplay ? `${interval}ms` : "0ms",
+                }}
+              />
+            </div>
+
         </button>
       ))}
     </div>
