@@ -44,7 +44,7 @@ const MARQUEE_ITEMS = [
 const FLOATING_HEADLINES = [
   {
     id: "components",
-    lines: ["Build like", "Human"],
+    lines: ["BUILD BRUTAL", "INTERFACES"],
     // lines: ["BUILD BRUTAL", "INTERFACES"],
     accentIndex: 1,
     accentColor: "text-(--color-pink)",
@@ -217,8 +217,9 @@ function Marquee({
   return (
     <div className="overflow-hidden py-4 border-y-2 border-black bg-black relative z-20">
       <div
-        className={`flex whitespace-nowrap ${reverse ? "animate-marquee-reverse" : "animate-marquee"
-          }`}
+        className={`flex whitespace-nowrap ${
+          reverse ? "animate-marquee-reverse" : "animate-marquee"
+        }`}
       >
         {[...items, ...items, ...items].map((item, i) => (
           <span
@@ -234,9 +235,9 @@ function Marquee({
   );
 }
 
-// Components marquee - horizontal scrolling showcase of components
-function ComponentsMarquee() {
-  const marqueeItems = [
+// Orbiting components container - infinity symbol path
+function OrbitingComponents() {
+  const orbitItems = [
     { type: "button" as const },
     { type: "switch" as const },
     { type: "card" as const },
@@ -300,17 +301,50 @@ function ComponentsMarquee() {
     }
   };
 
-  // Triple the items for seamless infinite scroll
-  const allItems = [...marqueeItems, ...marqueeItems, ...marqueeItems];
-
   return (
-    <div className="w-full overflow-hidden py-4 mb-6">
-      <div className="flex whitespace-nowrap animate-marquee">
-        {allItems.map((item, index) => (
-          <div key={index} className="mx-4 flex-shrink-0">
-            {renderComponent(item.type)}
-          </div>
-        ))}
+    <div className="absolute inset-0 pointer-events-none hidden lg:block overflow-hidden">
+      {/* Inline styles for infinity path animation - path spans hero section */}
+      <style>{`
+        .infinity-container {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          height: 100%;
+        }
+        .infinity-item {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          /* Horizontally oriented figure-eight, ~1200px wide x 500px tall */
+          offset-path: path('M 0 0 C 300 -250, 600 -250, 600 0 C 600 250, 300 250, 0 0 C -300 -250, -600 -250, -600 0 C -600 250, -300 250, 0 0');
+          offset-rotate: 0deg;
+          offset-anchor: center;
+          animation: orbit-infinity 40s linear infinite;
+        }
+        @keyframes orbit-infinity {
+          0% { offset-distance: 0%; }
+          100% { offset-distance: 100%; }
+        }
+      `}</style>
+
+      <div className="infinity-container">
+        {orbitItems.map((item, index) => {
+          const delay = (index / orbitItems.length) * 20; // evenly distribute along path
+
+          return (
+            <div
+              key={index}
+              className="infinity-item"
+              style={{
+                animationDelay: `-${delay}s`,
+              }}
+            >
+              {renderComponent(item.type)}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -366,9 +400,6 @@ function FloatingHeadlines() {
         const targetH2 = document.querySelector(
           `[data-section-heading="${headline.id}"]`
         );
-        const targetHeader = document.querySelector(
-          `[data-section-header="${headline.id}"]`
-        );
 
         if (!floatingEl || !targetSection || !targetH2) return;
 
@@ -377,7 +408,7 @@ function FloatingHeadlines() {
           const targetRect = targetH2.getBoundingClientRect();
           const scrollY = window.scrollY;
           return {
-            x: targetRect.left, // Use left edge for proper alignment
+            x: targetRect.left + (targetH2 as HTMLElement).offsetWidth / 2,
             y: targetRect.top + scrollY,
           };
         };
@@ -389,7 +420,7 @@ function FloatingHeadlines() {
         gsap.set(floatingEl, {
           position: "fixed",
           top: initialPos.y,
-          left: "65%",
+          left: "50%",
           xPercent: -50,
           opacity: 1,
           scale: 1,
@@ -404,81 +435,64 @@ function FloatingHeadlines() {
         const tween = gsap.to(floatingEl, {
           scrollTrigger: {
             trigger: targetSection,
-            start: "top 85%",
-            end: "top 25%",
-            scrub: 1.5, // Increased for smoother scrubbing
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const progress = self.progress;
               const currentInitialPos = getInitialPosition();
               const target = getTargetPosition();
 
-              // Use eased progress for smoother start/end
-              const easedProgress = gsap.parseEase("power2.inOut")(progress);
-
-              // Interpolate position
+              // Interpolate position - use percentage-based for initial, pixel for target
               const currentX = gsap.utils.interpolate(
                 currentInitialPos.x,
                 target.x,
-                easedProgress
+                progress
               );
               const currentY = gsap.utils.interpolate(
                 currentInitialPos.y,
                 target.y - window.scrollY,
-                easedProgress
+                progress
               );
 
               gsap.set(floatingEl, {
                 left: currentX,
-                xPercent: gsap.utils.interpolate(-50, 0, easedProgress),
+                xPercent: gsap.utils.interpolate(-50, -50, progress),
                 top: currentY,
-                scale: 1,
-                rotateX: gsap.utils.interpolate(18, 0, easedProgress),
-                rotateZ: gsap.utils.interpolate(-6, 0, easedProgress),
-                opacity: 1,
+                scale: gsap.utils.interpolate(1, 0.6, progress),
+                rotateX: gsap.utils.interpolate(18, 0, progress),
+                rotateZ: gsap.utils.interpolate(-6, 0, progress),
+                opacity: gsap.utils.interpolate(1, 1, progress),
               });
 
-              // Smooth opacity crossfade - start fading in header near the end
-              const headerOpacity = progress > 0.85 ? (progress - 0.85) / 0.15 : 0;
-              (targetH2 as HTMLElement).style.opacity = String(headerOpacity);
-              if (targetHeader) {
-                (targetHeader as HTMLElement).style.opacity = String(headerOpacity);
-              }
+              // Hide original h2 while floating one is visible, show when animation completes
+              (targetH2 as HTMLElement).style.opacity =
+                progress > 0.95 ? "1" : "0";
             },
             onLeave: () => {
-              // Smoothly hide floating element and show original
-              gsap.to(floatingEl, { opacity: 0, duration: 0.3, ease: "power2.out" });
+              // Hide floating element and show original
+              gsap.set(floatingEl, { opacity: 0 });
               (targetH2 as HTMLElement).style.opacity = "1";
-              if (targetHeader) {
-                (targetHeader as HTMLElement).style.opacity = "1";
-              }
             },
             onEnterBack: () => {
-              // Smoothly show floating element and hide original
-              gsap.to(floatingEl, { opacity: 1, duration: 0.3, ease: "power2.out" });
+              // Show floating element and hide original
+              gsap.set(floatingEl, { opacity: 1 });
               (targetH2 as HTMLElement).style.opacity = "0";
-              if (targetHeader) {
-                (targetHeader as HTMLElement).style.opacity = "0";
-              }
             },
             onLeaveBack: () => {
               // Reset to initial state with current viewport size
               const currentInitialPos = getInitialPosition();
-              gsap.to(floatingEl, {
+              gsap.set(floatingEl, {
                 opacity: 1,
                 top: currentInitialPos.y,
-                left: "65%",
+                left: "50%",
                 xPercent: -50,
                 scale: 1,
                 rotateX: 18,
                 rotateZ: -6,
-                duration: 0.3,
-                ease: "power2.out",
               });
               (targetH2 as HTMLElement).style.opacity = "0";
-              if (targetHeader) {
-                (targetHeader as HTMLElement).style.opacity = "0";
-              }
             },
           },
         });
@@ -489,36 +503,30 @@ function FloatingHeadlines() {
         }
       });
 
-      // Initially hide all target h2s and headers on lg screens
+      // Initially hide all target h2s on lg screens
       FLOATING_HEADLINES.forEach((headline) => {
         const targetH2 = document.querySelector(
           `[data-section-heading="${headline.id}"]`
         );
-        const targetHeader = document.querySelector(
-          `[data-section-header="${headline.id}"]`
-        );
         if (targetH2) {
           (targetH2 as HTMLElement).style.opacity = "0";
-        }
-        if (targetHeader) {
-          (targetHeader as HTMLElement).style.opacity = "0";
         }
       });
 
       // Handle resize to recenter floating headlines
       const handleResize = () => {
         ScrollTrigger.refresh();
-
+        
         // If not scrolled, reset floating elements to center
         FLOATING_HEADLINES.forEach((_, index) => {
           const floatingEl = headlineRefs.current[index];
           const st = scrollTriggers[index];
-
+          
           if (floatingEl && st && st.progress === 0) {
             const currentInitialPos = getInitialPosition();
             gsap.set(floatingEl, {
               top: currentInitialPos.y,
-              left: "65%",
+              left: "50%",
               xPercent: -50,
             });
           }
@@ -533,19 +541,13 @@ function FloatingHeadlines() {
           tween.scrollTrigger?.kill();
           tween.kill();
         });
-        // Reset h2 and header visibility
+        // Reset h2 visibility
         FLOATING_HEADLINES.forEach((headline) => {
           const targetH2 = document.querySelector(
             `[data-section-heading="${headline.id}"]`
           );
-          const targetHeader = document.querySelector(
-            `[data-section-header="${headline.id}"]`
-          );
           if (targetH2) {
             (targetH2 as HTMLElement).style.opacity = "1";
-          }
-          if (targetHeader) {
-            (targetHeader as HTMLElement).style.opacity = "1";
           }
         });
       };
@@ -567,8 +569,9 @@ function FloatingHeadlines() {
           ref={(el) => {
             headlineRefs.current[index] = el;
           }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] font-mono"
+          className="text-5xl sm:text-6xl md:text-7xl  lg:text-8xl font-black leading-[0.9] tracking-tight text-center"
           style={{
+            // filter: "drop-shadow(0 0px 7px #FE5BD6)",
             willChange: "transform, opacity",
             backfaceVisibility: "hidden",
           }}
@@ -576,10 +579,11 @@ function FloatingHeadlines() {
           {headline.lines.map((line, lineIndex) => (
             <span
               key={lineIndex}
-              className={`block ${lineIndex === headline.accentIndex
-                ? headline.accentColor
-                : "text-black"
-                }`}
+              className={`block ${
+                lineIndex === headline.accentIndex
+                  ? headline.accentColor
+                  : "text-black"
+              }`}
             >
               {line}
             </span>
@@ -610,70 +614,68 @@ function HeroSection({
   return (
     <section
       data-section="hero"
-      className="relative min-[1400px]:min-h-[90vh] flex items-center justify-center overflow-hidden bg-white"
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white"
     >
       <GridBackground />
+      <OrbitingComponents />
 
-      {/* Decorative corner blocks with CTA buttons */}
-      <div className="absolute top-8 left-8 hidden lg:block z-20">
-        <NeoButton
-          variant="brutal"
-          size="lg"
-          className="bg-(--color-baby-blue) text-black hover:bg-(--color-amber) text-lg px-6 py-4 h-auto shadow-[8px_8px_0_#000]"
-          asChild
-        >
-          <Link to="/docs/getting-started">
-            Get Started
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </NeoButton>
-      </div>
-      <div className="absolute bottom-8 right-8 hidden lg:block z-20">
-        <NeoButton
-          variant="brutal"
-          size="lg"
-          className="bg-(--color-lavender) text-black hover:bg-(--color-pink) text-lg px-6 py-4 h-auto shadow-[6px_6px_0_#000]"
-          asChild
-        >
-          <Link to="/docs/NeoButton">Explore Components</Link>
-        </NeoButton>
-      </div>
+      {/* Decorative corner blocks */}
+      <div className="absolute top-8 left-8 w-24 h-24 border-4 border-black bg-(--color-baby-blue) shadow-[8px_8px_0_#000] hidden lg:block" />
+      <div className="absolute bottom-8 right-8 w-16 h-16 border-4 border-black bg-(--color-lavender) shadow-[6px_6px_0_#000] hidden lg:block" />
 
-      {/* Additional decorative corner blocks */}
-      <div className="absolute top-8 right-8 w-16 h-16 border-4 border-black bg-(--color-amber) shadow-[6px_6px_0_#000] hidden lg:block z-10" />
-      <div className="absolute bottom-8 left-8 w-20 h-20 border-4 border-black bg-(--color-pink) shadow-[8px_8px_0_#000] hidden lg:block z-10" />
-
-      <div className="container mx-auto px-6 pt-2 pb-20 relative z-10">
+      <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
-          {/* <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 border-2 border-black bg-white shadow-[4px_4px_0_#000] rounded-full">
+          <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 border-2 border-black bg-white shadow-[4px_4px_0_#000] rounded-full">
             <Sparkles className="w-4 h-4" />
             <span className="font-bold text-sm uppercase tracking-wider">
               React + Tailwind CSS
             </span>
-          </div> */}
+          </div>
 
-          {/* Components Marquee */}
-          <ComponentsMarquee />
+          {/* Main headline - this is the animated element */}
+          <div className="mb-6">
+            <h1
+              ref={h1Ref}
+              className="text-red-500 opacity-100 lg:opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9]"
+              // className="text-[rgba(0,0,0,0)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight bg-linear-to-r from-(--color-pink) via-(--color-pink) to-pink-500 bg-clip-text"
+              style={{
+                filter: "drop-shadow(0 0px 7px #FE5BD6)",
+                // base glow + subtle extrusion shadow for depth
+                // textShadow: '0 5px 10px #FE5BD6, 0 18px 0 rgba(0,0,0,0.6)',
+                // make transform work on the heading block
+                display: "inline-block",
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                // isometric-ish tilt using perspective + rotations
+                transform: "perspective(1000px) rotateX(18deg) rotateZ(-6deg)",
+                transformOrigin: "50% 40%",
+                WebkitTransform:
+                  "perspective(1000px) rotateX(18deg) rotateZ(-6deg)",
+              }}
+            >
+              <span className="block" data-line="0">
+                BUILD
+              </span>
+              <span className="block" data-line="1">
+                BRUTAL
+              </span>
+              <span className="block" data-line="2">
+                INTERFACES
+              </span>
+            </h1>
+          </div>
 
           {/* Subheadline */}
-          <p className="text-xl md:text-2xl font-medium text-black/80 max-w-2xl mx-auto mb-8 leading-relaxed">
-            {/* A neo-brutalist React component library that breaks the rules.{" "} */}
-            {/* <span className="font-bold text-black">
+          <p className="text-xl md:text-2xl font-medium text-black/80 max-w-2xl mx-auto mb-10 leading-relaxed">
+            A neo-brutalist React component library that breaks the rules.{" "}
+            <span className="font-bold text-black">
               Bold. Unapologetic. Beautiful.
-            </span> */}
-            <span className="font-bold text-black">
-              Escape the Ai Generated bland components.
             </span>
-            <br />
-            <span className="font-bold text-black">
-              Add Personality to your UI
-            </span>
-
           </p>
 
-          {/* CTA Buttons - Mobile only (desktop buttons are in corners) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 lg:hidden">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <NeoButton
               variant="brutal"
               size="lg"
@@ -693,49 +695,6 @@ function HeroSection({
             >
               <Link to="/docs/NeoButton">Explore Components</Link>
             </NeoButton>
-          </div>
-
-          {/* Main headlines - BE UNIQUE on left, Build like human on right */}
-          <div className="mt-8 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
-            {/* Static BE UNIQUE headline */}
-            <h1
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] text-black"
-              style={{
-                filter: "drop-shadow(0 0px 7px rgba(0,0,0,0.3))",
-                display: "inline-block",
-                transform: "perspective(1000px) rotateX(18deg) rotateZ(-6deg)",
-                transformOrigin: "50% 40%",
-              }}
-            >
-              <span className="block">BE</span>
-              <span className="block text-(--color-amber)">UNIQUE</span>
-            </h1>
-
-            {/* Animated Build like human headline */}
-            <h1
-              ref={h1Ref}
-              className="hidden lg:block text-red-500 opacity-100 lg:opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] lg:ml-22"
-              style={{
-                filter: "drop-shadow(0 0px 7px #FE5BD6)",
-                display: "inline-block",
-                willChange: "transform",
-                backfaceVisibility: "hidden",
-                transform: "perspective(1000px) rotateX(18deg) rotateZ(-6deg)",
-                transformOrigin: "50% 40%",
-                WebkitTransform:
-                  "perspective(1000px) rotateX(18deg) rotateZ(-6deg)",
-              }}
-            >
-              <span className="block" data-line="0">
-                BUILD
-              </span>
-              <span className="block" data-line="1">
-                BRUTAL
-              </span>
-              <span className="block" data-line="2">
-                INTERFACES
-              </span>
-            </h1>
           </div>
 
           {/* Install command */}
@@ -900,24 +859,21 @@ function ComponentShowcase() {
         className="min-h-screen flex flex-col justify-center relative bg-white"
       >
         <div className="container mx-auto px-6 pt-12 pb-8">
-          {/* Section header wrapper */}
+          {/* Section header */}
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
-            {/* Animated section header - h2 and badge */}
-            <div >
+            <div>
               <span className="inline-block px-3 py-1 border-2 border-black bg-(--color-baby-blue) text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
                 Components
               </span>
-
               <h2
                 data-section-heading="components"
-                className="opacity-100 lg:opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9]"
+                className="text-4xl md:text-5xl lg:text-6xl font-black"
               >
-                Build like
+                BUILD BRUTAL
                 <br />
-                <span className="text-(--color-pink)">Human</span>
+                <span className="text-(--color-pink)">INTERFACES</span>
               </h2>
             </div>
-            {/* Always visible paragraph */}
             <p className="text-lg text-black/70 max-w-md">
               Every component is designed to stand out. No boring defaults —
               just bold, memorable interfaces.
