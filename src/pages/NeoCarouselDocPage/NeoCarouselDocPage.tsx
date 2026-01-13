@@ -63,7 +63,7 @@ function DemoCarouselWithContentIndicators({ ...props }: React.ComponentProps<ty
   return (
     <Carousel className="w-full " {...props}>
       <div className="flex gap-6">
-        <CarouselIndicators variant="content" slides={DEMO_SLIDES} className="w-48 shrink-0" />
+        <CarouselIndicators variant="content"  slides={DEMO_SLIDES} className="w-48 shrink-0" />
         <div className="flex-1 relative flex items-center ">
           {/* <CarouselPrevious /> */}
           <CarouselContent className="w-full ">
@@ -84,6 +84,30 @@ function DemoCarouselWithContentIndicators({ ...props }: React.ComponentProps<ty
   )
 }
 
+
+function DemoCarouselWithContentIndicatorsVertical({ ...props }: React.ComponentProps<typeof Carousel>) {
+  return (
+    <Carousel className="w-full " {...props}>
+      <div className="flex gap-6">
+        <CarouselIndicators variant="content" indicatorType="vertical" slides={DEMO_SLIDES} className="w-48 shrink-0" />
+        <div className="flex-1 relative flex items-center ">
+          <CarouselContent className="w-full ">
+            <CarouselItem>
+              <div className="h-75 bg-linear-to-br from-pink-300 to-purple-400 flex items-center justify-center text-black font-bold">Slide 1</div>
+            </CarouselItem>
+            <CarouselItem>
+              <div className="h-75 bg-linear-to-br from-green-200 to-lime-300 flex items-center justify-center text-black font-bold">Slide 2</div>
+            </CarouselItem>
+            <CarouselItem>
+              <div className="h-75 bg-linear-to-br from-sky-200 to-indigo-300 flex items-center justify-center text-black font-bold">Slide 3</div>
+            </CarouselItem>
+          </CarouselContent>
+        </div>
+      </div>
+    </Carousel>
+  )
+}
+
 function ExamplesSection() {
   return (
     <DocSection id="examples" title="Examples">
@@ -91,7 +115,7 @@ function ExamplesSection() {
         <InlineWrap>
           <LabeledItem label="Bullets Indicator" widthClass="w-full">
             <div className="flex justify-center w-full">
-              <DemoCarousel />
+              <DemoCarousel loop={true} />
             </div>
           </LabeledItem>
 
@@ -102,17 +126,17 @@ function ExamplesSection() {
             </div>
           </LabeledItem>
 
-          <LabeledItem label="Autoplay" widthClass="w-full">
+          <LabeledItem label="Content Indicator vertical" widthClass="w-full">
             <div className="flex justify-center w-full">
             
-              <DemoCarousel interval={3000} autoplay />
+              <DemoCarouselWithContentIndicatorsVertical autoplay interval={3000} indicatorType="vertical" />
             </div>
           </LabeledItem>
 
           <LabeledItem label="Without Loop" widthClass="w-full ">
             <div className="flex justify-center w-full">
             
-              <DemoCarousel opts={{ loop: false }} />
+              <DemoCarousel loop={false} />
             </div>
           </LabeledItem>
         </InlineWrap>
@@ -140,7 +164,7 @@ export default function NeoCarouselDocPage() {
           title="Neostrap UI Carousel"
           description="Carousel component for cycling through slides with autoplay, indicators, and keyboard navigation support."
         />
-        <Codepreview preview={<DemoCarousel />} code={CAROUSEL_USAGE_CODE} />
+        <Codepreview preview={<DemoCarouselWithContentIndicatorsVertical autoplay interval={3000} indicatorType="vertical" />} code={CAROUSEL_USAGE_CODE} />
       </DocSection>
 
       <InstallationTabs cliCode={INSTALL_CLI_CODE}>
@@ -172,6 +196,14 @@ export default function NeoCarouselDocPage() {
             }
           >
             <CodeBlock code={UTILS_CODE} />
+          </InstallationStep>
+
+          <InstallationStep
+            step={4}
+            title="Usage"
+            description="Here's how to use the Carousel component in your application:"
+          >
+            <CodeBlock code={CAROUSEL_USAGE_CODE} />
           </InstallationStep>
         </div>
       </InstallationTabs>

@@ -8,10 +8,10 @@
     "lint": "eslint .",
     "preview": "vite preview --port 3000",
     "storybook": "storybook dev -p 6006",
-    "build": "tsc -b && vite build",
-    "build-storybook": "storybook build",
     "build:registry": "node scripts/build-registry.js",
-    "prebuild": "npm run build:registry"
+    "prebuild": "npm run build:registry",
+    "build": "tsc -b && vite build",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

@@ -16,6 +16,11 @@
       "description": "Neo-brutalist card component with multiple layouts and variants."
     },
     {
+      "name": "neocarousel",
+      "path": "r/neocarousel.json",
+      "description": "Carousel component with autoplay, indicators, and keyboard navigation."
+    },
+    {
       "name": "neodialog",
       "path": "r/neodialog.json",
       "description": "Neo-brutalist dialog/modal component with overlay."

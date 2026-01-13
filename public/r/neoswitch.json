@@ -9,7 +9,7 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "https://neostrapui.pages.dev/r/utils.json"
+    "utils"
   ],
   "files": [
     {

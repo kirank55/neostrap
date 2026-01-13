@@ -8,8 +8,8 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "https://neostrapui.pages.dev/r/utils.json",
-    "https://neostrapui.pages.dev/r/neobutton.json"
+    "utils",
+    "neobutton"
   ],
   "files": [
     {

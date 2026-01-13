@@ -77,9 +77,12 @@ const components = [
     sourcePath: 'src/components/ui/NeoCarousel.tsx',
     targetPath: 'components/ui/NeoCarousel.tsx',
     title: 'NeoCarousel',
-    description: 'Neo-brutalist carousel component with autoplay and controls.',
-    dependencies: [],
-    registryDependencies: ['utils']
+    description: 'Carousel component with autoplay, indicators, and keyboard navigation.',
+    dependencies: [
+      'embla-carousel-react',
+      'lucide-react'
+    ],
+    registryDependencies: ['utils', 'button']
   },
   {
     name: 'neodialog',
