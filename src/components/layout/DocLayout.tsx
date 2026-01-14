@@ -18,6 +18,7 @@ const navSections: NavComponent[] = [
   { label: "Select", to: "/docs/NeoSelect" },
   { label: "Switch", to: "/docs/NeoSwitch" },
   { label: "Tabs", to: "/docs/NeoTabs" },
+  { label: "View Switch", to: "/docs/NeoViewSwitch" },
 ];
 
 function Sidebar() {

@@ -23,6 +23,7 @@ import NeoSwitchDocPage from "@/pages/NeoSwitchDocPage"
 import NeoTabsDocPage from "@/pages/NeoTabsDocPage"
 import NeoCarouselDocPage from "@/pages/NeoCarouselDocPage"
 import NeoAnimatedTooltipDocPage from "@/pages/NeoAnimatedTooltipDocPage"
+import NeoViewSwitchDocPage from "@/pages/NeoViewSwitchDocPage/NeoViewSwitchDocPage"
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="NeoCard" element={<NeoCardDocPage />} />
           <Route path="NeoCarousel" element={<NeoCarouselDocPage />} />
           <Route path="NeoAnimatedTooltip" element={<NeoAnimatedTooltipDocPage />} />
+          <Route path="NeoViewSwitch" element={<NeoViewSwitchDocPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
