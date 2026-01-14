@@ -400,30 +400,37 @@ function FloatingHeadlines() {
           zIndex: 100 - index,
         });
 
+        // Cache initial position to prevent recalculation glitches
+        let cachedInitialPos = { ...initialPos };
+
         // Create scroll-linked animation
         const tween = gsap.to(floatingEl, {
+          immediateRender: false,
           scrollTrigger: {
             trigger: targetSection,
             start: "top 85%",
             end: "top 25%",
             scrub: 1.5, // Increased for smoother scrubbing
             invalidateOnRefresh: true,
+            onRefresh: () => {
+              // Update cached position on refresh (resize, etc.)
+              cachedInitialPos = getInitialPosition();
+            },
             onUpdate: (self) => {
               const progress = self.progress;
-              const currentInitialPos = getInitialPosition();
               const target = getTargetPosition();
 
               // Use eased progress for smoother start/end
               const easedProgress = gsap.parseEase("power2.inOut")(progress);
 
-              // Interpolate position
+              // Interpolate position using cached initial position
               const currentX = gsap.utils.interpolate(
-                currentInitialPos.x,
+                cachedInitialPos.x,
                 target.x,
                 easedProgress
               );
               const currentY = gsap.utils.interpolate(
-                currentInitialPos.y,
+                cachedInitialPos.y,
                 target.y - window.scrollY,
                 easedProgress
               );
@@ -462,11 +469,10 @@ function FloatingHeadlines() {
               }
             },
             onLeaveBack: () => {
-              // Reset to initial state with current viewport size
-              const currentInitialPos = getInitialPosition();
+              // Reset to initial state using cached position
               gsap.to(floatingEl, {
                 opacity: 1,
-                top: currentInitialPos.y,
+                top: cachedInitialPos.y,
                 left: "65%",
                 xPercent: -50,
                 scale: 1,
@@ -696,10 +702,10 @@ function HeroSection({
           </div>
 
           {/* Main headlines - BE UNIQUE on left, Build like human on right */}
-          <div className="mt-8 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
+          <div className=" flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
             {/* Static BE UNIQUE headline */}
             <h1
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] text-black"
+              className="  text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] text-black"
               style={{
                 filter: "drop-shadow(0 0px 7px rgba(0,0,0,0.3))",
                 display: "inline-block",
@@ -714,7 +720,7 @@ function HeroSection({
             {/* Animated Build like human headline */}
             <h1
               ref={h1Ref}
-              className="hidden lg:block text-red-500 opacity-100 lg:opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] lg:ml-22"
+              className="mt-8  hidden lg:block text-red-500 opacity-100 lg:opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] lg:ml-22"
               style={{
                 filter: "drop-shadow(0 0px 7px #FE5BD6)",
                 display: "inline-block",

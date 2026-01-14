@@ -22,7 +22,7 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   interval?: number;
   indicatorType?: "horizontal" | "vertical";
   loop?: boolean;
-} 
+}
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
@@ -69,7 +69,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
         // ensure carousel loops when autoplay is enabled; top-level `loop` prop takes precedence over `opts.loop`
-        loop: autoplay ? true : (loop ?? opts?.loop),
+        loop: autoplay ? true : loop ?? opts?.loop,
       },
       plugins
     );
@@ -190,7 +190,8 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 
     React.useEffect(() => {
       if (!api) return;
-      const shouldLoop = Boolean(autoplay) || Boolean(loop) || Boolean(opts?.loop);
+      const shouldLoop =
+        Boolean(autoplay) || Boolean(loop) || Boolean(opts?.loop);
       api.reInit({
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
@@ -423,26 +424,38 @@ const CarouselIndicators = React.forwardRef<
             type="button"
             aria-label={`Go to slide ${i + 1}`}
             aria-pressed={selectedIndex === i}
-            className={cn(
-              "text-left p-3 rounded-lg transition-all relative"
-            )}
+            className={cn("text-left p-3 rounded-lg transition-all relative")}
             onClick={() => scrollTo(i)}
           >
-            <h4
-              className={cn(
-                "font-bold text-sm transition-colors"
-              )}
-            >
+            <h4 className={cn("font-bold text-sm transition-colors")}>
               {slide.headline}
             </h4>
             {slide.description && (
               <p
                 className={cn(
-                  "text-xs mt-1 transition-colors"
+                  "text-xs mt-1 overflow-hidden transition-all ease-in-out duration-300",
+                  selectedIndex === i ? "max-h-24  py-2" : "max-h-0 py-0"
                 )}
+                style={{
+                  opacity: selectedIndex === i ? 1 : 0,
+                }}
               >
                 {slide.description}
               </p>
+              // <p
+              //   className={cn("text-xs mt-1 transition-colors")}
+              //   style={{
+              //     backgroundColor:
+              //       selectedIndex === i ? indicatorColor : "#e2e8f0",
+              //     height: selectedIndex === i ? "100%" : "0%",
+
+              //     transitionProperty: "height",
+              //     transitionDuration:
+              //       selectedIndex === i ? `250ms` : "0ms",
+              //   }}
+              // >
+              //   {slide.description}
+              // </p>
             )}
 
             {/* Red progress bar at bottom */}
@@ -473,9 +486,9 @@ const CarouselIndicators = React.forwardRef<
                   style={{
                     backgroundColor:
                       selectedIndex === i ? indicatorColor : "#e2e8f0",
-                      height: selectedIndex === i && autoplay ? "100%" : "0%",
-                      transitionProperty: "height",
-                      transitionDuration:
+                    height: selectedIndex === i && autoplay ? "100%" : "0%",
+                    transitionProperty: "height",
+                    transitionDuration:
                       selectedIndex === i && autoplay ? `${interval}ms` : "0ms",
                   }}
                 />
