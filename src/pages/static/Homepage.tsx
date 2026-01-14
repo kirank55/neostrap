@@ -20,7 +20,7 @@ import {
   Palette,
   Code2,
   Boxes,
-  Sparkles,
+  // Sparkles,
   Github,
   Twitter,
   Heart,
