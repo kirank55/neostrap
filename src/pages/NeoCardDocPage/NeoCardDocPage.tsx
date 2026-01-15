@@ -6,7 +6,7 @@
 // External dependencies
 import {
     DefaultCard,
-    CardWithButton,
+    CardWithButtonandImage,
     TestimonialCard,
     variantOptions,
 } from "@/components/ui/NeoCard"
@@ -50,8 +50,10 @@ function VariantsSection() {
     return (
         <DocSection id="variants" title="Variants">
             <ShowcaseSurface>
-                <InlineWrap>
+                <div className="flex">
+
                     {variantOptions.map(({ variant, label }) => (
+                // <InlineWrap>
                         <LabeledItem
                             key={variant}
                             label={label}
@@ -66,40 +68,47 @@ function VariantsSection() {
                             </div>
                         </LabeledItem>
                     ))}
-                </InlineWrap>
+                    </div>
+                {/* </InlineWrap> */}
             </ShowcaseSurface>
         </DocSection>
     )
 }
 
 /**
- * Card with Button showcase section.
+ * Card with Image showcase section.
  */
-function CardWithButtonSection() {
+function CardWithButtonandImageSection() {
     return (
-        <DocSection id="card-with-button" title="Card with Button">
+        <DocSection id="card-with-image" title="Card with Image">
             <p className="text-muted-foreground">
-                A card with a call-to-action button for user interaction.
+                A card featuring a header image, content, and an action button.
             </p>
             <ShowcaseSurface>
-                <InlineWrap>
+                {/* <InlineWrap> */}
+                <div className="flex">
+
                     {variantOptions.map(({ variant, label }) => (
                         <LabeledItem
                             key={variant}
                             label={`${label} Card`}
-                            widthClass="w-full max-w-xl"
+                            widthClass="w-full"
                         >
                             <div className="flex justify-center">
-                                <CardWithButton
+                                <CardWithButtonandImage
                                     variant={variant}
-                                    title={`${label} Card`}
-                                    description="Click the button below to learn more about this feature."
-                                    buttonText="Read more"
+                                    imageUrl="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=500"
+                                    imageAlt="Retro technology"
+                                    title={`${label} Project`}
+                                    description="Explore our latest retro-futuristic design projects and components."
+                                    buttonText="View Project"
                                 />
                             </div>
                         </LabeledItem>
                     ))}
-                </InlineWrap>
+                </div>
+
+                {/* </InlineWrap> */}
             </ShowcaseSurface>
         </DocSection>
     )
@@ -115,7 +124,7 @@ function TestimonialCardSection() {
                 Display customer testimonials and reviews.
             </p>
             <ShowcaseSurface>
-                <InlineWrap>
+                <div className="flex" >
                     {TESTIMONIALS.map((testimonial, index) => (
                         <LabeledItem
                             key={index}
@@ -132,7 +141,7 @@ function TestimonialCardSection() {
                             </div>
                         </LabeledItem>
                     ))}
-                </InlineWrap>
+                </div>
             </ShowcaseSurface>
         </DocSection>
     )
@@ -245,7 +254,7 @@ function NeoCardDocPage() {
 
             <VariantsSection />
             <CardPropsSection />
-            <CardWithButtonSection />
+            <CardWithButtonandImageSection />
             <TestimonialCardSection />
             <TestimonialCardPropsSection />
         </>

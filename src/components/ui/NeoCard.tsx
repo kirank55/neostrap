@@ -249,6 +249,52 @@ function TestimonialCard({
   )
 }
 
+interface CardWithImageProps {
+  imageUrl: string
+  imageAlt: string
+  title: string
+  description: string
+  buttonText?: string
+  onButtonClick?: () => void
+  variant?: CardVariant
+  className?: string
+}
+
+/**
+ * A pre-configured card with an image, title, description, and action button.
+ */
+function CardWithButtonandImage({
+  imageUrl,
+  imageAlt,
+  title,
+  description,
+  buttonText = "Read more",
+  onButtonClick,
+  variant = "brutal",
+  className,
+}: CardWithImageProps) {
+  return (
+    <NeoCard variant={variant} className={cn("max-w-sm overflow-hidden", className)}>
+      <div className="aspect-video w-full overflow-hidden border-b-2 border-black">
+        <img
+          src={imageUrl}
+          alt={imageAlt}
+          className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+      <NeoCardHeader>
+        <NeoCardTitle>{title}</NeoCardTitle>
+        <NeoCardDescription>{description}</NeoCardDescription>
+      </NeoCardHeader>
+      <NeoCardFooter>
+        <NeoButton variant={variant} onClick={onButtonClick} className="w-full cursor-pointer">
+          {buttonText}
+        </NeoButton>
+      </NeoCardFooter>
+    </NeoCard>
+  )
+}
+
 export {
   NeoCard,
   NeoCardHeader,
@@ -259,6 +305,7 @@ export {
   DefaultCard,
   CardWithButton,
   TestimonialCard,
+  CardWithButtonandImage,
 }
 
 export type {
@@ -271,6 +318,7 @@ export type {
   DefaultCardProps,
   CardWithButtonProps,
   TestimonialCardProps,
+  CardWithImageProps,
 }
 
 export const variantOptions = [
