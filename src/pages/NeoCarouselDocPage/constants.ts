@@ -435,6 +435,15 @@ const CarouselIndicators = React.forwardRef<
     const { slideCount, selectedIndex, scrollTo, autoplay, interval } =
       useCarousel();
 
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+      const timer = setTimeout(() => {
+        setMounted(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }, []);
+
     if (!slideCount || slideCount <= 1) return null;
 
     // Bullets variant - dots centered below carousel
@@ -509,7 +518,7 @@ const CarouselIndicators = React.forwardRef<
                   style={{
                     backgroundColor:
                       selectedIndex === i ? indicatorColor : "#e2e8f0",
-                    width: selectedIndex === i && autoplay ? "100%" : "0%",
+                    width: mounted && selectedIndex === i && autoplay ? "100%" : "0%",
                     transitionProperty: "width",
                     transitionDuration:
                       selectedIndex === i && autoplay ? \`\${interval}ms\` : "0ms",
@@ -528,7 +537,7 @@ const CarouselIndicators = React.forwardRef<
                   style={{
                     backgroundColor:
                       selectedIndex === i ? indicatorColor : "#e2e8f0",
-                      height: selectedIndex === i && autoplay ? "100%" : "0%",
+                      height: mounted && selectedIndex === i && autoplay ? "100%" : "0%",
                       transitionProperty: "height",
                       transitionDuration:
                       selectedIndex === i && autoplay ? \`\${interval}ms\` : "0ms",

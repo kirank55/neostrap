@@ -275,7 +275,7 @@ function CardWithSideImage({
 }: CardWithSideImageProps) {
   return (
     <NeoCard variant={variant} className={cn("flex flex-row overflow-hidden w-full", className)}>
-      <div className="w-1/3 min-w-[200px] shrink-0 border-r-2 border-black relative">
+      <div className="w-1/3 min-w-50 shrink-0 border-r-2 border-black relative">
         <img
           src={imageUrl}
           alt={imageAlt}
