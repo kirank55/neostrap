@@ -3,19 +3,13 @@
  */
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { NeoViewSwitch } from "@/components/ui/NeoViewSwitch"
-import { NeoCard, NeoCardHeader, NeoCardTitle, NeoCardDescription, NeoCardContent } from "@/components/ui/NeoCard"
+import { NeoButton } from "@/components/ui/NeoButton"
 
 import { Codepreview, CodeBlock } from "@/components/CodeDemo"
 import PropsTable from "@/components/PropsTable"
 import DocSection from "@/components/docs/DocSection"
 import DocPageHeader from "@/components/docs/DocPageHeader"
-import {
-    ShowcaseSurface,
-    InlineWrap,
-    LabeledItem,
-} from "@/components/docs/Showcase"
 import {
     InstallationTabs,
     InstallationStep,
@@ -29,57 +23,11 @@ import {
     INSTALL_DEPENDENCIES_CODE,
     SWITCH_COMPONENT_CODE,
     UTILS_CODE,
-    VARIANT_OPTIONS,
-    SIZE_OPTIONS,
 } from "./constants"
 
 // ============================================================================
 // Section Components
 // ============================================================================
-
-function VariantsSection() {
-    const [view, setView] = useState<"grid" | "list">("grid")
-    
-    return (
-        <DocSection id="variants" title="Variants">
-            <ShowcaseSurface>
-                <InlineWrap>
-                    {VARIANT_OPTIONS.map(({ variant, label }) => (
-                        <LabeledItem key={label} label={label}>
-                            <NeoViewSwitch
-                                value={view}
-                                onValueChange={setView}
-                                variant={variant as any}
-                            />
-                        </LabeledItem>
-                    ))}
-                </InlineWrap>
-            </ShowcaseSurface>
-        </DocSection>
-    )
-}
-
-function SizesSection() {
-    const [view, setView] = useState<"grid" | "list">("grid")
-    
-    return (
-        <DocSection id="sizes" title="Sizes">
-            <ShowcaseSurface>
-                <InlineWrap>
-                    {SIZE_OPTIONS.map(({ size, label }) => (
-                        <LabeledItem key={label} label={label}>
-                            <NeoViewSwitch
-                                value={view}
-                                onValueChange={setView}
-                                size={size as any}
-                            />
-                        </LabeledItem>
-                    ))}
-                </InlineWrap>
-            </ShowcaseSurface>
-        </DocSection>
-    )
-}
 
 function PropsSection() {
     return (
@@ -95,6 +43,37 @@ function PropsSection() {
 // Main Component
 // ============================================================================
 
+const DEMO_ITEMS = [
+    {
+        id: 1,
+        title: "Retro Computer",
+        description: "A classic workstation from the 80s.",
+        imageUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=500",
+        actionContent: "View Details",
+    },
+    {
+        id: 2,
+        title: "Synthwave City",
+        description: "Neon lights and futuristic vibes.",
+        imageUrl: "https://images.unsplash.com/photo-1515630278258-407f66498911?auto=format&fit=crop&q=80&w=500",
+        actionContent: "Explore",
+    },
+    {
+        id: 3,
+        title: "Cyberpunk Street",
+        description: "High tech, low life aesthetic.",
+        imageUrl: "https://images.unsplash.com/photo-1515630278258-407f66498911?auto=format&fit=crop&q=80&w=500",
+        actionContent: "Learn More",
+    },
+    {
+        id: 4,
+        title: "Digital Abstract",
+        description: "Generated art patterns.",
+        imageUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=500",
+        actionContent: "Discover",
+    },
+]
+
 function NeoViewSwitchDocPage() {
     const [previewView, setPreviewView] = useState<"grid" | "list">("grid")
 
@@ -108,46 +87,19 @@ function NeoViewSwitchDocPage() {
                 />
                 <Codepreview
                     preview={
-                        <div className="flex flex-col items-center gap-6 p-4">
+                        <div className="w-3xl">
                             <NeoViewSwitch 
                                 value={previewView} 
-                                onValueChange={setPreviewView} 
+                                onValueChange={setPreviewView}
+                                items={DEMO_ITEMS}
+                                title={previewView === "grid" ? "Grid View" : "List View"}
+                                description={`Currently displaying items in ${previewView} layout`}
+                                renderAction={(item, view) => (
+                                    <NeoButton className={view === 'grid' ? "w-full" : ""}>
+                                        {item.actionContent}
+                                    </NeoButton>
+                                )}
                             />
-                            
-                            <NeoCard className="w-full max-w-md transition-all duration-300">
-                                <NeoCardHeader>
-                                    <NeoCardTitle>{previewView === "grid" ? "Grid View" : "List View"}</NeoCardTitle>
-                                    <NeoCardDescription>
-                                        Currently displaying items in {previewView} layout
-                                    </NeoCardDescription>
-                                </NeoCardHeader>
-                                <NeoCardContent>
-                                    <motion.div 
-                                        layout 
-                                        className={previewView === "grid" ? "grid grid-cols-2 gap-4" : "flex flex-col gap-2"}
-                                    >
-                                        {[1, 2, 3, 4].map((i) => (
-                                            <motion.div
-                                                layout
-                                                key={i}
-                                                className={
-                                                    previewView === "grid"
-                                                        ? "aspect-square bg-black/5 rounded-lg border-2 border-black/10 flex items-center justify-center font-bold"
-                                                        : "h-12 bg-black/5 rounded-lg border-2 border-black/10 flex items-center px-4 font-bold"
-                                                }
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{ 
-                                                    layout: { duration: 0.3, type: "spring", bounce: 0.2 },
-                                                    opacity: { duration: 0.2 }
-                                                }}
-                                            >
-                                                Item {i}
-                                            </motion.div>
-                                        ))}
-                                    </motion.div>
-                                </NeoCardContent>
-                            </NeoCard>
                         </div>
                     }
                     code={SWITCH_USAGE_CODE}
@@ -201,8 +153,6 @@ function NeoViewSwitchDocPage() {
                 </div>
             </InstallationTabs>
 
-            <VariantsSection />
-            <SizesSection />
             <PropsSection />
         </>
     )

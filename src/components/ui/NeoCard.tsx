@@ -249,6 +249,52 @@ function TestimonialCard({
   )
 }
 
+interface CardWithSideImageProps {
+  imageUrl: string
+  imageAlt: string
+  title: string
+  description: string
+  buttonText?: string
+  onButtonClick?: () => void
+  variant?: CardVariant
+  className?: string
+}
+
+/**
+ * A pre-configured card with a side image, title, description, and action button in the same row.
+ */
+function CardWithSideImage({
+  imageUrl,
+  imageAlt,
+  title,
+  description,
+  buttonText = "Read more",
+  onButtonClick,
+  variant = "brutal",
+  className,
+}: CardWithSideImageProps) {
+  return (
+    <NeoCard variant={variant} className={cn("flex flex-row overflow-hidden w-full", className)}>
+      <div className="w-1/3 min-w-[200px] shrink-0 border-r-2 border-black relative">
+        <img
+          src={imageUrl}
+          alt={imageAlt}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+      <div className="flex flex-1 items-center justify-between p-6 gap-4">
+        <div className="flex flex-col gap-1.5 min-w-0">
+          <NeoCardTitle className="text-xl">{title}</NeoCardTitle>
+          <NeoCardDescription className="line-clamp-2">{description}</NeoCardDescription>
+        </div>
+        <NeoButton variant={variant} onClick={onButtonClick} className="shrink-0 cursor-pointer whitespace-nowrap">
+          {buttonText}
+        </NeoButton>
+      </div>
+    </NeoCard>
+  )
+}
+
 interface CardWithImageProps {
   imageUrl: string
   imageAlt: string
@@ -263,7 +309,7 @@ interface CardWithImageProps {
 /**
  * A pre-configured card with an image, title, description, and action button.
  */
-function CardWithButtonandImage({
+function CardWithImage({
   imageUrl,
   imageAlt,
   title,
@@ -305,7 +351,8 @@ export {
   DefaultCard,
   CardWithButton,
   TestimonialCard,
-  CardWithButtonandImage,
+  CardWithImage,
+  CardWithSideImage,
 }
 
 export type {
@@ -319,6 +366,7 @@ export type {
   CardWithButtonProps,
   TestimonialCardProps,
   CardWithImageProps,
+  CardWithSideImageProps,
 }
 
 export const variantOptions = [

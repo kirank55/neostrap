@@ -6,7 +6,7 @@
 // External dependencies
 import {
     DefaultCard,
-    CardWithButtonandImage,
+    CardWithImage,
     TestimonialCard,
     variantOptions,
 } from "@/components/ui/NeoCard"
@@ -18,7 +18,6 @@ import DocSection from "@/components/docs/DocSection"
 import DocPageHeader from "@/components/docs/DocPageHeader"
 import {
     ShowcaseSurface,
-    InlineWrap,
     LabeledItem,
 } from "@/components/docs/Showcase"
 import {
@@ -95,7 +94,7 @@ function CardWithButtonandImageSection() {
                             widthClass="w-full"
                         >
                             <div className="flex justify-center">
-                                <CardWithButtonandImage
+                                <CardWithImage
                                     variant={variant}
                                     imageUrl="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=500"
                                     imageAlt="Retro technology"
