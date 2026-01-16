@@ -75,7 +75,7 @@ const NeoTabs = React.forwardRef<
           onValueChange={handleValueChange}
           {...props}
         >
-            {children}
+          {children}
         </TabsPrimitive.Root>
       </TabsContext.Provider>
     );
@@ -179,7 +179,6 @@ const NeoTabsTrigger = React.forwardRef<
         "data-[state=inactive]:bg-transparent data-[state=inactive]:text-black",
         "data-[state=inactive]:border-2 data-[state=inactive]:border-black",
         "data-[state=inactive]:shadow-[5px_5px_0_#000]",
-        // "data-[state=inactive]:hover:-translate-y-[-5px] data-[state=inactive]:hover:translate-x-1.25 data-[state=inactive]:hover:shadow-none",
         "data-[state=inactive]:active:translate-x-px data-[state=inactive]:active:-translate-y-px data-[state=inactive]:active:shadow-[2px_2px_0_#000]",
         "data-[state=active]:bg-transparent data-[state=active]:text-black",
         "data-[state=active]:border-2 data-[state=active]:border-black",

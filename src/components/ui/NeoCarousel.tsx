@@ -267,7 +267,7 @@ const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>(
 );
 CarouselContent.displayName = "CarouselContent";
 
-interface CarouselItemProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface CarouselItemProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
   ({ className, ...props }, ref) => {
@@ -451,20 +451,6 @@ const CarouselIndicators = React.forwardRef<
               >
                 {slide.description}
               </p>
-              // <p
-              //   className={cn("text-xs mt-1 transition-colors")}
-              //   style={{
-              //     backgroundColor:
-              //       selectedIndex === i ? indicatorColor : "#e2e8f0",
-              //     height: selectedIndex === i ? "100%" : "0%",
-
-              //     transitionProperty: "height",
-              //     transitionDuration:
-              //       selectedIndex === i ? `250ms` : "0ms",
-              //   }}
-              // >
-              //   {slide.description}
-              // </p>
             )}
 
             {/* Red progress bar at bottom */}
