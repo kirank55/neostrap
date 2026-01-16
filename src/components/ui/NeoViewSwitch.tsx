@@ -81,7 +81,7 @@ function NeoViewSwitch({
           )}
         </button>
       </div>
-      
+
       <NeoCard className="w-full transition-all duration-300 shadow-none">
         {(title || description) && (
           <NeoCardHeader>
@@ -91,49 +91,49 @@ function NeoViewSwitch({
         )}
         <NeoCardContent>
           <div className="min-h-150 sm:min-h-100">
-             <motion.div 
-                 layout
-                 className={isGrid ? "grid grid-cols-2 gap-4" : "flex flex-col gap-4"}
-             >
-                {items.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      layout: { duration: 0.8, type: "spring", bounce: 0.2 },
-                      opacity: { duration: 0.5 }
-                    }}
-                    className="w-full"
-                  >
-                    <NeoCard className={`overflow-hidden ${value === 'list' ? "flex flex-row" : "flex flex-col"}`}>
-                      <div className={value === 'grid' ? "aspect-video w-full border-b-2 border-black" : "w-1/3 min-w-50 border-r-2 border-black relative shrink-0"}>
-                        <img 
-                          src={item.imageUrl} 
-                          alt={item.title}
-                          className="h-full w-full object-cover"
-                        />
+            <motion.div
+              layout
+              className={isGrid ? "grid grid-cols-2 gap-4" : "flex flex-col gap-4"}
+            >
+              {items.map((item) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    layout: { duration: 0.8, type: "spring", bounce: 0.2 },
+                    opacity: { duration: 0.5 }
+                  }}
+                  className="w-full"
+                >
+                  <NeoCard className={`overflow-hidden ${value === 'list' ? "flex flex-row" : "flex flex-col"}`}>
+                    <div className={value === 'grid' ? "aspect-video w-full border-b-2 border-black" : "w-1/3 min-w-50 border-r-2 border-black relative shrink-0"}>
+                      <img
+                        src={item.imageUrl}
+                        alt={item.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+
+                    <div className={value === 'list' ? "flex flex-1 items-center justify-between p-6 gap-4" : "flex flex-col flex-1"}>
+                      <div className={value === 'list' ? "flex flex-col gap-1.5 min-w-0" : "p-6"}>
+                        <NeoCardTitle className="text-xl">{item.title}</NeoCardTitle>
+                        <NeoCardDescription className={value === 'list' ? "line-clamp-2" : ""}>
+                          {item.description}
+                        </NeoCardDescription>
                       </div>
 
-                      <div className={value === 'list' ? "flex flex-1 items-center justify-between p-6 gap-4" : "flex flex-col flex-1"}>
-                        <div className={value === 'list' ? "flex flex-col gap-1.5 min-w-0" : "p-6"}>
-                          <NeoCardTitle className="text-xl">{item.title}</NeoCardTitle>
-                          <NeoCardDescription className={value === 'list' ? "line-clamp-2" : ""}>
-                            {item.description}
-                          </NeoCardDescription>
+                      {renderAction && (
+                        <div className={value === 'list' ? "shrink-0" : "p-6 pt-0 mt-auto"}>
+                          {renderAction(item, value)}
                         </div>
-
-                        {renderAction && (
-                          <div className={value === 'list' ? "shrink-0" : "p-6 pt-0 mt-auto"}>
-                            {renderAction(item, value)}
-                          </div>
-                        )}
-                      </div>
-                    </NeoCard>
-                  </motion.div>
-                ))}
-             </motion.div>
+                      )}
+                    </div>
+                  </NeoCard>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </NeoCardContent>
       </NeoCard>
