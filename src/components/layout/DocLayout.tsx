@@ -56,7 +56,7 @@ function AppSidebar() {
                   className={cn(
                     "justify-start font-semibold transition-all",
                     location.pathname === "/docs/getting-started"
-                      ? "bg-[var(--color-baby-blue)]"
+                      ? "bg-(--color-baby-blue)"
                       : "hover:translate-x-1 hover:bg-transparent"
                   )}
                 >
@@ -93,7 +93,7 @@ function AppSidebar() {
                       variant={isActive ? "outline" : "default"}
                       className={cn(
                         "justify-start font-semibold transition-all",
-                        isActive ? "bg-[var(--color-lavender)]" : "hover:translate-x-1 hover:bg-transparent"
+                        isActive ? "bg-(--color-lavender)" : "hover:translate-x-1 hover:bg-transparent"
                       )}
                     >
                       <Link
@@ -121,10 +121,11 @@ function DocLayout() {
       <SidebarProvider defaultOpen={true}>
         <AppSidebar />
         <SidebarInset className="peer-data-[variant=inset]:min-h-screen md:peer-data-[variant=inset]:m-0 md:peer-data-[variant=inset]:rounded-none md:peer-data-[variant=inset]:border-0 md:peer-data-[variant=inset]:shadow-none">
-          <div className=" sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b-2 border-black bg-white px-4">
+          {/* Mobile-only sticky header with hamburger trigger */}
+          <div className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 px-4 md:hidden bg-white/80 backdrop-blur-sm border-b border-black/10">
             <SidebarTrigger />
           </div>
-          <main className="flex flex-col gap-10 container max-w-275 mx-auto py-12 px-8">
+          <main className="flex flex-col gap-10 container max-w-275 mx-auto py-12 px-8 overflow-x-hidden">
             <Outlet />
           </main>
         </SidebarInset>
