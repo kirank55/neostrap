@@ -72,6 +72,30 @@ function AppSidebar() {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={location.pathname === "/docs/installation"}
+                  variant={location.pathname === "/docs/installation" ? "outline" : "default"}
+                  className={cn(
+                    "justify-start font-semibold transition-all",
+                    location.pathname === "/docs/installation"
+                      ? "bg-(--color-baby-blue)"
+                      : "hover:translate-x-1 hover:bg-transparent"
+                  )}
+                >
+                  <Link
+                    to="/docs/installation"
+                    aria-current={
+                      location.pathname === "/docs/installation"
+                        ? "page"
+                        : undefined
+                    }
+                  >
+                    Installation
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
