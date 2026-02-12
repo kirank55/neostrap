@@ -21,9 +21,9 @@ interface NavComponent {
 }
 
 const navSections: NavComponent[] = [
+  { label: "Essential", to: "/docs/essential" },
   { label: "Accordion", to: "/docs/NeoAccordion" },
   { label: "Animated Tooltip", to: "/docs/NeoAnimatedTooltip" },
-  { label: "Button", to: "/docs/NeoButton" },
   { label: "Card", to: "/docs/NeoCard" },
   { label: "Carousel", to: "/docs/NeoCarousel" },
   { label: "Dropdown", to: "/docs/NeoDropdown" },
