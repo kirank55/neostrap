@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useRef, useEffect, type RefObject } from "react";
+import { useRef, useEffect, type RefObject } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { NeoButton } from "@/components/ui/NeoButton";
@@ -7,12 +7,11 @@ import {
 	NeoCard,
 	NeoCardHeader,
 	NeoCardTitle,
-	NeoCardDescription,
+	// NeoCardDescription,
 	NeoCardContent,
 } from "@/components/ui/NeoCard";
 import { NeoSwitch } from "@/components/ui/NeoSwitch";
 import { NeoInput } from "@/components/ui/NeoInput";
-import Header from "@/components/layout/Header";
 import {
 	ArrowRight,
 	Zap,
@@ -28,15 +27,15 @@ import {
 // CONFIGURATION
 // ============================================================================
 
-const MARQUEE_ITEMS = [
-	"NEO-BRUTALIST",
-	"BOLD & BEAUTIFUL",
-	"ACCESSIBLE",
-	"REACT + TAILWIND",
-	"OPEN SOURCE",
-	"MODERN UI",
-	"FULLY TYPED",
-];
+// const MARQUEE_ITEMS = [
+// 	"NEO-BRUTALIST",
+// 	"BOLD & BEAUTIFUL",
+// 	"ACCESSIBLE",
+// 	"REACT + TAILWIND",
+// 	"OPEN SOURCE",
+// 	"MODERN UI",
+// 	"FULLY TYPED",
+// ];
 
 const FLOATING_HEADLINES = [
 	{
@@ -141,59 +140,59 @@ const FEATURES = [
 	},
 ];
 
-const TESTIMONIALS = [
-	{
-		quote:
-			"NeoStrap made our product look 10x more worst. The brutal aesthetic turned heads to other side at our launch.",
-		author: "John Doe",
-		role: "Design Lead, Startup",
-		avatar: "J",
-	},
-	{
-		quote:
-			"Finally, a UI kit that isn't afraid to be ugly. Our conversion rates jumped down 40% after redesigning with NeoStrap.",
-		author: "San Doe",
-		role: "Founder, SaaS",
-		avatar: "S",
-	},
-	{
-		quote:
-			"The attention to detail is insane. Every shadow, every border - it all just messed up together perfectly.",
-		author: "Jane Smith",
-		role: "Frontend Engineer",
-		avatar: "J",
-	},
-];
+// const TESTIMONIALS = [
+// 	{
+// 		quote:
+// 			"NeoStrap made our product look 10x more worst. The brutal aesthetic turned heads to other side at our launch.",
+// 		author: "John Doe",
+// 		role: "Design Lead, Startup",
+// 		avatar: "J",
+// 	},
+// 	{
+// 		quote:
+// 			"Finally, a UI kit that isn't afraid to be ugly. Our conversion rates jumped down 40% after redesigning with NeoStrap.",
+// 		author: "San Doe",
+// 		role: "Founder, SaaS",
+// 		avatar: "S",
+// 	},
+// 	{
+// 		quote:
+// 			"The attention to detail is insane. Every shadow, every border - it all just messed up together perfectly.",
+// 		author: "Jane Smith",
+// 		role: "Frontend Engineer",
+// 		avatar: "J",
+// 	},
+// ];
 
 // ============================================================================
 // ANIMATED COMPONENTS
 // ============================================================================
 
-function Marquee({
-	items,
-	reverse = false,
-}: {
-	items: string[];
-	reverse?: boolean;
-}) {
-	return (
-		<div className="overflow-hidden py-4 border-y-2 border-black bg-black relative z-20">
-			<div
-				className={`flex whitespace-nowrap ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
-			>
-				{[...items, ...items, ...items].map((item, i) => (
-					<span
-						key={i}
-						className="mx-8 text-2xl font-black text-white tracking-widest"
-					>
-						{item}
-						<span className="ml-8 text-(--color-pink)">✦</span>
-					</span>
-				))}
-			</div>
-		</div>
-	);
-}
+// function Marquee({
+// 	items,
+// 	reverse = false,
+// }: {
+// 	items: string[];
+// 	reverse?: boolean;
+// }) {
+// 	return (
+// 		<div className="overflow-hidden py-4 border-y-2 border-black bg-black relative z-20">
+// 			<div
+// 				className={`flex whitespace-nowrap ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}
+// 			>
+// 				{[...items, ...items, ...items].map((item, i) => (
+// 					<span
+// 						key={i}
+// 						className="mx-8 text-2xl font-black text-white tracking-widest"
+// 					>
+// 						{item}
+// 						<span className="ml-8 text-(--color-pink)">✦</span>
+// 					</span>
+// 				))}
+// 			</div>
+// 		</div>
+// 	);
+// }
 
 function ComponentsMarquee() {
 	const marqueeItems = [
@@ -552,7 +551,7 @@ function FloatingHeadlines() {
 // SECTION COMPONENTS
 // ============================================================================
 
-function HeroSection({ h1Ref }: { h1Ref: RefObject<HTMLHeadingElement> }) {
+function HeroSection({ h1Ref }: { h1Ref: RefObject<HTMLHeadingElement | null> }) {
 	return (
 		<section
 			data-section="hero"
@@ -864,84 +863,84 @@ function ComponentShowcase() {
 	);
 }
 
-function LiveDemo() {
-	const [switchOn, setSwitchOn] = useState(true);
-	const [inputValue, setInputValue] = useState("");
+// function LiveDemo() {
+// 	const [switchOn, setSwitchOn] = useState(true);
+// 	const [inputValue, setInputValue] = useState("");
 
-	return (
-		<section
-			data-section="demo"
-			className="py-24 bg-black text-white relative overflow-hidden"
-		>
-			<div className="absolute top-10 left-10 w-32 h-32 border-4 border-(--color-pink) opacity-20 rotate-12" />
-			<div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-(--color-amber) opacity-20 -rotate-12" />
+// 	return (
+// 		<section
+// 			data-section="demo"
+// 			className="py-24 bg-black text-white relative overflow-hidden"
+// 		>
+// 			<div className="absolute top-10 left-10 w-32 h-32 border-4 border-(--color-pink) opacity-20 rotate-12" />
+// 			<div className="absolute bottom-10 right-10 w-24 h-24 border-4 border-(--color-amber) opacity-20 -rotate-12" />
 
-			<div className="container mx-auto px-6">
-				<div className="flex flex-col lg:flex-row gap-12 items-center">
-					<div className="flex-1">
-						<span className="inline-block px-3 py-1 border-2 border-white bg-transparent text-sm font-bold uppercase tracking-wider mb-4">
-							Live Preview
-						</span>
-						<h2
-							data-section-heading="demo"
-							className="text-4xl md:text-5xl font-black mb-6"
-						>
-							EXPERIENCE THE
-							<br />
-							<span className="text-(--color-amber)">BRUTALITY</span>
-						</h2>
-						<p className="text-lg text-white/70 mb-8 max-w-lg">
-							Interact with real components. No mockups, no illusions — just
-							pure, unadulterated neo-brutalist design in action.
-						</p>
-					</div>
+// 			<div className="container mx-auto px-6">
+// 				<div className="flex flex-col lg:flex-row gap-12 items-center">
+// 					<div className="flex-1">
+// 						<span className="inline-block px-3 py-1 border-2 border-white bg-transparent text-sm font-bold uppercase tracking-wider mb-4">
+// 							Live Preview
+// 						</span>
+// 						<h2
+// 							data-section-heading="demo"
+// 							className="text-4xl md:text-5xl font-black mb-6"
+// 						>
+// 							EXPERIENCE THE
+// 							<br />
+// 							<span className="text-(--color-amber)">BRUTALITY</span>
+// 						</h2>
+// 						<p className="text-lg text-white/70 mb-8 max-w-lg">
+// 							Interact with real components. No mockups, no illusions — just
+// 							pure, unadulterated neo-brutalist design in action.
+// 						</p>
+// 					</div>
 
-					<div className="flex-1 w-full max-w-lg">
-						<NeoCard className="bg-white text-black">
-							<NeoCardHeader>
-								<NeoCardTitle className="flex items-center gap-3">
-									<span className="text-3xl">⚡</span>
-									Live Component Demo
-								</NeoCardTitle>
-								<NeoCardDescription>
-									These are real, working NeoStrap components
-								</NeoCardDescription>
-							</NeoCardHeader>
-							<NeoCardContent className="space-y-6">
-								<div className="space-y-2">
-									<label className="font-bold text-sm">NeoInput</label>
-									<NeoInput
-										placeholder="Type something brutal..."
-										value={inputValue}
-										onChange={(event) => setInputValue(event.target.value)}
-									/>
-								</div>
+// 					<div className="flex-1 w-full max-w-lg">
+// 						<NeoCard className="bg-white text-black">
+// 							<NeoCardHeader>
+// 								<NeoCardTitle className="flex items-center gap-3">
+// 									<span className="text-3xl">⚡</span>
+// 									Live Component Demo
+// 								</NeoCardTitle>
+// 								<NeoCardDescription>
+// 									These are real, working NeoStrap components
+// 								</NeoCardDescription>
+// 							</NeoCardHeader>
+// 							<NeoCardContent className="space-y-6">
+// 								<div className="space-y-2">
+// 									<label className="font-bold text-sm">NeoInput</label>
+// 									<NeoInput
+// 										placeholder="Type something brutal..."
+// 										value={inputValue}
+// 										onChange={(event) => setInputValue(event.target.value)}
+// 									/>
+// 								</div>
 
-								<div className="flex items-center justify-between py-3 px-4 border-2 border-black bg-(--color-baby-blue) shadow-[3px_3px_0_#000] rounded-lg">
-									<span className="font-bold">NeoSwitch</span>
-									<NeoSwitch checked={switchOn} onCheckedChange={setSwitchOn} />
-								</div>
+// 								<div className="flex items-center justify-between py-3 px-4 border-2 border-black bg-(--color-baby-blue) shadow-[3px_3px_0_#000] rounded-lg">
+// 									<span className="font-bold">NeoSwitch</span>
+// 									<NeoSwitch checked={switchOn} onCheckedChange={setSwitchOn} />
+// 								</div>
 
-								<div className="flex gap-3">
-									<NeoButton variant="brutal" size="sm" className="flex-1">
-										Accept
-									</NeoButton>
-									<NeoButton
-										variant="brutal"
-										size="sm"
-										className="flex-1 bg-white"
-									>
-										Decline
-									</NeoButton>
-								</div>
-							</NeoCardContent>
-						</NeoCard>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
+// 								<div className="flex gap-3">
+// 									<NeoButton variant="brutal" size="sm" className="flex-1">
+// 										Accept
+// 									</NeoButton>
+// 									<NeoButton
+// 										variant="brutal"
+// 										size="sm"
+// 										className="flex-1 bg-white"
+// 									>
+// 										Decline
+// 									</NeoButton>
+// 								</div>
+// 							</NeoCardContent>
+// 						</NeoCard>
+// 					</div>
+// 				</div>
+// 			</div>
+// 		</section>
+// 	);
+// }
 
 function FeaturesSection() {
 	return (
@@ -983,76 +982,76 @@ function FeaturesSection() {
 	);
 }
 
-function TestimonialsSection() {
-	return (
-		<section
-			data-section="testimonials"
-			className="py-24 bg-(--color-baby-blue) border-y-2 border-black relative overflow-hidden"
-		>
-			<div className="absolute inset-0 opacity-5 pointer-events-none">
-				<div
-					className="w-full h-full"
-					style={{
-						backgroundImage: `repeating-linear-gradient(
-							45deg,
-							transparent,
-							transparent 20px,
-							#000 20px,
-							#000 21px
-						)`,
-					}}
-				/>
-			</div>
+// function TestimonialsSection() {
+// 	return (
+// 		<section
+// 			data-section="testimonials"
+// 			className="py-24 bg-(--color-baby-blue) border-y-2 border-black relative overflow-hidden"
+// 		>
+// 			<div className="absolute inset-0 opacity-5 pointer-events-none">
+// 				<div
+// 					className="w-full h-full"
+// 					style={{
+// 						backgroundImage: `repeating-linear-gradient(
+// 							45deg,
+// 							transparent,
+// 							transparent 20px,
+// 							#000 20px,
+// 							#000 21px
+// 						)`,
+// 					}}
+// 				/>
+// 			</div>
 
-			<div className="container mx-auto px-6 relative z-10">
-				<div className="text-center mb-16">
-					<span className="inline-block px-3 py-1 border-2 border-black bg-white text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
-						Testimonials
-					</span>
-					<h2
-						data-section-heading="testimonials"
-						className="text-4xl md:text-5xl lg:text-6xl font-black"
-					>
-						LOVED BY
-						<br />
-						<span className="text-(--color-pink)">BUILDERS</span>
-					</h2>
-				</div>
+// 			<div className="container mx-auto px-6 relative z-10">
+// 				<div className="text-center mb-16">
+// 					<span className="inline-block px-3 py-1 border-2 border-black bg-white text-sm font-bold uppercase tracking-wider shadow-[3px_3px_0_#000] mb-4">
+// 						Testimonials
+// 					</span>
+// 					<h2
+// 						data-section-heading="testimonials"
+// 						className="text-4xl md:text-5xl lg:text-6xl font-black"
+// 					>
+// 						LOVED BY
+// 						<br />
+// 						<span className="text-(--color-pink)">BUILDERS</span>
+// 					</h2>
+// 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-					{TESTIMONIALS.map((testimonial, index) => (
-						<div
-							key={index}
-							className="bg-white border-2 border-black p-6 shadow-[6px_6px_0_#000] rounded-lg"
-						>
-							<svg
-								className="w-10 h-10 text-black/20 mb-4"
-								fill="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-							</svg>
+// 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+// 					{TESTIMONIALS.map((testimonial, index) => (
+// 						<div
+// 							key={index}
+// 							className="bg-white border-2 border-black p-6 shadow-[6px_6px_0_#000] rounded-lg"
+// 						>
+// 							<svg
+// 								className="w-10 h-10 text-black/20 mb-4"
+// 								fill="currentColor"
+// 								viewBox="0 0 24 24"
+// 							>
+// 								<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+// 							</svg>
 
-							<blockquote className="text-lg font-medium text-black/80 mb-6 leading-relaxed">
-								"{testimonial.quote}"
-							</blockquote>
+// 							<blockquote className="text-lg font-medium text-black/80 mb-6 leading-relaxed">
+// 								"{testimonial.quote}"
+// 							</blockquote>
 
-							<div className="flex items-center gap-3">
-								<div className="w-12 h-12 border-2 border-black bg-(--color-amber) flex items-center justify-center font-black text-lg shadow-[2px_2px_0_#000] rounded-full">
-									{testimonial.avatar}
-								</div>
-								<div>
-									<p className="font-bold">{testimonial.author}</p>
-									<p className="text-sm text-black/60">{testimonial.role}</p>
-								</div>
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-	);
-}
+// 							<div className="flex items-center gap-3">
+// 								<div className="w-12 h-12 border-2 border-black bg-(--color-amber) flex items-center justify-center font-black text-lg shadow-[2px_2px_0_#000] rounded-full">
+// 									{testimonial.avatar}
+// 								</div>
+// 								<div>
+// 									<p className="font-bold">{testimonial.author}</p>
+// 									<p className="text-sm text-black/60">{testimonial.role}</p>
+// 								</div>
+// 							</div>
+// 						</div>
+// 					))}
+// 				</div>
+// 			</div>
+// 		</section>
+// 	);
+// }
 
 function CTASection() {
 	return (

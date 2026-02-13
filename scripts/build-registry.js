@@ -2,7 +2,7 @@
 
 /**
  * Build Registry - Generate component registry files for publishing
- * Converts source components into registry format for public/r distribution
+ * Dynamically discovers Neo UI components and generates shadcn registry files.
  */
 
 import fs from 'fs'
@@ -12,38 +12,18 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
 const srcDir = path.join(rootDir, 'src')
+const uiDir = path.join(srcDir, 'components', 'ui')
+const utilsPath = path.join(srcDir, 'lib', 'utils.ts')
 const publicRegistryDir = path.join(rootDir, 'public', 'r')
 
-// Ensure public/r directory exists
-if (!fs.existsSync(publicRegistryDir)) {
-  fs.mkdirSync(publicRegistryDir, { recursive: true })
-}
+const EXTERNAL_DEP_IGNORES = new Set(['react', 'react-dom'])
 
-const components = [
-  {
-    name: 'neobutton',
-    sourcePath: 'src/components/ui/NeoButton.tsx',
-    targetPath: 'components/ui/NeoButton.tsx',
-    title: 'NeoButton',
-    description: 'Neo-brutalist button with multiple variants and sizes.',
-    dependencies: [
-      '@radix-ui/react-slot',
-      'class-variance-authority'
-    ],
-    registryDependencies: ['utils']
+const COMPONENT_OVERRIDES = {
+  neobutton: {
+    description: 'Neo-brutalist button with multiple variants and sizes.'
   },
-  {
-    name: 'neoaccordion',
-    sourcePath: 'src/components/ui/NeoAccordion.tsx',
-    targetPath: 'components/ui/NeoAccordion.tsx',
-    title: 'NeoAccordion',
+  neoaccordion: {
     description: 'Neo-brutalist accordion component with collapsible sections.',
-    dependencies: [
-      '@radix-ui/react-accordion',
-      'class-variance-authority',
-      'lucide-react'
-    ],
-    registryDependencies: ['utils'],
     cssVars: {
       theme: {
         '--animate-accordion-down': 'accordion-down 0.2s ease-out',
@@ -52,127 +32,51 @@ const components = [
     },
     css: {
       '@keyframes accordion-down': {
-        'from': 'height: 0;',
-        'to': 'height: var(--radix-accordion-content-height);'
+        from: 'height: 0;',
+        to: 'height: var(--radix-accordion-content-height);'
       },
       '@keyframes accordion-up': {
-        'from': 'height: var(--radix-accordion-content-height);',
-        'to': 'height: 0;'
+        from: 'height: var(--radix-accordion-content-height);',
+        to: 'height: 0;'
       }
     }
   },
-  {
-    name: 'neocard',
-    sourcePath: 'src/components/ui/NeoCard.tsx',
-    targetPath: 'components/ui/NeoCard.tsx',
-    title: 'NeoCard',
-    description: 'Neo-brutalist card component with multiple layouts and variants.',
-    dependencies: [
-      'class-variance-authority'
-    ],
-    registryDependencies: ['utils', 'neobutton']
+  neocard: {
+    description: 'Neo-brutalist card component with multiple layouts and variants.'
   },
-  {
-    name: 'neocarousel',
-    sourcePath: 'src/components/ui/NeoCarousel.tsx',
-    targetPath: 'components/ui/NeoCarousel.tsx',
-    title: 'NeoCarousel',
-    description: 'Carousel component with autoplay, indicators, and keyboard navigation.',
-    dependencies: [
-      'embla-carousel-react',
-      'lucide-react'
-    ],
-    registryDependencies: ['utils', 'button']
+  neocarousel: {
+    description: 'Carousel component with autoplay, indicators, and keyboard navigation.'
   },
-  {
-    name: 'neodialog',
-    sourcePath: 'src/components/ui/NeoDialog.tsx',
-    targetPath: 'components/ui/NeoDialog.tsx',
-    title: 'NeoDialog',
-    description: 'Neo-brutalist dialog/modal component with overlay.',
-    dependencies: [
-      '@radix-ui/react-dialog',
-      'lucide-react'
-    ],
-    registryDependencies: ['utils']
+  neodialog: {
+    description: 'Neo-brutalist dialog/modal component with overlay.'
   },
-  {
-    name: 'neodropdown',
-    sourcePath: 'src/components/ui/NeoDropdown.tsx',
-    targetPath: 'components/ui/NeoDropdown.tsx',
-    title: 'NeoDropdown',
-    description: 'Neo-brutalist dropdown menu with multiple variants.',
-    dependencies: [
-      '@radix-ui/react-dropdown-menu',
-      'class-variance-authority',
-      'lucide-react'
-    ],
-    registryDependencies: ['utils']
+  neodropdown: {
+    description: 'Neo-brutalist dropdown menu with multiple variants.'
   },
-  {
-    name: 'neoinput',
-    sourcePath: 'src/components/ui/NeoInput.tsx',
-    targetPath: 'components/ui/NeoInput.tsx',
-    title: 'NeoInput',
-    description: 'Neo-brutalist input component with multiple variants and sizes.',
-    dependencies: [
-      'class-variance-authority'
-    ],
-    registryDependencies: ['utils']
+  neoinput: {
+    description: 'Neo-brutalist input component with multiple variants and sizes.'
   },
-  {
-    name: 'neoselect',
-    sourcePath: 'src/components/ui/NeoSelect.tsx',
-    targetPath: 'components/ui/NeoSelect.tsx',
-    title: 'NeoSelect',
-    description: 'Neo-brutalist select dropdown component.',
-    dependencies: [
-      '@radix-ui/react-select',
-      'class-variance-authority',
-      'lucide-react'
-    ],
-    registryDependencies: ['utils']
+  neoselect: {
+    description: 'Neo-brutalist select dropdown component.'
   },
-  {
-    name: 'neoswitch',
-    sourcePath: 'src/components/ui/NeoSwitch.tsx',
-    targetPath: 'components/ui/NeoSwitch.tsx',
-    title: 'NeoSwitch',
-    description: 'Neo-brutalist switch toggle component with multiple variants.',
-    dependencies: [
-      '@radix-ui/react-switch',
-      'class-variance-authority'
-    ],
-    registryDependencies: ['utils']
+  neoswitch: {
+    description: 'Neo-brutalist switch toggle component with multiple variants.'
   },
-  {
-    name: 'neotabs',
-    sourcePath: 'src/components/ui/NeoTabs.tsx',
-    targetPath: 'components/ui/NeoTabs.tsx',
-    title: 'NeoTabs',
-    description: 'Neo-brutalist tabs component with GSAP animations.',
-    dependencies: [
-      '@radix-ui/react-tabs',
-      'gsap',
-      '@gsap/react'
-    ],
-    registryDependencies: ['utils']
+  neotabs: {
+    description: 'Neo-brutalist tabs component with GSAP animations.'
   },
-  {
-    name: 'utils',
-    sourcePath: 'src/lib/utils.ts',
-    targetPath: 'lib/utils.ts',
-    title: 'Utils',
-    description: 'Shared utility helpers for NeoStrap (e.g., cn)',
-    dependencies: [
-      'clsx',
-      'tailwind-merge'
-    ]
+  utils: {
+    description: 'Shared utility helpers for NeoStrap (e.g., cn)'
   }
-]
+}
 
-function readSourceFile(relativePath) {
-  const fullPath = path.join(rootDir, relativePath)
+function ensureRegistryDir() {
+  if (!fs.existsSync(publicRegistryDir)) {
+    fs.mkdirSync(publicRegistryDir, { recursive: true })
+  }
+}
+
+function readSourceFile(fullPath) {
   if (!fs.existsSync(fullPath)) {
     console.error(`Source file not found: ${fullPath}`)
     return null
@@ -180,28 +84,119 @@ function readSourceFile(relativePath) {
   return fs.readFileSync(fullPath, 'utf-8')
 }
 
+function toRegistryName(componentFileName) {
+  return componentFileName.replace(/\.[^.]+$/, '').toLowerCase()
+}
+
+function packageNameFromImport(specifier) {
+  if (specifier.startsWith('@')) {
+    const [scope, name] = specifier.split('/')
+    return scope && name ? `${scope}/${name}` : specifier
+  }
+
+  return specifier.split('/')[0]
+}
+
+function inferExternalDependencies(content) {
+  const deps = new Set()
+  const importRegex = /from\s+["']([^"']+)["']/g
+
+  for (const match of content.matchAll(importRegex)) {
+    const rawSpecifier = match[1]
+    if (rawSpecifier.startsWith('.') || rawSpecifier.startsWith('@/')) {
+      continue
+    }
+
+    const dep = packageNameFromImport(rawSpecifier)
+    if (!EXTERNAL_DEP_IGNORES.has(dep)) {
+      deps.add(dep)
+    }
+  }
+
+  return [...deps].sort()
+}
+
+function inferRegistryDependencies(content, currentComponentName) {
+  const registryDeps = new Set()
+
+  if (content.includes('from "@/lib/utils"') || content.includes("from '@/lib/utils'")) {
+    registryDeps.add('utils')
+  }
+
+  const uiImportRegex = /from\s+["']@\/components\/ui\/([^"']+)["']/g
+  for (const match of content.matchAll(uiImportRegex)) {
+    const imported = match[1].replace(/\.[^.]+$/, '').toLowerCase()
+    if (imported && imported !== currentComponentName) {
+      registryDeps.add(imported)
+    }
+  }
+
+  return [...registryDeps].sort()
+}
+
+function getDynamicComponents() {
+  const components = []
+
+  components.push({
+    name: 'utils',
+    title: 'Utils',
+    sourcePath: utilsPath,
+    targetPath: 'lib/utils.ts',
+    type: 'registry:lib'
+  })
+
+  if (!fs.existsSync(uiDir)) {
+    return components
+  }
+
+  const files = fs.readdirSync(uiDir)
+    .filter((file) => /^Neo[A-Za-z0-9]+\.tsx$/.test(file))
+    .sort()
+
+  for (const file of files) {
+    const fullPath = path.join(uiDir, file)
+    const title = file.replace('.tsx', '')
+    const name = toRegistryName(file)
+
+    components.push({
+      name,
+      title,
+      sourcePath: fullPath,
+      targetPath: `components/ui/${file}`,
+      type: 'registry:ui'
+    })
+  }
+
+  return components
+}
+
 function generateRegistryFile(component) {
   const content = readSourceFile(component.sourcePath)
   if (!content) return null
 
+  const override = COMPONENT_OVERRIDES[component.name] ?? {}
+
+  const inferredDependencies = inferExternalDependencies(content)
+  const inferredRegistryDependencies = inferRegistryDependencies(content, component.name)
+
   const registry = {
     '$schema': 'https://ui.shadcn.com/schema/registry-item.json',
     name: component.name,
-    type: component.name === 'utils' ? 'registry:lib' : 'registry:ui',
+    type: component.type,
     title: component.title,
-    description: component.description,
-    dependencies: component.dependencies || [],
-    registryDependencies: component.registryDependencies || []
+    description: override.description ?? `${component.title} component for NeoStrap UI.`,
+    dependencies: inferredDependencies,
+    registryDependencies: inferredRegistryDependencies
   }
 
   // Add CSS variables if present
-  if (component.cssVars) {
-    registry.cssVars = component.cssVars
+  if (override.cssVars) {
+    registry.cssVars = override.cssVars
   }
 
   // Add CSS rules if present
-  if (component.css) {
-    registry.css = component.css
+  if (override.css) {
+    registry.css = override.css
   }
 
   // Add files
@@ -218,9 +213,11 @@ function generateRegistryFile(component) {
 }
 
 function buildRegistry() {
+  ensureRegistryDir()
   console.log('Building component registry...')
   
   const builtComponents = []
+  const components = getDynamicComponents()
   
   for (const component of components) {
     console.log(`Processing ${component.name}...`)
@@ -239,7 +236,7 @@ function buildRegistry() {
     builtComponents.push({
       name: component.name,
       path: `r/${component.name}.json`,
-      description: component.description
+      description: registryData.description
     })
   }
   
@@ -258,11 +255,6 @@ function buildRegistry() {
   console.log(`Registry build complete! Generated ${builtComponents.length} components`)
 }
 
-console.log('Script loaded!')
-console.log('import.meta.url:', import.meta.url)
-console.log('process.argv[1]:', process.argv[1])
-
-// Always run the build
 buildRegistry()
 
 export { buildRegistry }

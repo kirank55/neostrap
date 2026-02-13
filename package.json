@@ -9,7 +9,7 @@
     "preview": "vite preview --port 3000",
     "storybook": "storybook dev -p 6006",
     "build:registry": "node scripts/build-registry.js",
-    "prebuild": "npm run build:registry",
+    "prebuild": "npx shadcn@latest build",
     "build": "tsc -b && vite build",
     "build-storybook": "storybook build"
   },

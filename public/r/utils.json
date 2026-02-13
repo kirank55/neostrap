@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "utils",
-  "type": "registry:lib",
   "title": "Utils",
   "description": "Shared utility helpers for NeoStrap (e.g., cn)",
   "dependencies": [
@@ -11,10 +10,11 @@
   "registryDependencies": [],
   "files": [
     {
-      "path": "lib/utils.ts",
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
       "type": "registry:file",
-      "target": "lib/utils.ts",
-      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n"
+      "target": "lib/utils.ts"
     }
-  ]
+  ],
+  "type": "registry:lib"
 }

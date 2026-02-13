@@ -1,0 +1,298 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "neostrap",
+  "homepage": "https://neostrapui.pages.dev",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils",
+      "description": "Shared utility helpers for NeoStrap (e.g., cn)",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:file",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neoaccordion",
+      "type": "registry:ui",
+      "title": "NeoAccordion",
+      "description": "Neo-brutalist accordion component with collapsible sections.",
+      "dependencies": [
+        "@radix-ui/react-accordion",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "cssVars": {
+        "theme": {
+          "--animate-accordion-down": "accordion-down 0.2s ease-out",
+          "--animate-accordion-up": "accordion-up 0.2s ease-out"
+        }
+      },
+      "css": {
+        "@keyframes accordion-down": {
+          "from": "height: 0;",
+          "to": "height: var(--radix-accordion-content-height);"
+        },
+        "@keyframes accordion-up": {
+          "from": "height: var(--radix-accordion-content-height);",
+          "to": "height: 0;"
+        }
+      },
+      "files": [
+        {
+          "path": "src/components/ui/NeoAccordion.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoAccordion.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neoanimatedtooltip",
+      "type": "registry:ui",
+      "title": "NeoAnimatedTooltip",
+      "description": "NeoAnimatedTooltip component for NeoStrap UI.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoAnimatedTooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoAnimatedTooltip.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neobutton",
+      "type": "registry:ui",
+      "title": "NeoButton",
+      "description": "Neo-brutalist button with multiple variants and sizes.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoButton.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neocard",
+      "type": "registry:ui",
+      "title": "NeoCard",
+      "description": "Neo-brutalist card component with multiple layouts and variants.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoCard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoCard.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neocarousel",
+      "type": "registry:ui",
+      "title": "NeoCarousel",
+      "description": "Carousel component with autoplay, indicators, and keyboard navigation.",
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoCarousel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoCarousel.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neodialog",
+      "type": "registry:ui",
+      "title": "NeoDialog",
+      "description": "Neo-brutalist dialog/modal component with overlay.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoDialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoDialog.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neodropdown",
+      "type": "registry:ui",
+      "title": "NeoDropdown",
+      "description": "Neo-brutalist dropdown menu with multiple variants.",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoDropdown.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoDropdown.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neoinput",
+      "type": "registry:ui",
+      "title": "NeoInput",
+      "description": "Neo-brutalist input component with multiple variants and sizes.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoInput.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoInput.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neoselect",
+      "type": "registry:ui",
+      "title": "NeoSelect",
+      "description": "Neo-brutalist select dropdown component.",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoSelect.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoSelect.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neoswitch",
+      "type": "registry:ui",
+      "title": "NeoSwitch",
+      "description": "Neo-brutalist switch toggle component with multiple variants.",
+      "dependencies": [
+        "@radix-ui/react-switch",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoSwitch.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoSwitch.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neotabs",
+      "type": "registry:ui",
+      "title": "NeoTabs",
+      "description": "Neo-brutalist tabs component with GSAP animations.",
+      "dependencies": [
+        "@gsap/react",
+        "@radix-ui/react-tabs",
+        "gsap"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoTabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoTabs.tsx"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "neoviewswitch",
+      "type": "registry:ui",
+      "title": "NeoViewSwitch",
+      "description": "NeoViewSwitch component for NeoStrap UI.",
+      "dependencies": [
+        "class-variance-authority",
+        "framer-motion",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "neocard",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/NeoViewSwitch.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/NeoViewSwitch.tsx"
+        }
+      ]
+    }
+  ]
+}
