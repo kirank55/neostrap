@@ -47,12 +47,12 @@ const FLOATING_HEADLINES = [
 ];
 
 const COMPONENT_CARDS = [
-	{
-		name: "NeoButton",
-		description: "Bold, chunky buttons that demand attention",
-		color: "bg-(--color-amber)",
-		icon: "✦",
-	},
+	// {
+	// 	name: "NeoButton",
+	// 	description: "Bold, chunky buttons that demand attention",
+	// 	color: "bg-(--color-amber)",
+	// 	icon: "✦",
+	// },
 	// {
 	// 	name: "NeoCard",
 	// 	description: "Striking cards with brutal shadows",
@@ -78,10 +78,29 @@ const COMPONENT_CARDS = [
 	// 	icon: "◐",
 	// },
 	{
+		name: "Essential",
+		description: "Core neobrutalism principles and fundamentals",
+		color: "bg-(--color-baby-blue)",
+		icon: "✦",
+		path: "/docs/essential",
+	},
+	{
 		name: "NeoTabs",
 		description: "Switchable content regions",
 		color: "bg-(--color-baby-blue)",
 		icon: "◫",
+	},
+	{
+		name: "NeoCarousel",
+		description: "Slide-based content with smooth navigation",
+		color: "bg-(--color-lavender)",
+		icon: "◍",
+	},
+	{
+		name: "NeoViewSwitch",
+		description: "Toggle between view modes with bold controls",
+		color: "bg-(--color-amber)",
+		icon: "◈",
 	},
 	{
 		name: "NeoAnimatedTooltip",
@@ -761,6 +780,32 @@ function ComponentShowcase() {
 						<div className="px-2 py-0.5 text-[9px] font-bold">Tab 2</div>
 					</div>
 				);
+			case "NeoCarousel":
+				return (
+					<div className="w-28 p-2 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
+						<div className="h-8 bg-black/10 rounded mb-2" />
+						<div className="flex items-center justify-between text-[8px] font-bold">
+							<span>◀</span>
+							<span>1 / 3</span>
+							<span>▶</span>
+						</div>
+					</div>
+				);
+			case "NeoViewSwitch":
+				return (
+					<div className="flex p-1 gap-1 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
+						<div className="px-2 py-1 bg-black text-white text-[8px] font-bold rounded">
+							Grid
+						</div>
+						<div className="px-2 py-1 text-[8px] font-bold">List</div>
+					</div>
+				);
+			case "Essential":
+				return (
+					<div className="px-3 py-2 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded text-[9px] font-black uppercase tracking-wide pointer-events-none">
+						Essential
+					</div>
+				);
 			case "NeoAccordion":
 				return (
 					<div className="w-28 border-2 border-black bg-white shadow-[2px_2px_0_#000] rounded pointer-events-none">
@@ -837,7 +882,10 @@ function ComponentShowcase() {
 				>
 					{COMPONENT_CARDS.map((component) => (
 						<Link
-							to={`/neo-${component.name.toLowerCase().replace('neo', '')}`}
+							to={
+								component.path ??
+								`/neo-${component.name.toLowerCase().replace("neo", "")}`
+							}
 							key={component.name}
 							className="group shrink-0"
 						>
