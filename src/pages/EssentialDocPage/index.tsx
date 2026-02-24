@@ -15,12 +15,7 @@ import {
 } from "@/components/ui/NeoCard";
 import { NeoInput } from "@/components/ui/NeoInput";
 import { NeoSwitch } from "@/components/ui/NeoSwitch";
-import {
-  NeoTabs,
-  NeoTabsContent,
-  NeoTabsList,
-  NeoTabsTrigger,
-} from "@/components/ui/NeoTabs";
+
 
 // Documentation components
 import { CodeBlock } from "@/components/CodeDemo";
@@ -40,7 +35,6 @@ import {
   Type,
   MousePointer,
   Box,
-  Layers,
   ArrowRight,
   Check,
   X,
@@ -205,115 +199,6 @@ shadow-[8px_8px_0_#000]   /* XL - dramatic */`}
 
 
 // ============================================================================
-// Section: Typography
-// ============================================================================
-
-function TypographySection() {
-  return (
-    <DocSection id="typography" title="Typography">
-      <p className="text-lg text-muted-foreground font-medium mb-8">
-        Typography in neobrutalism is bold, expressive, and unapologetic.
-        Headers demand attention.
-      </p>
-
-      {/* Font Family */}
-      <div className="space-y-4">
-        <h4 className="text-xl font-black">Font Family: Syne</h4>
-        <ShowcaseSurface>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg border-3 border-black bg-white shadow-[4px_4px_0_#000]">
-                <p className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">
-                  Body Text — Syne
-                </p>
-                <p
-                  className="text-2xl font-medium"
-                  style={{ fontFamily: "Syne, sans-serif" }}
-                >
-                  The quick brown fox jumps over the lazy dog.
-                </p>
-              </div>
-              <p className="text-sm text-neutral-600 font-medium">
-                <strong>Syne</strong> is the primary font for body text. Its
-                geometric shapes and bold weights perfectly embody neobrutalism.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg border-3 border-black bg-white shadow-[4px_4px_0_#000]">
-                <p className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">
-                  Headings — Syne Mono
-                </p>
-                <p
-                  className="text-2xl font-black"
-                  style={{ fontFamily: "Syne Mono, monospace" }}
-                >
-                  BRUTAL HEADINGS
-                </p>
-              </div>
-              <p className="text-sm text-neutral-600 font-medium">
-                <strong>Syne Mono</strong> adds an industrial, raw feel to
-                headings. Perfect for that technical neobrutalist edge.
-              </p>
-            </div>
-          </div>
-        </ShowcaseSurface>
-        <CodeBlock
-          code={`/* Google Fonts import */
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
-
-/* CSS usage */
-body {
-  font-family: "Syne", sans-serif;
-}
-
-h1, h2, h3 {
-  font-family: "Syne Mono", monospace;
-}`}
-        />
-      </div>
-
-      {/* Font Weights */}
-      <div className="space-y-4 mt-8">
-        <h4 className="text-xl font-black">Font Weights</h4>
-        <ShowcaseSurface>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {[400, 500, 600, 700, 800].map((weight) => (
-              <div
-                key={weight}
-                className="p-3 rounded-lg border-2 border-black bg-white text-center"
-              >
-                <p className="text-2xl mb-1" style={{ fontWeight: weight }}>
-                  Aa
-                </p>
-                <p className="text-xs font-bold text-neutral-600">{weight}</p>
-              </div>
-            ))}
-          </div>
-        </ShowcaseSurface>
-      </div>
-
-      {/* Text Sizes */}
-      <div className="space-y-4 mt-8">
-        <h4 className="text-xl font-black">Text Sizes</h4>
-        <ShowcaseSurface>
-          <div className="space-y-4">
-            <p className="text-xs font-bold">text-xs — Extra Small</p>
-            <p className="text-sm font-bold">text-sm — Small</p>
-            <p className="text-base font-bold">text-base — Base</p>
-            <p className="text-lg font-bold">text-lg — Large</p>
-            <p className="text-xl font-bold">text-xl — Extra Large</p>
-            <p className="text-2xl font-black">text-2xl — 2X Large</p>
-            <p className="text-3xl font-black">text-3xl — 3X Large</p>
-            <p className="text-4xl font-black">text-4xl — 4X Large</p>
-            <p className="text-5xl font-black">text-5xl — 5X Large</p>
-          </div>
-        </ShowcaseSurface>
-      </div>
-    </DocSection>
-  );
-}
-
-// ============================================================================
 // Section: Components
 // ============================================================================
 
@@ -436,92 +321,6 @@ function ComponentsSection() {
   );
 }
 
-// ============================================================================
-// Section: Interactive States
-// ============================================================================
-
-function InteractiveStatesSection() {
-  return (
-    <DocSection id="interactive-states" title="Interactive States">
-      <p className="text-lg text-muted-foreground font-medium mb-8">
-        Neobrutalist interfaces are highly interactive. States should be clear,
-        bold, and provide immediate feedback.
-      </p>
-
-      {/* Hover States */}
-      <div className="space-y-4 mb-12">
-        <h4 className="text-xl font-black">Hover States</h4>
-        <ShowcaseSurface>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <NeoButton className="hover:bg-(--color-pink)">
-              Color Change
-            </NeoButton>
-            <NeoButton className="hover:translate-x-[4px] hover:-translate-y-[4px] hover:shadow-none">
-              Move + No Shadow
-            </NeoButton>
-            <NeoButton className="hover:shadow-[8px_8px_0_#000]">
-              Add Shadow
-            </NeoButton>
-            <NeoButton className="hover:scale-105">Scale Up</NeoButton>
-          </div>
-        </ShowcaseSurface>
-        <CodeBlock
-          code={`/* Hover effects */
-hover:bg-(--color-pink)                              /* Background change */
-hover:translate-x-[4px] hover:-translate-y-[4px]    /* Move diagonally */
-hover:shadow-none                                    /* Remove shadow */
-hover:shadow-[8px_8px_0_#000]                       /* Add shadow */
-hover:scale-105                                     /* Scale up */`}
-        />
-      </div>
-
-      {/* Active States */}
-      <div className="space-y-4 mb-12">
-        <h4 className="text-xl font-black">Active States</h4>
-        <ShowcaseSurface>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <NeoButton className="active:translate-x-[2px] active:-translate-y-[2px] active:shadow-[2px_2px_0_#000]">
-              Press Me
-            </NeoButton>
-            <NeoButton className="active:scale-95">Scale Down</NeoButton>
-            <NeoButton className="active:bg-black active:text-white">
-              Invert on Press
-            </NeoButton>
-          </div>
-        </ShowcaseSurface>
-        <CodeBlock
-          code={`/* Active/pressed states */
-active:translate-x-[2px] active:-translate-y-[2px]     /* Push in */
-active:shadow-[2px_2px_0_#000]                        /* Smaller shadow */
-active:scale-95                                        /* Shrink */
-active:bg-black active:text-white                      /* Invert colors */`}
-        />
-      </div>
-
-      {/* Focus States */}
-      <div className="space-y-4">
-        <h4 className="text-xl font-black">Focus States</h4>
-        <ShowcaseSurface>
-          <div className="flex flex-col gap-4 items-center">
-            <NeoInput
-              placeholder="Focus me..."
-              className="focus:ring-4 focus:ring-black/20 focus:border-black"
-            />
-            <p className="text-sm font-medium text-neutral-500">
-              Neobrutalist focus uses thick rings with transparency
-            </p>
-          </div>
-        </ShowcaseSurface>
-        <CodeBlock
-          code={`/* Focus states */
-focus:ring-4 focus:ring-black/20    /* Thick ring */
-focus:border-black                   /* Darker border */
-focus-visible:outline-none           /* Remove default outline */`}
-        />
-      </div>
-    </DocSection>
-  );
-}
 
 // ============================================================================
 // Section: Best Practices
