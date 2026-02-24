@@ -89,24 +89,28 @@ const COMPONENT_CARDS = [
 		description: "Switchable content regions",
 		color: "bg-(--color-baby-blue)",
 		icon: "◫",
+		path: "/docs/NeoTabs",
 	},
 	{
 		name: "NeoCarousel",
 		description: "Slide-based content with smooth navigation",
 		color: "bg-(--color-lavender)",
 		icon: "◍",
+		path: "/docs/NeoCarousel",
 	},
 	{
 		name: "NeoViewSwitch",
 		description: "Toggle between view modes with bold controls",
 		color: "bg-(--color-amber)",
 		icon: "◈",
+		path: "/docs/NeoViewSwitch",
 	},
 	{
 		name: "NeoAnimatedTooltip",
 		description: "Animated tooltips that follow the cursor",
 		color: "bg-(--color-pink)",
 		icon: "💬",
+		path: "/docs/NeoAnimatedTooltip",
 	},
 	// {
 	// 	name: "NeoAccordion",
@@ -884,7 +888,7 @@ function ComponentShowcase() {
 						<Link
 							to={
 								component.path ??
-								`/neo-${component.name.toLowerCase().replace("neo", "")}`
+								`/neo${component.name.toLowerCase().replace("neo", "")}`
 							}
 							key={component.name}
 							className="group shrink-0"
