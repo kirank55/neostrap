@@ -15,7 +15,7 @@ function DocSection({ id, title, subtitle, headerRight, children }: DocSectionPr
         <div className="flex items-center justify-between border-b-2 border-black/10 pb-3">
           <div className="flex flex-col gap-1">
             {title && (
-              <h2 className="text-2xl bg-(--color-pink) px-4  rounded-sm font-black tracking-tight flex items-center gap-3">
+              <h2 className="text-2xl bg-(--color-pink) rounded-sm font-black tracking-tight flex items-center gap-3">
                 {/* <span className="w-2 h-6 " /> */}
                 {title}
               </h2>
