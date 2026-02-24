@@ -26,6 +26,7 @@ import NeoTabsDocPage from "@/pages/NeoTabsDocPage"
 import NeoCarouselDocPage from "@/pages/NeoCarouselDocPage"
 import NeoAnimatedTooltipDocPage from "@/pages/NeoAnimatedTooltipDocPage"
 import NeoViewSwitchDocPage from "@/pages/NeoViewSwitchDocPage/NeoViewSwitchDocPage"
+import ExploreDocPage from "@/pages/ExploreDocPage"
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="getting-started" element={<GettingStartedPage />} />
           <Route path="installation" element={<InstallationPage />} />
           <Route path="essential" element={<EssentialDocPage />} />
+          <Route path="explore" element={<ExploreDocPage />} />
 
 
           {/* <Route path="NeoButton" element={<NeoButtonDocPage />} />

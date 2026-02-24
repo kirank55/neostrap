@@ -598,7 +598,7 @@ function HeroSection({ h1Ref }: { h1Ref: RefObject<HTMLHeadingElement | null> })
 					className="bg-(--color-lavender) text-black hover:bg-(--color-pink) text-lg px-6 py-4 h-auto shadow-[6px_6px_0_#000]"
 					asChild
 				>
-					<Link to="/docs/NeoButton">Explore Components</Link>
+					<Link to="/docs/explore">Explore Components</Link>
 				</NeoButton>
 			</div>
 
